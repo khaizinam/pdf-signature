@@ -85,7 +85,7 @@ class MainController extends PublicController
     // }
 
     public function getContractView(string $key = null){
-       
+
         if (empty($key)) {
             return $this->getIndex();
         }
@@ -95,7 +95,7 @@ class MainController extends PublicController
         $page = Page::query()->where('template','contract')->first();
 
         $pageSlug = Slug::query()->where('reference_type',Page::class)->where('reference_id',$page->id)->first();
-        
+
         if (!$slug || !$page || !$pageSlug) {
             abort(404);
         }
@@ -110,10 +110,7 @@ class MainController extends PublicController
             ->openGraph()
             ->setTitle(Arr::get($contract,'name',''))
             ->setSiteName(Arr::get($contract,'name',''))
-            ->setUrl(route('public.product-detail', $key))
-            ->setImage(get_object_image(Arr::get($contract,'image','')))
-            ->addProperty('image:width', '1200')
-            ->addProperty('image:height', '630');
+            ->setUrl(route('public.product-detail', $key));
 
         event(new RenderingSingleEvent($slug));
 
