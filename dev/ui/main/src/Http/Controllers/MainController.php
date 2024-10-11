@@ -3,11 +3,14 @@
 namespace Theme\Main\Http\Controllers;
 
 use Dev\Base\Facades\BaseHelper;
+use Dev\ContractManagement\Models\ContractManagement;
 use Dev\Media\Facades\AppMedia;
 use Dev\Page\Models\Page;
 use Dev\Page\Services\PageService;
 use Dev\SeoHelper\Facades\SeoHelper;
 use Dev\Slug\Facades\SlugHelper;
+use Dev\Slug\Models\Slug;
+use Dev\Support\Repositories\Interfaces\ContractManagementInterface;
 use Dev\Theme\Events\RenderingHomePageEvent;
 use Dev\Theme\Events\RenderingSingleEvent;
 use Dev\Theme\Facades\Theme;
@@ -43,42 +46,81 @@ class MainController extends PublicController
 
         event(RenderingHomePageEvent::class);
     }
+    // public function getContractView(string $key = null){
+    //     if (empty($key)) {
+    //         return $this->getIndex();
+    //     }
+
+    //     // $slug = SlugHelper::getSlug($key, SlugHelper::getPrefix(Car::class));
+
+    //     // $page = Page::query()->where('template','product-detail')->first();
+
+    //     // $pageSlug = Slug::query()->where('reference_type',Page::class)->where('reference_id',$page->id)->first();
+
+    //     // if (!$slug || !$page || !$pageSlug) {
+    //     //     abort(404);
+    //     // }
+
+    //     // if ($slug->reference_type != Car::class) {
+    //     //     abort(404);
+    //     // }
+
+    //     // $car = app(CarInterface::class)->findById($slug->reference_id);
+
+    //     // SeoHelper::setTitle(Arr::get($car,'name',''))
+    //     //     ->setDescription(Arr::get($car,'name',''))
+    //     //     ->openGraph()
+    //     //     ->setTitle(Arr::get($car,'name',''))
+    //     //     ->setSiteName(Arr::get($car,'name',''))
+    //     //     ->setUrl(route('public.product-detail', $key))
+    //     //     ->setImage(get_object_image(Arr::get($car,'image','')))
+    //     //     ->addProperty('image:width', '1200')
+    //     //     ->addProperty('image:height', '630');
+
+    //     // event(new RenderingSingleEvent($slug));
+
+    //     Theme::layout('contract');
+
+    //     return Theme::scope('contract')->render();
+    // }
+
     public function getContractView(string $key = null){
+       
         if (empty($key)) {
             return $this->getIndex();
         }
 
-        // $slug = SlugHelper::getSlug($key, SlugHelper::getPrefix(Car::class));
+        $slug = SlugHelper::getSlug($key, SlugHelper::getPrefix(ContractManagement::class));
 
-        // $page = Page::query()->where('template','product-detail')->first();
+        $page = Page::query()->where('template','contract')->first();
 
-        // $pageSlug = Slug::query()->where('reference_type',Page::class)->where('reference_id',$page->id)->first();
+        $pageSlug = Slug::query()->where('reference_type',Page::class)->where('reference_id',$page->id)->first();
+        
+        if (!$slug || !$page || !$pageSlug) {
+            abort(404);
+        }
 
-        // if (!$slug || !$page || !$pageSlug) {
-        //     abort(404);
-        // }
+        if ($slug->reference_type != ContractManagement::class) {
+            abort(404);
+        }
 
-        // if ($slug->reference_type != Car::class) {
-        //     abort(404);
-        // }
+        $contract = app(ContractManagementInterface::class)->findById($slug->reference_id);
+        dd($contract->slug);
+        SeoHelper::setTitle(Arr::get($contract,'name',''))
+            ->setDescription(Arr::get($contract,'name',''))
+            ->openGraph()
+            ->setTitle(Arr::get($contract,'name',''))
+            ->setSiteName(Arr::get($contract,'name',''))
+            ->setUrl(route('public.product-detail', $key))
+            ->setImage(get_object_image(Arr::get($contract,'image','')))
+            ->addProperty('image:width', '1200')
+            ->addProperty('image:height', '630');
 
-        // $car = app(CarInterface::class)->findById($slug->reference_id);
-
-        // SeoHelper::setTitle(Arr::get($car,'name',''))
-        //     ->setDescription(Arr::get($car,'name',''))
-        //     ->openGraph()
-        //     ->setTitle(Arr::get($car,'name',''))
-        //     ->setSiteName(Arr::get($car,'name',''))
-        //     ->setUrl(route('public.product-detail', $key))
-        //     ->setImage(get_object_image(Arr::get($car,'image','')))
-        //     ->addProperty('image:width', '1200')
-        //     ->addProperty('image:height', '630');
-
-        // event(new RenderingSingleEvent($slug));
+        event(new RenderingSingleEvent($slug));
 
         Theme::layout('contract');
 
-        return Theme::scope('contract')->render();
+        return Theme::scope('contract', compact('contract','page','pageSlug'))->render();
     }
 
     public function getView(?string $key = null, string $prefix = '')
