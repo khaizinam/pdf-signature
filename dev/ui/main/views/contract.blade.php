@@ -1,55 +1,76 @@
-<div class="content" style="display:flex;justify-content:space-between;">
-    <div class="pdf-file">
-        <input type="file" id="upload-signature" accept="image/*">
-
-        <!-- Canvas to show PDF page -->
-        <canvas id="pdf-canvas" width="500" height="700"
+<header>
+    <div class="content-header container-content">
+        <span class="contract-title">{{ $contract->name ?? "" }}</span>
+        <span class="contract-date">{{ $contract->created_at ?? "" }}</span>
+    </div>
+</header>
+<div class="container-content contract-wrapper" style="display:flex;justify-content:space-beweent;">
+    <div class="left-content pdf-file">
+        <div class="canva-draw">
+            <canvas id="pdf-canvas" width="500" height="700"
                 ondrop="drop(event)"
                 ondragover="allowDrop(event)"
                 ondragleave="removeDropEffect(event)"></canvas>
-
-        <!-- Save PDF button -->
-        <div id="controls">
-            <button id="save-pdf">Lưu PDF với chữ ký</button>
         </div>
     </div>
-    <div class="canvas-file">
+    <div class="right-content canvas-file">
         <div id="signature-pad" class="signature-pad">
             <div id="canvas-wrapper" class="signature-pad--body">
                 <canvas width="660" style="touch-action: none; user-select: none;" height="200"></canvas>
             </div>
             <div class="signature-pad--footer">
-                <div class="description">Sign above</div>
-
-                <div class="signature-pad--actions">
-                    <div class="column">
-                        <button type="button" class="button clear" data-action="clear">Clear</button>
-                        <button type="button" class="button" data-action="undo" title="Ctrl-Z">Undo</button>
-                        <button type="button" class="button" data-action="redo" title="Ctrl-Y">Redo</button>
-                        <br />
-                        <button type="button" class="button" data-action="change-color">Change color</button>
-                        <button type="button" class="button" data-action="change-width">Change width</button>
-                        <button type="button" class="button" data-action="change-background-color">Change background color</button>
-                    </div>
-                    <div class="column">
-                        <button type="button" class="button save" data-action="save-png">Save as PNG</button>
-                        <button type="button" class="button save" data-action="save-jpg">Save as JPG</button>
-                        <button type="button" class="button save" data-action="save-svg">Save as SVG</button>
-                        <button type="button" class="button save" data-action="save-svg-with-background">Save as SVG with background</button>
-                    </div>
+                <div class="description">
+                    Ký ở trên
                 </div>
 
-                <div>
-                    <button type="button" class="button" data-action="open-in-window">Open in Window</button>
+                <div class="signature-pad--actions container">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="row container">
+                                <button type="button" class="button clear btn btn-primary" data-action="clear">
+                                    Xoá
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="row container">
+                                <button type="button" class="button save btn btn-primary" data-action="save-png">
+                                    Tải xuống
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <button type="button" class="button save btn btn-primary" id="save-signature">Save Signature to Storage</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <button type="button" class="button load btn btn-primary" id="load-signature">Load Signature</button>
+                            </div>
+                        </div>
+
+                        <input type="file" id="upload-signature" accept="image/*">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="input-group mb-3 col-md-12">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Nhập tên</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Họ và tên" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button id="save-pdf" class="btn btn-primary">
+                            Lưu PDF với chữ ký
+                        </button>
+                    </div>
                 </div>
-                <button type="button" class="button save" id="save-signature">Save Signature to Storage</button>
-                <button type="button" class="button load" id="load-signature">Load Signature</button>
-                <img id="loaded-signature" src="" alt="Loaded Signature" style="display:none;" />
             </div>
         </div>
     </div>
 </div>
-
 
 <script>
     let pdfDoc = null;
