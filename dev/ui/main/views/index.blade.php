@@ -24,5 +24,10 @@
         <button type="button" class="button save" data-action="save-svg-with-background">Save as SVG with
         background</button>
     </div>
+    </div>
+
+    <div>
+    <button type="button" class="button" data-action="open-in-window">Open in Window</button>
+    </div>
 </div>
 </div>
