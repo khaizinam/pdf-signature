@@ -12,6 +12,8 @@ Route::group(['controller' => MainController::class, 'middleware' => ['web', 'co
         Route::get('sitemap.xml', 'getSiteMap')
             ->name('public.sitemap');
 
+        Route::get("hop-dong/{key}", 'getContractView')->name("public.contract-view");
+
         Route::get('{slug?}' . config('core.base.general.public_single_ending_url'), 'getView')
             ->name('public.single');
     });

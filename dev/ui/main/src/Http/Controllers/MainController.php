@@ -43,6 +43,43 @@ class MainController extends PublicController
 
         event(RenderingHomePageEvent::class);
     }
+    public function getContractView(string $key = null){
+        if (empty($key)) {
+            return $this->getIndex();
+        }
+
+        // $slug = SlugHelper::getSlug($key, SlugHelper::getPrefix(Car::class));
+
+        // $page = Page::query()->where('template','product-detail')->first();
+
+        // $pageSlug = Slug::query()->where('reference_type',Page::class)->where('reference_id',$page->id)->first();
+
+        // if (!$slug || !$page || !$pageSlug) {
+        //     abort(404);
+        // }
+
+        // if ($slug->reference_type != Car::class) {
+        //     abort(404);
+        // }
+
+        // $car = app(CarInterface::class)->findById($slug->reference_id);
+
+        // SeoHelper::setTitle(Arr::get($car,'name',''))
+        //     ->setDescription(Arr::get($car,'name',''))
+        //     ->openGraph()
+        //     ->setTitle(Arr::get($car,'name',''))
+        //     ->setSiteName(Arr::get($car,'name',''))
+        //     ->setUrl(route('public.product-detail', $key))
+        //     ->setImage(get_object_image(Arr::get($car,'image','')))
+        //     ->addProperty('image:width', '1200')
+        //     ->addProperty('image:height', '630');
+
+        // event(new RenderingSingleEvent($slug));
+
+        Theme::layout('contract');
+
+        return Theme::scope('contract')->render();
+    }
 
     public function getView(?string $key = null, string $prefix = '')
     {
