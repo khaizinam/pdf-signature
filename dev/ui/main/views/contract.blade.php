@@ -6,12 +6,12 @@
 </header>
 <div class="container-content contract-wrapper" style="display:flex;justify-content:space-beweent;">
     <div class="left-content pdf-file">
-        <div class="canva-draw">
-            <canvas id="pdf-canvas" width="797" height="1129"
+        {{-- <div class="canva-draw"> --}}
+            <canvas id="pdf-canvas" width="800" height="1200"
                     ondrop="drop(event)"
                     ondragover="allowDrop(event)"
                     ondragleave="removeDropEffect(event)"></canvas>
-        </div>
+        {{-- </div> --}}
     </div>
     <div class="right-content canvas-file">
         <div id="signature-pad" class="signature-pad">
@@ -77,6 +77,7 @@
     let signatureImage = null;
     var signatureX = 0;
     var signatureY = 0;
+    var pos = [];
     const pdfCanvas = document.getElementById('pdf-canvas');
     const ctx = pdfCanvas.getContext('2d');
 
@@ -133,8 +134,8 @@
                 signatureX = event.clientX - rect.left; // Calculate X position
                 signatureY = event.clientY - rect.top;  // Calculate Y position
                 ctx.drawImage(signatureImage, signatureX, signatureY, 100, 50); // Adjust size as needed
-                console.log("khi dán vao`", signatureX, signatureY);
             };
+            pos.push({signatureX, signatureY});
         }
     }
     pdfCanvas.addEventListener('dragover', allowDrop);
@@ -145,8 +146,8 @@
             const rect = pdfCanvas.getBoundingClientRect();
             signatureX = event.clientX - rect.left;
             signatureY = event.clientY - rect.top;
-            console.log("Khi click vao pdf",signatureX, signatureY);
             ctx.drawImage(signatureImage, signatureX, signatureY, 100, 50);
+
         } else {
             alert("Vui lòng tải chữ ký trước khi ký!");
         }
@@ -161,17 +162,16 @@
         const page = pdfDoc.getPage(0);
         const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
         const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
-        console.log("khi luu file", signatureX, signatureY);
 
-        page.drawImage(embeddedSignature, {
-            x: signatureX,
-            y: page.getHeight() - signatureY - 50,
-            width: 100,
-            height: 50,
-        });
-        console.log("sau khi luu file",signatureX,signatureY);
+        pos.forEach((el,index) => {
+            page.drawImage(embeddedSignature, {
+                x: el.signatureX,
+                y: page.getHeight() - el.signatureY - 50,
+                width: 100,
+                height: 50,
+            });
+        })
 
-        console.log("page get height",page.getHeight());
 
         const pdfBytes = await pdfDoc.save();
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });

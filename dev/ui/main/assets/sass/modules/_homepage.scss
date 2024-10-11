@@ -223,19 +223,10 @@ header{
         flex-direction: column;
         overflow-y: auto;
         padding-bottom: 4rem;
-        .canva-draw{
-            width: calc(100% - 10px);
-            canvas{
-                width: 100%;
-                height: auto;
-            }
-        }
     }
     .right-content{
         width: 30%;
-        .signature-pad{
-            margin-left: 10px;
-        }
+        overflow-y: auto;
     }
 }
 .option-box{
@@ -243,5 +234,4 @@ header{
     background-color: white;
     margin-top: 10px;
     padding: 10px;
-    margin-left: 10px;
 }
