@@ -3,6 +3,7 @@
 namespace Dev\ContractManagement\Forms;
 
 use Dev\Base\Enums\BaseStatusEnum;
+use Dev\Base\Forms\Fields\MediaFileField;
 use Dev\Base\Forms\FormAbstract;
 use Dev\ContractManagement\Http\Requests\ContractManagementRequest;
 use Dev\ContractManagement\Models\ContractManagement;
@@ -29,7 +30,7 @@ class ContractManagementForm extends FormAbstract
                 'required' => true,
                 'choices' => BaseStatusEnum::labels(),
             ])
-            ->add('image', MediaImageField::class)
+            ->add('file', MediaFileField::class)
             ->setBreakFieldPoint('status');
     }
 }

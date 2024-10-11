@@ -11,18 +11,29 @@ return new class () extends Migration {
             Schema::create('contract_managements', function (Blueprint $table) {
                 $table->id();
                 $table->string('name', 255);
+                $table->string('file')->nullable()->comment('Link file pdf');
+                $table->string('description')->nullable()->comment('Mô tả');
+                $table->string('user_id')->nullable()->comment('Người đăng');
                 $table->string('status', 60)->default('published');
                 $table->timestamps();
             });
         }
 
-        if (! Schema::hasTable('contract_managements_translations')) {
-            Schema::create('contract_managements_translations', function (Blueprint $table) {
-                $table->string('lang_code');
-                $table->foreignId('contract_managements_id');
-                $table->string('name', 255)->nullable();
+        if (! Schema::hasTable('signatures')) {
+            Schema::create('signatures', function (Blueprint $table) {
+                $table->id();
+                $table->string('name', 255)->comment('Người ký tên');
+                $table->string('file')->nullable()->comment('Link file chữ ký');
+                $table->string('user_id')->nullable()->comment('Người đăng');
+                $table->string('status', 60)->default('published');
+                $table->timestamps();
+            });
+        }
 
-                $table->primary(['lang_code', 'contract_managements_id'], 'contract_managements_translations_primary');
+        if (! Schema::hasTable('signature_contract')) {
+            Schema::create('signature_contract', function (Blueprint $table) {
+                $table->unsignedBigInteger('signature_id', 255)->comment('ID Chữ ký');
+                $table->unsignedBigInteger('contract_id')->nullable()->comment('ID PDF họp đồng');
             });
         }
     }
@@ -30,6 +41,7 @@ return new class () extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('contract_managements');
-        Schema::dropIfExists('contract_managements_translations');
+        Schema::dropIfExists('signatures');
+        Schema::dropIfExists('signature_contract');
     }
 };
