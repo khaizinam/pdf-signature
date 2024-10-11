@@ -6,13 +6,27 @@ use Dev\Base\Supports\ServiceProvider;
 use Dev\Base\Traits\LoadAndPublishDataTrait;
 use Dev\Base\Facades\DashboardMenu;
 use Dev\ContractManagement\Models\ContractManagement;
+use Dev\ContractManagement\Repositories\Caches\ContractManagementCacheDecorator;
+use Dev\ContractManagement\Repositories\Eloquent\ContractManagementRepository;
+use Dev\ContractManagement\Repositories\Interfaces\ContractManagementInterface;
+use Dev\Slug\Facades\SlugHelper;
 
 class ContractManagementServiceProvider extends ServiceProvider
 {
     use LoadAndPublishDataTrait;
+    public function register(): void
+    {
+        $this->app->bind(ContractManagementInterface::class, function () {
+            return new ContractManagementCacheDecorator(new ContractManagementRepository(new ContractManagement()));
+        });
 
+        $this->setNamespace('plugins/contract-management')->loadHelpers();
+    }
     public function boot(): void
     {
+        SlugHelper::registerModule(ContractManagement::class, 'Trang hợp đồng');
+
+        SlugHelper::setPrefix(ContractManagement::class, 'hop-dong', true);
         $this
             ->setNamespace('plugins/contract-management')
             ->loadHelpers()
@@ -21,12 +35,6 @@ class ContractManagementServiceProvider extends ServiceProvider
             ->loadRoutes()
             ->loadAndPublishViews()
             ->loadMigrations();
-
-            if (defined('LANGUAGE_ADVANCED_MODULE_SCREEN_NAME')) {
-                \Dev\LanguageAdvanced\Supports\LanguageAdvancedManager::registerModule(ContractManagement::class, [
-                    'name',
-                ]);
-            }
 
             DashboardMenu::default()->beforeRetrieving(function () {
                 DashboardMenu::registerItem([

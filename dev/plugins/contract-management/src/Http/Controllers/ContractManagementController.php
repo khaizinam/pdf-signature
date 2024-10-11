@@ -7,13 +7,19 @@ use Dev\ContractManagement\Http\Requests\ContractManagementRequest;
 use Dev\ContractManagement\Models\ContractManagement;
 use Dev\Base\Facades\PageTitle;
 use Dev\Base\Http\Controllers\BaseController;
+use Dev\Base\Http\Responses\BaseHttpResponse;
 use Dev\ContractManagement\Tables\ContractManagementTable;
 use Dev\ContractManagement\Forms\ContractManagementForm;
+use Dev\ContractManagement\Repositories\Interfaces\ContractManagementInterface;
+use Illuminate\Http\Request;
 
 class ContractManagementController extends BaseController
 {
-    public function __construct()
+    protected ContractManagementInterface $repository;
+
+    public function __construct(ContractManagementInterface $repository)
     {
+        $this->repository = $repository;
         $this
             ->breadcrumb()
             ->add(trans(trans('plugins/contract-management::contract-management.name')), route('contract-management.index'));
@@ -63,6 +69,24 @@ class ContractManagementController extends BaseController
             ->httpResponse()
             ->setPreviousUrl(route('contract-management.index'))
             ->setMessage(trans('core/base::notices.update_success_message'));
+    }
+
+    public function deletes(Request $request, BaseHttpResponse $response)
+    {
+        $ids = $request->input('ids');
+        if (empty($ids)) {
+            return $response
+                ->setError()
+                ->setMessage(trans('core/base::notices.no_select'));
+        }
+
+        foreach ($ids as $id) {
+            $productCategory = $this->repository->findOrFail($id);
+            $this->repository->delete($productCategory);
+            event(new DeletedContentEvent('product', $request, $productCategory));
+        }
+
+        return $response->setMessage(trans('core/base::notices.delete_success_message'));
     }
 
     public function destroy(ContractManagement $contractManagement)

@@ -24,7 +24,7 @@ return new class () extends Migration {
                 $table->id();
                 $table->string('name', 255)->comment('Người ký tên');
                 $table->string('file')->nullable()->comment('Link file chữ ký');
-                $table->string('user_id')->nullable()->comment('Người đăng');
+                $table->unsignedBigInteger('contract_id')->nullable()->comment('ID hợp đpjc mẫu');
                 $table->string('status', 60)->default('published');
                 $table->timestamps();
             });

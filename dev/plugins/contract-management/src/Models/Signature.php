@@ -10,15 +10,14 @@ use Dev\Base\Models\BaseModel;
 /**
  * @method static \Dev\Base\Models\BaseQueryBuilder<static> query()
  */
-class ContractManagement extends BaseModel
+class Signature extends BaseModel
 {
-    protected $table = 'contract_managements';
+    protected $table = 'signatures';
 
     protected $fillable = [
         'name',
-        'description',
         'status',
-        'user_id',
+        'contract_id',
         'file',
     ];
 
@@ -27,13 +26,8 @@ class ContractManagement extends BaseModel
         'name' => SafeContent::class,
     ];
 
-    public function user()
+    public function contract()
     {
-        return $this->belongsTo(User::class,'user_id');
-    }
-
-    public function signatures()
-    {
-        return $this->hasMany(Signature::class)->orderBy("created_at");
+        return $this->belongsTo(ContractManagement::class, 'contract_id');
     }
 }
