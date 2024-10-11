@@ -50,6 +50,7 @@ return [
             $theme->asset()->usePath()->add('style', 'css/style.css',[],[], time());
             // $theme->asset()->container('header')->add('jquery_js', '//code.jquery.com/jquery-3.7.1.min.js');
             $theme->asset()->container('header')->usePath()->add('jquery','libraries/jquery.js');
+            $theme->asset()->container('header')->usePath()->add('jquery','libraries/app.js');
             $theme->asset()->container('footer')->usePath()->add('script','js/script.js',[],[], time());
 
             if (function_exists('shortcode')) {
