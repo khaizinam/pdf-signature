@@ -10,7 +10,7 @@ document.getElementById('upload-pdf').addEventListener('change', async (event) =
   const file = event.target.files[0];
   const arrayBuffer = await file.arrayBuffer();
   pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-  
+
   // Use pdf.js to render the PDF on canvas
   const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
   const pdf = await loadingTask.promise;
@@ -27,6 +27,12 @@ document.getElementById('upload-pdf').addEventListener('change', async (event) =
   };
   await page.render(renderContext).promise;
 });
+
+
+
+
+  // Call this function with the URL of your PDF fil
+
 
 // Load signature image
 document.getElementById('upload-signature').addEventListener('change', (event) => {

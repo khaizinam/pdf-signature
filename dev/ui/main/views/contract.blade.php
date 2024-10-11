@@ -48,4 +48,32 @@
             </div>
         </div>
 </div>
+<script>
+    async function loadPdfFromUrl(pdfUrl) {
 
+        // Fetch the PDF file from the URL
+        const response = await fetch(pdfUrl);
+        const arrayBuffer = await response.arrayBuffer();
+
+        // Load the PDF using PDFLib
+        const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+
+        // Use pdf.js to render the PDF on a canvas
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        const pdf = await loadingTask.promise;
+        const page = await pdf.getPage(1); // Load the first page
+        const viewport = page.getViewport({ scale: 1.0 });
+
+        // Resize canvas to match PDF page size
+        pdfCanvas.width = viewport.width;
+        pdfCanvas.height = viewport.height;
+
+        const renderContext = {
+            canvasContext: ctx,
+            viewport: viewport,
+        };
+
+        await page.render(renderContext).promise;
+    }
+    loadPdfFromUrl( '{{ get_object_image($contract->file ?? "") }}' );
+</script>
