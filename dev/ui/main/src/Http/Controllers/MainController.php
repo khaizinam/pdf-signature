@@ -152,21 +152,29 @@ class MainController extends PublicController
 
         return response()->json(['success' => true]);
     }
-
     public function loadSignature()
     {
-        $imagePath = Storage::disk('public')->url('signature_*.png'); // Adjust this according to your naming
         $files = Storage::disk('public')->files();
 
-        // Get the most recently saved signature
-        $latestImage = '';
+        // Lưu trữ danh sách chữ ký
+        $signatures = [];
+
+        // Lặp qua tất cả các tệp và thêm chữ ký vào danh sách
         foreach ($files as $file) {
             if (preg_match('/signature_(\d+)\.png/', $file)) {
-                $latestImage = Storage::disk('public')->url($file);
-                break;
+                $signatures[] = $file;
             }
         }
 
+        // Sắp xếp danh sách chữ ký theo thời gian lưu
+        usort($signatures, function($a, $b) {
+            return filemtime(Storage::disk('public')->path($b)) - filemtime(Storage::disk('public')->path($a));
+        });
+
+        // Lấy tệp chữ ký mới nhất
+        $latestImage = !empty($signatures) ? Storage::disk('public')->url($signatures[0]) : '';
+
         return response()->json(['image' => $latestImage]);
     }
+
 }

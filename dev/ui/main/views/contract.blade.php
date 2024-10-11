@@ -53,154 +53,124 @@
 
 <script>
     let pdfDoc = null;
-let signatureImage = null;
-let signatureX = 0;
-let signatureY = 0;
-let pdfCanvas = document.getElementById('pdf-canvas');
-let ctx = pdfCanvas.getContext('2d');
+    let signatureImage = null;
+    let signatureX = 0;
+    let signatureY = 0;
+    const pdfCanvas = document.getElementById('pdf-canvas');
+    const ctx = pdfCanvas.getContext('2d');
 
-// Hàm cho phép kéo thả
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-// Hàm xử lý thả ảnh
-function drop(event) {
-    event.preventDefault();
-    const rect = pdfCanvas.getBoundingClientRect();
-    signatureX = event.clientX - rect.left;
-    signatureY = event.clientY - rect.top;
-
-    // Lấy đường dẫn ảnh đã lưu và vẽ lên canvas
-    const img = document.getElementById('loaded-signature');
-    if (img.src) {
-        const imgElement = new Image();
-        imgElement.src = img.src;
-        imgElement.onload = () => {
-            ctx.drawImage(imgElement, signatureX, signatureY, 100, 50); // Kích thước chữ ký
-        };
-    }
-}
-
-// Hàm tải PDF từ URL
-async function loadPdfFromUrl(pdfUrl) {
-    const response = await fetch(pdfUrl);
-    const arrayBuffer = await response.arrayBuffer();
-    pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-    const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
-    const pdf = await loadingTask.promise;
-    const page = await pdf.getPage(1);
-    const viewport = page.getViewport({ scale: 1.0 });
-
-    pdfCanvas.width = viewport.width;
-    pdfCanvas.height = viewport.height;
-
-    const renderContext = {
-        canvasContext: ctx,
-        viewport: viewport,
-    };
-
-    await page.render(renderContext).promise;
-}
-
-// Xử lý upload chữ ký
-document.getElementById('upload-signature').addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        const img = new Image();
-        img.src = e.target.result;
-        img.onload = () => {
-            signatureImage = img;
-            alert("Chữ ký đã sẵn sàng, nhấn vào vị trí cần ký trên PDF!");
-        };
-    };
-    reader.readAsDataURL(file);
-});
-
-// Lưu PDF với chữ ký
-document.getElementById('save-pdf').addEventListener('click', async () => {
-    if (!pdfDoc) {
-        alert("Chưa có tệp PDF!");
-        return;
+    async function loadPdfFromUrl(pdfUrl) {
+        const response = await fetch(pdfUrl);
+        const arrayBuffer = await response.arrayBuffer();
+        pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        const pdf = await loadingTask.promise;
+        const page = await pdf.getPage(1);
+        const viewport = page.getViewport({ scale: 1.0 });
+        pdfCanvas.width = viewport.width;
+        pdfCanvas.height = viewport.height;
+        const renderContext = { canvasContext: ctx, viewport: viewport };
+        await page.render(renderContext).promise;
     }
 
-    const page = pdfDoc.getPage(0);
-
-    // Vẽ chữ ký từ canvas vào PDF
-    const canvasDataURL = pdfCanvas.toDataURL('image/png');
-    const signatureImageBytes = await fetch(canvasDataURL).then(res => res.arrayBuffer());
-    const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
-
-    page.drawImage(embeddedSignature, {
-        x: signatureX,
-        y: page.getHeight() - signatureY - 50, // Điều chỉnh vị trí Y cho hệ tọa độ của PDF
-        width: 100,
-        height: 50,
-    });
-
-    // Lưu PDF mới
-    const pdfBytes = await pdfDoc.save();
-    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'signed_document.pdf';
-    a.click();
-});
-
-// Gọi hàm load PDF khi tải trang
-loadPdfFromUrl('{{ get_object_image($contract->file ?? '') }}');
-
-// Xử lý lưu chữ ký
-document.getElementById('save-signature').addEventListener('click', () => {
-    const signaturePad = document.getElementById('signature-pad').querySelector('canvas');
-    if (signaturePad.isEmpty()) {
-        alert("Please provide a signature first.");
-        return;
-    }
-
-    const dataURL = signaturePad.toDataURL();
-
-    // Gửi chữ ký lên server
-    fetch('/save-signature', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({ image: dataURL })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert("Signature saved to storage!");
+    document.getElementById('upload-signature').addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = () => {
+                    signatureImage = img;
+                    alert("Chữ ký đã sẵn sàng, nhấn vào vị trí cần ký trên PDF!");
+                };
+            };
+            reader.readAsDataURL(file);
         } else {
-            alert("Failed to save signature.");
+            alert("Không có tệp nào được chọn!");
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
     });
-});
 
-// Xử lý load chữ ký
-document.getElementById('load-signature').addEventListener('click', () => {
-    fetch('/load-signature')
-    .then(response => response.json())
-    .then(data => {
-        if (data.image) {
-            const img = document.getElementById('loaded-signature');
-            img.src = data.image;
-            img.style.display = 'block'; // Hiển thị chữ ký đã tải
+    pdfCanvas.addEventListener('click', (event) => {
+        if (signatureImage) {
+            const rect = pdfCanvas.getBoundingClientRect();
+            signatureX = event.clientX - rect.left;
+            signatureY = event.clientY - rect.top;
+            ctx.drawImage(signatureImage, signatureX, signatureY, 100, 50);
         } else {
-            alert("Failed to load signature.");
+            alert("Vui lòng tải chữ ký trước khi ký!");
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
     });
-});
 
+    document.getElementById('save-pdf').addEventListener('click', async () => {
+        if (!pdfDoc || !signatureImage) {
+            alert("Chưa có tệp PDF hoặc chữ ký!");
+            return;
+        }
+
+        const page = pdfDoc.getPage(0);
+        const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
+        const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
+        page.drawImage(embeddedSignature, {
+            x: signatureX,
+            y: page.getHeight() - signatureY - 50,
+            width: 100,
+            height: 50,
+        });
+
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'signed_document.pdf';
+        a.click();
+    });
+
+    loadPdfFromUrl('{{ get_object_image($contract->file ?? '') }}');
+
+    document.getElementById('save-signature').addEventListener('click', () => {
+        const signaturePad = document.querySelector('.signature-pad canvas').toDataURL();
+        if (!signaturePad) {
+            alert("Vui lòng cung cấp chữ ký trước.");
+            return;
+        }
+
+        fetch('/save-signature', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ image: signaturePad })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Chữ ký đã được lưu vào storage!");
+            } else {
+                alert("Lưu chữ ký không thành công.");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+
+    document.getElementById('load-signature').addEventListener('click', () => {
+        fetch('/load-signature')
+            .then(response => response.json())
+            .then(data => {
+                if (data.image) {
+                    const img = document.getElementById('loaded-signature');
+                    img.src = data.image;
+                    img.style.display = 'block'; // Hiện chữ ký đã tải
+                } else {
+                    alert("Tải chữ ký không thành công.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
 </script>
