@@ -7,10 +7,10 @@
 <div class="container-content contract-wrapper" style="display:flex;justify-content:space-beweent;">
     <div class="left-content pdf-file">
         <div class="canva-draw">
-            <canvas id="pdf-canvas" width="500" height="700"
-                ondrop="drop(event)"
-                ondragover="allowDrop(event)"
-                ondragleave="removeDropEffect(event)"></canvas>
+            <canvas id="pdf-canvas" width="797" height="1129"
+                    ondrop="drop(event)"
+                    ondragover="allowDrop(event)"
+                    ondragleave="removeDropEffect(event)"></canvas>
         </div>
     </div>
     <div class="right-content canvas-file">
@@ -22,7 +22,7 @@
                 <div class="description">
                     Ký ở trên
                 </div>
-
+                <img id="loaded-signature" src="" alt="Loaded Signature" style="display:none;" />
                 <div class="signature-pad--actions container">
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -75,8 +75,8 @@
 <script>
     let pdfDoc = null;
     let signatureImage = null;
-    let signatureX = 0;
-    let signatureY = 0;
+    var signatureX = 0;
+    var signatureY = 0;
     const pdfCanvas = document.getElementById('pdf-canvas');
     const ctx = pdfCanvas.getContext('2d');
 
@@ -94,29 +94,58 @@
         await page.render(renderContext).promise;
     }
 
-    document.getElementById('upload-signature').addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = new Image();
-                img.src = e.target.result;
-                img.onload = () => {
-                    signatureImage = img;
-                    alert("Chữ ký đã sẵn sàng, nhấn vào vị trí cần ký trên PDF!");
-                };
+    // document.getElementById('upload-signature').addEventListener('change', (event) => {
+    //     const file = event.target.files[0];
+    //     if (file) {
+    //         const reader = new FileReader();
+    //         reader.onload = (e) => {
+    //             const img = new Image();
+    //             img.src = e.target.result;
+    //             img.onload = () => {
+    //                 signatureImage = img;
+    //                 alert("Chữ ký đã sẵn sàng, nhấn vào vị trí cần ký trên PDF!");
+    //             };
+    //         };
+    //         reader.readAsDataURL(file);
+    //     } else {
+    //         alert("Không có tệp nào được chọn!");
+    //     }
+    // });
+    function drag(event) {
+    event.dataTransfer.setData("text/plain", event.target.src);
+    }
+
+    // Allow the drop on the PDF canvas
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+    function drop(event) {
+        event.preventDefault();
+        const signatureSrc = event.dataTransfer.getData("text/plain");
+
+        if (signatureSrc) {
+            signatureImage = new Image();
+            signatureImage.src = signatureSrc;
+
+            // Draw the signature on the PDF canvas where the user drops it
+            signatureImage.onload = () => {
+                const rect = pdfCanvas.getBoundingClientRect();
+                signatureX = event.clientX - rect.left; // Calculate X position
+                signatureY = event.clientY - rect.top;  // Calculate Y position
+                ctx.drawImage(signatureImage, signatureX, signatureY, 100, 50); // Adjust size as needed
+                console.log("khi dán vao`", signatureX, signatureY);
             };
-            reader.readAsDataURL(file);
-        } else {
-            alert("Không có tệp nào được chọn!");
         }
-    });
+    }
+    pdfCanvas.addEventListener('dragover', allowDrop);
+    pdfCanvas.addEventListener('drop', drop);
 
     pdfCanvas.addEventListener('click', (event) => {
         if (signatureImage) {
             const rect = pdfCanvas.getBoundingClientRect();
             signatureX = event.clientX - rect.left;
             signatureY = event.clientY - rect.top;
+            console.log("Khi click vao pdf",signatureX, signatureY);
             ctx.drawImage(signatureImage, signatureX, signatureY, 100, 50);
         } else {
             alert("Vui lòng tải chữ ký trước khi ký!");
@@ -132,12 +161,17 @@
         const page = pdfDoc.getPage(0);
         const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
         const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
+        console.log("khi luu file", signatureX, signatureY);
+
         page.drawImage(embeddedSignature, {
             x: signatureX,
             y: page.getHeight() - signatureY - 50,
             width: 100,
             height: 50,
         });
+        console.log("sau khi luu file",signatureX,signatureY);
+
+        console.log("page get height",page.getHeight());
 
         const pdfBytes = await pdfDoc.save();
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
@@ -147,8 +181,6 @@
         a.download = 'signed_document.pdf';
         a.click();
     });
-
-    loadPdfFromUrl('{{ get_object_image($contract->file ?? '') }}');
 
     document.getElementById('save-signature').addEventListener('click', () => {
         const signaturePad = document.querySelector('.signature-pad canvas').toDataURL();
@@ -194,4 +226,6 @@
                 console.error('Error:', error);
             });
     });
+
+    loadPdfFromUrl('{{ get_object_image($contract->file ?? '') }}');
 </script>
