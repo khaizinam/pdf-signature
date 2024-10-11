@@ -198,3 +198,38 @@ openInWindowButton.addEventListener("click", () => {
     resizeCanvas();
   };
 })
+
+const saveToLocalStorageButton = wrapper.querySelector("[data-action=save-localstorage]");
+
+saveToLocalStorageButton.addEventListener("click", () => {
+  if (signaturePad.isEmpty()) {
+    alert("Please provide a signature first.");
+  } else {
+    const dataURL = signaturePad.toDataURL();
+    localStorage.setItem("signatureImage", dataURL);
+    alert("Signature saved to localStorage!");
+  }
+});
+const loadFromLocalStorageButton = wrapper.querySelector("[data-action=load-localstorage]");
+
+loadFromLocalStorageButton.addEventListener("click", () => {
+  const savedSignature = localStorage.getItem("signatureImage");
+  if (savedSignature) {
+    // Tạo một hình ảnh từ URL đã lưu trong localStorage
+    const img = new Image();
+    img.src = savedSignature;
+
+    // Xóa canvas hiện tại và hiển thị ảnh chữ ký
+    signaturePad.clear();
+
+    // Hiển thị hình ảnh chữ ký trong một vùng mới hoặc ngay trên trang
+    const canvasWrapper = document.getElementById("canvas-wrapper");
+    canvasWrapper.innerHTML = ''; // Xóa canvas cũ
+    canvasWrapper.appendChild(img); // Thêm ảnh vào
+
+    alert("Signature loaded from localStorage!");
+  } else {
+    alert("No signature found in localStorage.");
+  }
+});
+

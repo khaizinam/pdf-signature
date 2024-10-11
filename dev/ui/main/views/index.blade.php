@@ -42,6 +42,8 @@
                 <div>
                 <button type="button" class="button" data-action="open-in-window">Open in Window</button>
                 </div>
+                <button type="button" class="button save" data-action="save-localstorage">Save to LocalStorage</button>
+    <button type="button" class="button load" data-action="load-localstorage">Load from LocalStorage</button>
             </div>
             </div>
         </div>
