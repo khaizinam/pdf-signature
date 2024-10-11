@@ -2,6 +2,7 @@
 
 namespace Dev\ContractManagement\Models;
 
+use Dev\ACL\Models\User;
 use Dev\Base\Casts\SafeContent;
 use Dev\Base\Enums\BaseStatusEnum;
 use Dev\Base\Models\BaseModel;
@@ -16,10 +17,17 @@ class ContractManagement extends BaseModel
     protected $fillable = [
         'name',
         'status',
+        'user_id',
+        'file',
     ];
 
     protected $casts = [
         'status' => BaseStatusEnum::class,
         'name' => SafeContent::class,
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
