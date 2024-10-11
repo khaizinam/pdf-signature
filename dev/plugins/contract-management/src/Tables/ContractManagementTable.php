@@ -16,6 +16,7 @@ use Dev\Table\HeaderActions\CreateHeaderAction;
 use Dev\Table\BulkChanges\CreatedAtBulkChange;
 use Dev\Table\BulkChanges\NameBulkChange;
 use Dev\Table\BulkChanges\StatusBulkChange;
+use Dev\Table\Columns\ImageColumn;
 
 class ContractManagementTable extends TableAbstract
 {
@@ -25,12 +26,14 @@ class ContractManagementTable extends TableAbstract
             ->model(ContractManagement::class)
             ->addHeaderAction(CreateHeaderAction::make()->route('contract-management.create'))
             ->addActions([
+
                 EditAction::make()->route('contract-management.edit'),
                 DeleteAction::make()->route('contract-management.destroy'),
             ])
             ->addColumns([
                 IdColumn::make(),
                 NameColumn::make(),
+                ImageColumn::make(),
                 CreatedAtColumn::make(),
                 StatusColumn::make(),
             ])
@@ -48,6 +51,7 @@ class ContractManagementTable extends TableAbstract
                     'name',
                     'created_at',
                     'status',
+                    'image',
                 ]);
             });
     }

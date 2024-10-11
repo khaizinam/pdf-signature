@@ -18,7 +18,7 @@ class ContractManagement extends BaseModel
         'name',
         'status',
         'user_id',
-        'file',
+        'image',
     ];
 
     protected $casts = [
