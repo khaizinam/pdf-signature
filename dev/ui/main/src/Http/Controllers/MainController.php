@@ -15,7 +15,10 @@ use Dev\Theme\Events\RenderingHomePageEvent;
 use Dev\Theme\Events\RenderingSingleEvent;
 use Dev\Theme\Facades\Theme;
 use Dev\Theme\Http\Controllers\PublicController;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MainController extends PublicController
 {
@@ -132,5 +135,38 @@ class MainController extends PublicController
     public function getSiteMapIndex(string $key = null, string $extension = 'xml')
     {
         return parent::getSiteMapIndex();
+    }
+
+
+    public function saveSignature(HttpRequest $request)
+    {
+        $image = $request->image;
+
+        // Remove the prefix
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = 'signature_' . time() . '.png';
+
+        // Store the image in storage/app/public
+        Storage::disk('public')->put($imageName, base64_decode($image));
+
+        return response()->json(['success' => true]);
+    }
+
+    public function loadSignature()
+    {
+        $imagePath = Storage::disk('public')->url('signature_*.png'); // Adjust this according to your naming
+        $files = Storage::disk('public')->files();
+
+        // Get the most recently saved signature
+        $latestImage = '';
+        foreach ($files as $file) {
+            if (preg_match('/signature_(\d+)\.png/', $file)) {
+                $latestImage = Storage::disk('public')->url($file);
+                break;
+            }
+        }
+
+        return response()->json(['image' => $latestImage]);
     }
 }

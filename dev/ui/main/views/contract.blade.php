@@ -1,13 +1,16 @@
-<div class="content" style="display:flex;justify-content:space-beweent;">
+<div class="content" style="display:flex;justify-content:space-between;">
     <div class="pdf-file">
         <input type="file" id="upload-signature" accept="image/*">
 
         <!-- Canvas to show PDF page -->
-        <canvas id="pdf-canvas" width="500" height="700"></canvas>
+        <canvas id="pdf-canvas" width="500" height="700"
+                ondrop="drop(event)"
+                ondragover="allowDrop(event)"
+                ondragleave="removeDropEffect(event)"></canvas>
 
         <!-- Save PDF button -->
         <div id="controls">
-        <button id="save-pdf">Lưu PDF với chữ ký</button>
+            <button id="save-pdf">Lưu PDF với chữ ký</button>
         </div>
     </div>
     <div class="canvas-file">
@@ -19,126 +22,185 @@
                 <div class="description">Sign above</div>
 
                 <div class="signature-pad--actions">
-                <div class="column">
-                    <button type="button" class="button clear" data-action="clear">Clear</button>
-                    <button type="button" class="button" data-action="undo" title="Ctrl-Z">Undo</button>
-                    <button type="button" class="button" data-action="redo" title="Ctrl-Y">Redo</button>
-                    <br/>
-                    <button type="button" class="button" data-action="change-color">Change color</button>
-                    <button type="button" class="button" data-action="change-width">Change width</button>
-                    <button type="button" class="button" data-action="change-background-color">Change background color</button>
-
-                </div>
-                <div class="column">
-                    <button type="button" class="button save" data-action="save-png">Save as PNG</button>
-                    <button type="button" class="button save" data-action="save-jpg">Save as JPG</button>
-                    <button type="button" class="button save" data-action="save-svg">Save as SVG</button>
-                    <button type="button" class="button save" data-action="save-svg-with-background">Save as SVG with
-                    background</button>
-                </div>
+                    <div class="column">
+                        <button type="button" class="button clear" data-action="clear">Clear</button>
+                        <button type="button" class="button" data-action="undo" title="Ctrl-Z">Undo</button>
+                        <button type="button" class="button" data-action="redo" title="Ctrl-Y">Redo</button>
+                        <br />
+                        <button type="button" class="button" data-action="change-color">Change color</button>
+                        <button type="button" class="button" data-action="change-width">Change width</button>
+                        <button type="button" class="button" data-action="change-background-color">Change background color</button>
+                    </div>
+                    <div class="column">
+                        <button type="button" class="button save" data-action="save-png">Save as PNG</button>
+                        <button type="button" class="button save" data-action="save-jpg">Save as JPG</button>
+                        <button type="button" class="button save" data-action="save-svg">Save as SVG</button>
+                        <button type="button" class="button save" data-action="save-svg-with-background">Save as SVG with background</button>
+                    </div>
                 </div>
 
                 <div>
-                <button type="button" class="button" data-action="open-in-window">Open in Window</button>
+                    <button type="button" class="button" data-action="open-in-window">Open in Window</button>
                 </div>
-                <button type="button" class="button save" data-action="save-localstorage">Save to LocalStorage</button>
-    <button type="button" class="button load" data-action="load-localstorage">Load from LocalStorage</button>
-            </div>
+                <button type="button" class="button save" id="save-signature">Save Signature to Storage</button>
+                <button type="button" class="button load" id="load-signature">Load Signature</button>
+                <img id="loaded-signature" src="" alt="Loaded Signature" style="display:none;" />
             </div>
         </div>
+    </div>
 </div>
+
+
 <script>
     let pdfDoc = null;
-    let signatureImage = null;
-    let signatureX = 0;
-    let signatureY = 0;
-    let pdfCanvas = document.getElementById('pdf-canvas');
-    let ctx = pdfCanvas.getContext('2d');
+let signatureImage = null;
+let signatureX = 0;
+let signatureY = 0;
+let pdfCanvas = document.getElementById('pdf-canvas');
+let ctx = pdfCanvas.getContext('2d');
 
-    async function loadPdfFromUrl(pdfUrl) {
+// Hàm cho phép kéo thả
+function allowDrop(event) {
+    event.preventDefault();
+}
 
-        // Fetch the PDF file from the URL
-        const response = await fetch(pdfUrl);
-        const arrayBuffer = await response.arrayBuffer();
+// Hàm xử lý thả ảnh
+function drop(event) {
+    event.preventDefault();
+    const rect = pdfCanvas.getBoundingClientRect();
+    signatureX = event.clientX - rect.left;
+    signatureY = event.clientY - rect.top;
 
-        // Load the PDF using PDFLib
-        pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-
-        // Use pdf.js to render the PDF on a canvas
-        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
-        const pdf = await loadingTask.promise;
-        const page = await pdf.getPage(1); // Load the first page
-        const viewport = page.getViewport({ scale: 1.0 });
-
-        // Resize canvas to match PDF page size
-        pdfCanvas.width = viewport.width;
-        pdfCanvas.height = viewport.height;
-
-        const renderContext = {
-            canvasContext: ctx,
-            viewport: viewport,
+    // Lấy đường dẫn ảnh đã lưu và vẽ lên canvas
+    const img = document.getElementById('loaded-signature');
+    if (img.src) {
+        const imgElement = new Image();
+        imgElement.src = img.src;
+        imgElement.onload = () => {
+            ctx.drawImage(imgElement, signatureX, signatureY, 100, 50); // Kích thước chữ ký
         };
-
-        await page.render(renderContext).promise;
     }
+}
 
-    document.getElementById('upload-signature').addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const img = new Image();
-            img.src = e.target.result;
-            img.onload = () => {
+// Hàm tải PDF từ URL
+async function loadPdfFromUrl(pdfUrl) {
+    const response = await fetch(pdfUrl);
+    const arrayBuffer = await response.arrayBuffer();
+    pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+    const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+    const pdf = await loadingTask.promise;
+    const page = await pdf.getPage(1);
+    const viewport = page.getViewport({ scale: 1.0 });
+
+    pdfCanvas.width = viewport.width;
+    pdfCanvas.height = viewport.height;
+
+    const renderContext = {
+        canvasContext: ctx,
+        viewport: viewport,
+    };
+
+    await page.render(renderContext).promise;
+}
+
+// Xử lý upload chữ ký
+document.getElementById('upload-signature').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const img = new Image();
+        img.src = e.target.result;
+        img.onload = () => {
             signatureImage = img;
             alert("Chữ ký đã sẵn sàng, nhấn vào vị trí cần ký trên PDF!");
-            };
         };
-        reader.readAsDataURL(file);
-        });
+    };
+    reader.readAsDataURL(file);
+});
 
-        // Click on canvas to place signature
-        pdfCanvas.addEventListener('click', (event) => {
-        const rect = pdfCanvas.getBoundingClientRect();
-        signatureX = event.clientX - rect.left;
-        signatureY = event.clientY - rect.top;
+// Lưu PDF với chữ ký
+document.getElementById('save-pdf').addEventListener('click', async () => {
+    if (!pdfDoc) {
+        alert("Chưa có tệp PDF!");
+        return;
+    }
 
-        // Draw signature on canvas
-        if (signatureImage) {
-            ctx.drawImage(signatureImage, signatureX, signatureY, 100, 50); // Kích thước chữ ký
+    const page = pdfDoc.getPage(0);
+
+    // Vẽ chữ ký từ canvas vào PDF
+    const canvasDataURL = pdfCanvas.toDataURL('image/png');
+    const signatureImageBytes = await fetch(canvasDataURL).then(res => res.arrayBuffer());
+    const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
+
+    page.drawImage(embeddedSignature, {
+        x: signatureX,
+        y: page.getHeight() - signatureY - 50, // Điều chỉnh vị trí Y cho hệ tọa độ của PDF
+        width: 100,
+        height: 50,
+    });
+
+    // Lưu PDF mới
+    const pdfBytes = await pdfDoc.save();
+    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'signed_document.pdf';
+    a.click();
+});
+
+// Gọi hàm load PDF khi tải trang
+loadPdfFromUrl('{{ get_object_image($contract->file ?? '') }}');
+
+// Xử lý lưu chữ ký
+document.getElementById('save-signature').addEventListener('click', () => {
+    const signaturePad = document.getElementById('signature-pad').querySelector('canvas');
+    if (signaturePad.isEmpty()) {
+        alert("Please provide a signature first.");
+        return;
+    }
+
+    const dataURL = signaturePad.toDataURL();
+
+    // Gửi chữ ký lên server
+    fetch('/save-signature', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ image: dataURL })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Signature saved to storage!");
+        } else {
+            alert("Failed to save signature.");
         }
-        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
 
-        // Save the PDF with the signature
-        document.getElementById('save-pdf').addEventListener('click', async () => {
-        if (!pdfDoc || !signatureImage) {
-            alert("Chưa có tệp PDF hoặc chữ ký!");
-            return;
+// Xử lý load chữ ký
+document.getElementById('load-signature').addEventListener('click', () => {
+    fetch('/load-signature')
+    .then(response => response.json())
+    .then(data => {
+        if (data.image) {
+            const img = document.getElementById('loaded-signature');
+            img.src = data.image;
+            img.style.display = 'block'; // Hiển thị chữ ký đã tải
+        } else {
+            alert("Failed to load signature.");
         }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
 
-        const page = pdfDoc.getPage(0); // First page of the PDF
-
-        // Embed the signature image in the PDF
-        const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
-        const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
-
-        page.drawImage(embeddedSignature, {
-            x: signatureX,
-            y: page.getHeight() - signatureY - 50, // Adjust the Y position for the PDF coordinate system
-            width: 100,
-            height: 50,
-        });
-
-        // Save the new PDF
-        const pdfBytes = await pdfDoc.save();
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-        const url = URL.createObjectURL(blob);
-
-        // Create a link and trigger the download
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'signed_document.pdf';
-        a.click();
-        });
-
-    loadPdfFromUrl( '{{ get_object_image($contract->file ?? "") }}' );
 </script>
