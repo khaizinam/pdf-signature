@@ -76,9 +76,10 @@ body {
   position: relative;
   -webkit-box-flex: 1;
   -ms-flex: 1;
-  flex: 1;
+//   flex: 1;
   border: 1px solid #f4f4f4;
   border-radius: 4px;
+  height: 260px;
 }
 
 .signature-pad--body.empty {
