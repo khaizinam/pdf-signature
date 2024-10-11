@@ -105,7 +105,6 @@ class MainController extends PublicController
         }
 
         $contract = app(ContractManagementInterface::class)->findById($slug->reference_id);
-        dd($contract->slug);
         SeoHelper::setTitle(Arr::get($contract,'name',''))
             ->setDescription(Arr::get($contract,'name',''))
             ->openGraph()
