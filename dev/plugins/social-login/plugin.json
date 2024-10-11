@@ -1,0 +1,11 @@
+{
+    "id": "dev/social-login",
+    "name": "Social Login",
+    "namespace": "Dev\\SocialLogin\\",
+    "provider": "Dev\\SocialLogin\\Providers\\SocialLoginServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "2.0.4",
+    "description": "Easier and faster login with Facebook, LinkedIn, GitHub or Google.",
+    "minimum_core_version": "7.3.0"
+}

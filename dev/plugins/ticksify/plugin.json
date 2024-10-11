@@ -1,0 +1,11 @@
+{
+    "id": "dev/ticksify",
+    "name": "Ticksify",
+    "namespace": "Dev\\Ticksify\\",
+    "provider": "Dev\\Ticksify\\Providers\\TicksifyServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://dev.com",
+    "version": "1.0.0",
+    "description": "Easily to manage and organize your customer support tickets.",
+    "minimum_core_version": "7.3.0"
+}

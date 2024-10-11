@@ -1,0 +1,25 @@
+{
+    "name": "dev/widget",
+    "description": "Widget package",
+    "type": "package",
+    "autoload": {
+        "psr-4": {
+            "Dev\\Widget\\": "src"
+        }
+    },
+    "require": {
+        "dev/dev": "*@dev",
+        "dev/theme": "*@dev"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\Widget\\Providers\\WidgetServiceProvider"
+            ],
+            "aliases": {
+                "Widget": "Dev\\Widget\\Facades\\Widget",
+                "WidgetGroup": "Dev\\Widget\\Facades\\WidgetGroup"
+            }
+        }
+    }
+}

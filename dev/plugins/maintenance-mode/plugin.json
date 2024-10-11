@@ -1,0 +1,11 @@
+{
+    "id": "dev/maintenance-mode",
+    "name": "Maintenance Mode",
+    "namespace": "Dev\\MaintenanceMode\\",
+    "provider": "Dev\\MaintenanceMode\\Providers\\MaintenanceModeServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "2.3.0",
+    "minimum_core_version": "6.0.0",
+    "description": "Manage maintenance mode from the admin panel"
+}

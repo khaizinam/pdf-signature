@@ -1,0 +1,10 @@
+{
+    "id": "dev/my-style",
+    "name": "MyStyle",
+    "namespace": "Dev\\MyStyle\\",
+    "provider": "Dev\\MyStyle\\Providers\\MyStyleServiceProvider",
+    "author": "Bao Boi",
+    "url": "https://github.com/vswb",
+    "version": "1.0.3",
+    "description": "Custom your article styles"
+}

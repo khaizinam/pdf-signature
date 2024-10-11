@@ -1,0 +1,11 @@
+{
+    "id": "dev/hide-activated-license-info",
+    "name": "Hide Activated License Info",
+    "namespace": "Dev\\HideActivatedLicenseInfo\\",
+    "provider": "Dev\\HideActivatedLicenseInfo\\HideActivatedLicenseInfoProvider",
+    "author": "Laravel CMS",
+    "url": "https://cms.fsofts.com/hide-activated-license-info",
+    "version": "1.0.0",
+    "minimum_core_version": "7.1.0",
+    "description": "Hide activated license info in Laravel CMS admin panel"
+}

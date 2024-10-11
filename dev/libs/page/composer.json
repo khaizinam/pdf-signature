@@ -1,0 +1,21 @@
+{
+    "name": "dev/page",
+    "description": "Page package",
+    "type": "package",
+    "autoload": {
+        "psr-4": {
+            "Dev\\Page\\": "src"
+        }
+    },
+    "require": {
+        "dev/dev": "*@dev",
+        "dev/revision": "*@dev"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\Page\\Providers\\PageServiceProvider"
+            ]
+        }
+    }
+}

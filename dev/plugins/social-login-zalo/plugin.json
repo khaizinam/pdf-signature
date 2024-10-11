@@ -1,0 +1,14 @@
+{
+    "id": "dev/social-login-zalo",
+    "name": "Social Login Zalo",
+    "namespace": "Dev\\SocialLogin\\Zalo\\",
+    "provider": "Dev\\SocialLogin\\Zalo\\Providers\\SocialLoginZaloServiceProvider",
+    "author": "Laravel CMS",
+    "url": "https://cms.fsofts.com/social-login-zalo",
+    "version": "1.0.1",
+    "minimum_core_version": "7.1.0",
+    "description": "Support Zalo login for Laravel CMS",
+    "require": [
+        "social-login"
+    ]
+}

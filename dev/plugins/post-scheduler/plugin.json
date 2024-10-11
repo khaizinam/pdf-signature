@@ -1,0 +1,12 @@
+{
+    "id": "dev/post-scheduler",
+    "name": "Post Scheduler",
+    "namespace": "Dev\\PostScheduler\\",
+    "provider": "Dev\\PostScheduler\\Providers\\PostSchedulerServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "1.3.2",
+    "minimum_core_version": "7.0.0",
+    "description": "Set published time for posts",
+    "required_plugins": ["blog"]
+}

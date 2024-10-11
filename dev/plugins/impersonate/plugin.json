@@ -1,0 +1,10 @@
+{
+    "id": "dev/impersonate",
+    "name": "Impersonate",
+    "namespace": "Dev\\Impersonate\\",
+    "provider": "Dev\\Impersonate\\Providers\\ImpersonateServiceProvider",
+    "author": "Developer Team",
+    "url": "https://cms.fsofts.com",
+    "version": "1.2.1",
+    "description": "Impersonate makes it easy to authenticate as your users."
+}

@@ -1,0 +1,11 @@
+{
+    "id": "archielite/2fa",
+    "name": "Two-factor Authentication",
+    "namespace": "ArchiElite\\TwoFactorAuthentication\\",
+    "provider": "ArchiElite\\TwoFactorAuthentication\\Providers\\TwoFactorAuthenticationServiceProvider",
+    "author": "Developer Team",
+    "url": "https://cms.fsofts.com",
+    "version": "2.1.0",
+    "description": "Two-factor Authentication for Laravel CMS",
+    "minimum_core_version": "7.0.0"
+}

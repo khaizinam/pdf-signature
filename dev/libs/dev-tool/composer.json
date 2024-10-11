@@ -1,0 +1,42 @@
+{
+    "name": "dev/dev-tool",
+    "description": "Dev tool commands for Laravel CMS",
+    "type": "package",
+    "license": "MIT",
+    "keywords": [
+        "Laravel Framework",
+        "Laravel CMS",
+        "Laravel CMS",
+        "dev dev tools"
+    ],
+    "homepage": "https://cms.fsofts.com",
+    "authors": [
+        {
+            "name": "Laravel Technologies",
+            "email": "dev@fsofts.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dev\\DevTool\\": "src"
+        }
+    },
+    "require": {
+        "laravel/framework": "^10.31|^11.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.4.0",
+        "phpunit/phpunit": "^9.0|^10.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\DevTool\\Providers\\DevToolServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
+}

@@ -1,0 +1,21 @@
+{
+    "name": "dev/plugin-generator",
+    "description": "Plugin generator",
+    "type": "package",
+    "autoload": {
+        "psr-4": {
+            "Dev\\PluginGenerator\\": "src"
+        }
+    },
+    "require": {
+        "dev/dev": "*@dev",
+        "dev/plugin-management": "*@dev"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\PluginGenerator\\Providers\\PluginGeneratorServiceProvider"
+            ]
+        }
+    }
+}

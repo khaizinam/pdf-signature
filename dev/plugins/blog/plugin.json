@@ -1,0 +1,11 @@
+{
+    "id": "dev/blog",
+    "name": "Blog",
+    "namespace": "Dev\\Blog\\",
+    "provider": "Dev\\Blog\\Providers\\BlogServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "2.0.4",
+    "description": "Manage posts, categories, tags",
+    "minimum_core_version": "7.3.0"
+}

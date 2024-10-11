@@ -1,0 +1,10 @@
+{
+    "id": "dev/edit-lock",
+    "name": "Edit Lock",
+    "namespace": "Dev\\EditLock\\",
+    "provider": "Dev\\EditLock\\Providers\\EditLockServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "1.0.0",
+    "description": "Pages and posts will be locked for edit when one of the editors has the page in edit mode."
+}

@@ -1,0 +1,11 @@
+{
+    "id": "dev/gallery",
+    "name": "Gallery",
+    "namespace": "Dev\\Gallery\\",
+    "provider": "Dev\\Gallery\\Providers\\GalleryServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "2.0.4",
+    "description": "Create or easy to add gallery images to posts, pages...",
+    "minimum_core_version": "7.3.0"
+}

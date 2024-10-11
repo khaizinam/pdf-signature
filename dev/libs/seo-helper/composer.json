@@ -1,0 +1,24 @@
+{
+    "name": "dev/seo-helper",
+    "description": "SEO helper package",
+    "type": "package",
+    "autoload": {
+        "psr-4": {
+            "Dev\\SeoHelper\\": "src"
+        }
+    },
+    "require": {
+        "dev/dev": "*@dev",
+        "dev/theme": "*@dev"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\SeoHelper\\Providers\\SeoHelperServiceProvider"
+            ],
+            "aliases": {
+                "SeoHelper": "Dev\\SeoHelper\\Facades\\SeoHelper"
+            }
+        }
+    }
+}

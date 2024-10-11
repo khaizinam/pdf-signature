@@ -1,0 +1,28 @@
+{
+    "name": "archielite/2fa",
+    "description": "Add Two Factor Authentication to Laravel CMS",
+    "keywords": [
+        "Laravel CMS",
+        "2fa"
+    ],
+    "homepage": "https://marketplace.fsofts.com/products/archielite/2fa",
+    "type": "plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Developer Team",
+            "homepage": "https://cms.fsofts.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ArchiElite\\TwoFactorAuthentication\\": "src"
+        }
+    },
+    "require": {
+        "pragmarx/google2fa": "^8.0",
+        "bacon/bacon-qr-code": "^2.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

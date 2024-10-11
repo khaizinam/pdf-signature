@@ -1,0 +1,45 @@
+{
+    "name": "dev/api",
+    "description": "API package for Laravel CMS",
+    "type": "package",
+    "license": "MIT",
+    "keywords": [
+        "Laravel Framework",
+        "Laravel CMS",
+        "Laravel CMS",
+        "dev api"
+    ],
+    "homepage": "https://cms.fsofts.com",
+    "authors": [
+        {
+            "name": "Laravel Technologies",
+            "email": "dev@fsofts.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dev\\Api\\": "src"
+        }
+    },
+    "require": {
+        "knuckleswtf/scribe": "^4.22"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.4.0",
+        "phpunit/phpunit": "^9.0|^10.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\Api\\Providers\\ApiServiceProvider"
+            ],
+            "aliases": {
+                "ApiHelper": "Dev\\Api\\Facades\\ApiHelper"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
+}

@@ -1,0 +1,11 @@
+{
+    "id": "dev/member",
+    "name": "Member",
+    "namespace": "Dev\\Member\\",
+    "provider": "Dev\\Member\\Providers\\MemberServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "2.0.4",
+    "description": "Manage member, user register/login",
+    "minimum_core_version": "7.3.0"
+}

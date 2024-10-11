@@ -1,0 +1,11 @@
+{
+    "id": "dev/audit-log",
+    "name": "Audit Log",
+    "namespace": "Dev\\AuditLog\\",
+    "provider": "Dev\\AuditLog\\Providers\\AuditLogServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "2.0.4",
+    "description": "Record activities logs",
+    "minimum_core_version": "7.3.0"
+}

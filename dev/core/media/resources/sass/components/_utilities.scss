@@ -1,0 +1,9 @@
+.app-media-wrapper {
+    .btn {
+        &.collapse-panel {
+            i {
+                transition: all 0.3s ease-in-out;
+            }
+        }
+    }
+}

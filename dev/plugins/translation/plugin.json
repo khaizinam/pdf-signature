@@ -1,0 +1,11 @@
+{
+    "id": "dev/translation",
+    "name": "Translation",
+    "namespace": "Dev\\Translation\\",
+    "provider": "Dev\\Translation\\Providers\\TranslationServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "2.0.4",
+    "description": "Manage translation text",
+    "minimum_core_version": "7.3.0"
+}

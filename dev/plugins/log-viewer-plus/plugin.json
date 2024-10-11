@@ -1,0 +1,11 @@
+{
+    "id": "archielite/log-viewer",
+    "name": "Log Viewer",
+    "namespace": "ArchiElite\\LogViewer\\",
+    "provider": "ArchiElite\\LogViewer\\Providers\\LogViewerServiceProvider",
+    "author": "Developer Team",
+    "url": "https://cms.fsofts.com",
+    "version": "1.0.4",
+    "description": "Fast and beautiful Log Viewer for Laravel CMS.",
+    "minimum_core_version": "6.5.1"
+}

@@ -1,0 +1,11 @@
+{
+    "id": "dev/custom-fields",
+    "name": "Custom Fields",
+    "namespace": "Dev\\CustomField\\",
+    "provider": "Dev\\CustomField\\Providers\\CustomFieldServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "2.1.4",
+    "description": "Custom Fields",
+    "minimum_core_version": "7.3.0"
+}

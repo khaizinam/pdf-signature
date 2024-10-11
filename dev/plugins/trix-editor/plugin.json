@@ -1,0 +1,11 @@
+{
+  "id": "dev/trix-editor",
+  "name": "Trix Editor",
+  "namespace": "Dev\\TrixEditor\\",
+  "provider": "Dev\\TrixEditor\\Providers\\TrixEditorServiceProvider",
+  "author": "Laravel CMS",
+  "url": "https://github.com/dev",
+  "version": "1.2.1",
+  "description": "Integrate Trix Editor into Laravel CMS.",
+  "minimum_core_version": "7.0.0"
+}

@@ -1,0 +1,37 @@
+{
+    "name": "dev-extensions/kernel",
+    "description": "kernel",
+    "autoload": {
+        "psr-4": {
+            "Dev\\Kernel\\": "kernel/src/"
+        }
+    },
+    "require": {
+        "maatwebsite/excel": "^3.1",
+        "google/apiclient": "^2.10",
+        "asimlqt/php-google-spreadsheet-client": "3.0.2",
+        "revolution/laravel-google-sheets": "*",
+        "basemkhirat/elasticsearch": "*@dev",
+        "javoscript/laravel-macroable-models": "*",
+        "kitloong/laravel-migrations-generator": "*@dev",
+        "dev-extensions/elasticsearch-laravel": "*@dev",
+        "dev-extensions/img-optimize-laravel": "*@dev",
+        "dev-extensions/auth": "*@dev",
+        "dev-extensions/advanced-role": "*@dev"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\Kernel\\Providers\\KernelServiceProvider"
+            ],
+            "aliases": {}
+        },
+        "google/apiclient-services": [
+            "Analytics",
+            "Sheets",
+            "Drive",
+            "DriveActivity"
+        ]
+    },
+    "repositories": []
+}

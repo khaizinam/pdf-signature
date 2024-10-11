@@ -1,0 +1,23 @@
+{
+    "name": "dev/shortcode",
+    "description": "Shortcode package",
+    "type": "package",
+    "autoload": {
+        "psr-4": {
+            "Dev\\Shortcode\\": "src"
+        }
+    },
+    "require": {
+        "dev/dev": "*@dev"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\Shortcode\\Providers\\ShortcodeServiceProvider"
+            ],
+            "aliases": {
+                "Shortcode": "Dev\\Shortcode\\Facades\\Shortcode"
+            }
+        }
+    }
+}

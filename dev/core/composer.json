@@ -1,0 +1,95 @@
+{
+    "name": "dev/dev",
+    "description": "The Laravel CMS based on Laravel Framework.",
+    "keywords": ["Laravel Framework", "Laravel CMS", "Laravel CMS"],
+    "homepage": "https://cms.fsofts.com",
+    "support": {
+        "issues": "https://cms.fsofts.com",
+        "document": "https://cms.fsofts.com"
+    },
+    "authors": [
+        {
+            "name": "Laravel Technologies",
+            "email": "contact@cms.fsofts.com"
+        }
+    ],
+    "type": "project",
+    "require": {
+        "ext-zip": "*",
+        "ext-gd": "*",
+        "barryvdh/laravel-dompdf": "^3.0",
+        "dev/assets": "*@dev",
+        "dev/form-builder": "*@dev",
+        "intervention/image": "^3.4",
+        "maennchen/zipstream-php": "3.1.*",
+        "tightenco/ziggy": "^2.0",
+        "yajra/laravel-datatables-buttons": "^10.0",
+        "yajra/laravel-datatables-oracle": "^10.11",
+        "mews/purifier": "^3.3",
+        "maatwebsite/excel": "^3.1",
+        "symfony/http-client": "^6.3",
+        "symfony/postmark-mailer": "^6.3",
+        "symfony/mailgun-mailer": "^6.3",
+        "twig/twig": "^3.0",
+        "league/flysystem-aws-s3-v3": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dev\\Support\\": "support/src",
+            "Dev\\ACL\\": "acl/src",
+            "Dev\\Base\\": "base/src",
+            "Dev\\Base\\Tests\\": "base/tests",
+            "Dev\\Dashboard\\": "dashboard/src",
+            "Dev\\Media\\": "media/src",
+            "Dev\\Setting\\": "setting/src",
+            "Dev\\Table\\": "table/src",
+            "Dev\\JsValidation\\": "js-validation/src",
+            "Dev\\Chart\\": "chart/src",
+            "Dev\\Icon\\": "icon/src",
+            "Tightenco\\Ziggy\\": "base/src/Ziggy"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\Base\\Providers\\BaseServiceProvider",
+                "Dev\\Base\\Providers\\CommandServiceProvider",
+                "Dev\\Base\\Providers\\EventServiceProvider",
+                "Dev\\Base\\Providers\\ComposerServiceProvider",
+                "Dev\\Base\\Providers\\MailConfigServiceProvider",
+                "Dev\\Base\\Providers\\FormServiceProvider",
+                "Dev\\Support\\Providers\\SupportServiceProvider",
+                "Dev\\Table\\Providers\\TableServiceProvider",
+                "Dev\\ACL\\Providers\\AclServiceProvider",
+                "Dev\\Dashboard\\Providers\\DashboardServiceProvider",
+                "Dev\\Media\\Providers\\MediaServiceProvider",
+                "Dev\\JsValidation\\Providers\\JsValidationServiceProvider",
+                "Dev\\Chart\\Providers\\ChartServiceProvider",
+                "Dev\\Icon\\Providers\\IconServiceProvider"
+            ],
+            "aliases": {
+                "Action": "Dev\\Base\\Facades\\Action",
+                "AdminAppearance": "Dev\\Base\\Facades\\AdminAppearance",
+                "AdminHelper": "Dev\\Base\\Facades\\AdminHelper",
+                "Assets": "Dev\\Base\\Facades\\Assets",
+                "BaseHelper": "Dev\\Base\\Facades\\BaseHelper",
+                "Breadcrumbs": "Dev\\Base\\Facades\\Breadcrumbs",
+                "DashboardMenu": "Dev\\Base\\Facades\\DashboardMenu",
+                "CoreIcon": "Dev\\Icon\\Facades\\Icon",
+                "EmailHandler": "Dev\\Base\\Facades\\EmailHandler",
+                "Filter": "Dev\\Base\\Facades\\Filter",
+                "Form": "Dev\\Base\\Facades\\Form",
+                "Html": "Dev\\Base\\Facades\\Html",
+                "JsValidator": "Dev\\JsValidation\\Facades\\JsValidator",
+                "MacroableModels": "Dev\\Base\\Facades\\MacroableModels",
+                "MetaBox": "Dev\\Base\\Facades\\MetaBox",
+                "PageTitle": "Dev\\Base\\Facades\\PageTitle",
+                "PanelSectionManager": "Dev\\Base\\Facades\\PanelSectionManager",
+                "AppMedia": "Dev\\Media\\Facades\\AppMedia",
+                "Setting": "Dev\\Setting\\Facades\\Setting"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

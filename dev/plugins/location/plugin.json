@@ -1,0 +1,10 @@
+{
+    "id": "dev/location",
+    "name": "Location",
+    "namespace": "Dev\\Location\\",
+    "provider": "Dev\\Location\\Providers\\LocationServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "1.1.2",
+    "description": "Manage location data: country, state, city."
+}

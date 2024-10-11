@@ -1,0 +1,50 @@
+##### HOTFIXES
+# sudo chown -R 1000:1000 ./docker/elasticsearch/data   <<<< quan trọng!
+# docker compose up --build : khi cần Dockerfile chạy lại, để build lại!
+
+services:
+  elasticsearch:
+    build:
+      context: .
+      dockerfile: ./Dockerfile  
+    restart: always
+    volumes:
+      - ./data:/usr/share/elasticsearch/data
+    environment:
+      - cluster.name=docker-cluster
+      - cluster.routing.allocation.disk.threshold_enabled=false
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=true
+      - path.data=/usr/share/elasticsearch/data
+    # ports:
+    #   - 9200:9200
+    #   - 9300:9300
+    container_name: 'dev-elasticsearch'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536    
+    networks:
+      - dev-network
+    ports:
+      - 9200:9200
+  # kibana:
+  #   container_name: kb-container
+  #   image: docker.elastic.co/kibana/kibana:8.15.0
+  #   environment:
+  #     - ELASTICSEARCH_HOSTS=http://es-container:9200
+  #   networks:
+  #     - dev.elasticsearch
+  #   depends_on:
+  #     - elasticsearch
+  #   ports:
+  #     - 5601:5601
+networks:
+  dev-network:
+    driver: bridge
+

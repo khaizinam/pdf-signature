@@ -1,0 +1,48 @@
+{
+  "name": "dev/git-commit-checker",
+  "description": "Check coding standard & code syntax with Git pre-commit hook.",
+  "type": "package",
+  "license": "MIT",
+  "keywords": [
+    "Laravel Framework",
+    "Laravel CMS",
+    "Laravel CMS",
+    "Git Commit Checker"
+  ],
+  "homepage": "https://cms.fsofts.com",
+  "authors": [
+    {
+      "name": "Developer Team",
+      "email": "dev@fsofts.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Dev\\GitCommitChecker\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Dev\\GitCommitChecker\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "php": "^8.0|^8.1|^8.2",
+    "laravel/framework": "^9.32|^10.0||^11.0",
+    "laravel/pint": "^1.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0|^10.0"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dev\\GitCommitChecker\\Providers\\GitCommitCheckerServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "stable"
+}

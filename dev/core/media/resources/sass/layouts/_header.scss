@@ -1,0 +1,11 @@
+.app-media-header {
+    .app-media-top-header {
+        .app-media-search {
+            width: 100%;
+
+            @media (min-width: 768px) {
+                width: initial;
+            }
+        }
+    }
+}

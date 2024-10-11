@@ -1,0 +1,8 @@
+{
+  "name": "dev/social-login",
+  "description": "Social login plugin",
+  "type": "package",
+  "require": {
+    "laravel/socialite": "^5.0"
+  }
+}

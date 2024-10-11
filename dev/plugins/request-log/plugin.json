@@ -1,0 +1,11 @@
+{
+    "id": "dev/request-log",
+    "name": "Request Log",
+    "namespace": "Dev\\RequestLog\\",
+    "provider": "Dev\\RequestLog\\Providers\\RequestLogServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "2.0.4",
+    "description": "Log error requests",
+    "minimum_core_version": "7.3.0"
+}

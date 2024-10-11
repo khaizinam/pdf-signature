@@ -1,0 +1,21 @@
+{
+    "name": "vigstudio/vig-ai",
+    "type": "package",
+    "description": "AI content for Laravel CMS",
+    "homepage": "http://fsofts.com",
+    "authors": [
+        {
+            "name": "Laravel Technologies",
+            "homepage": "http://fsofts.com"
+        }
+    ],
+    "require": {
+        "vigstudio/laravel-ai": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "VigStudio\\VigAI\\": "src/"
+        }
+    },
+    "config": {}
+}

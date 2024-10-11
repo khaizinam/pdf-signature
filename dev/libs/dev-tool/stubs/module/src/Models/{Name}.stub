@@ -1,0 +1,25 @@
+<?php
+
+namespace {Module}\Models;
+
+use Dev\Base\Casts\SafeContent;
+use Dev\Base\Enums\BaseStatusEnum;
+use Dev\Base\Models\BaseModel;
+
+/**
+ * @method static \Dev\Base\Models\BaseQueryBuilder<static> query()
+ */
+class {Name} extends BaseModel
+{
+    protected $table = '{names}';
+
+    protected $fillable = [
+        'name',
+        'status',
+    ];
+
+    protected $casts = [
+        'status' => BaseStatusEnum::class,
+        'name' => SafeContent::class,
+    ];
+}

@@ -1,0 +1,11 @@
+{
+    "id": "dev/cookie-consent",
+    "name": "Cookie Consent",
+    "namespace": "Dev\\CookieConsent\\",
+    "provider": "Dev\\CookieConsent\\Providers\\CookieConsentServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "2.0.5",
+    "description": "Cookie Consent",
+    "minimum_core_version": "7.3.0"
+}

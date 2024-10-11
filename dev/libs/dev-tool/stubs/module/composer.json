@@ -1,0 +1,19 @@
+{
+    "name": "dev/{-name}",
+    "description": "{Name} package",
+    "type": "package",
+    "autoload": {
+        "psr-4": {
+            "Dev\\{Name}\\": "src"
+        }
+    },
+    "require": {
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\{Name}\\Providers\\{Name}ServiceProvider"
+            ]
+        }
+    }
+}

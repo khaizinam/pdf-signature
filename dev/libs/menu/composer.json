@@ -1,0 +1,24 @@
+{
+    "name": "dev/menu",
+    "description": "Menu package",
+    "type": "package",
+    "autoload": {
+        "psr-4": {
+            "Dev\\Menu\\": "src"
+        }
+    },
+    "require": {
+        "dev/dev": "*@dev",
+        "dev/theme": "*@dev"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\Menu\\Providers\\MenuServiceProvider"
+            ],
+            "aliases": {
+                "Menu": "Dev\\Menu\\Facades\\Menu"
+            }
+        }
+    }
+}

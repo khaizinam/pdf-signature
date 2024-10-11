@@ -1,0 +1,11 @@
+{
+    "id": "dev/plugin-manager",
+    "name": "Plugin Manager",
+    "namespace": "Dev\\PluginManager\\",
+    "provider": "Dev\\PluginManager\\Providers\\PluginManagerServiceProvider",
+    "author": "Laravel CMS",
+    "url": "https://fsofts.com",
+    "version": "1.0.0",
+    "description": "Plugin Manager for Laravel CMS",
+    "minimum_core_version": "7.2.0"
+}

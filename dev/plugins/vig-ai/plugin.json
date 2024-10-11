@@ -1,0 +1,10 @@
+{
+    "id": "vigstudio/vig-ai",
+    "name": "Vig Ai Content",
+    "namespace": "VigStudio\\VigAI\\",
+    "provider": "VigStudio\\VigAI\\Providers\\VigAiServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://fsofts.com",
+    "version": "1.0.9",
+    "description": "AI Content Generator for Laravel CMS"
+}

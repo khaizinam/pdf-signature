@@ -1,0 +1,10 @@
+{
+    "id": "dev/log-viewer",
+    "name": "Log Viewer",
+    "namespace": "Dev\\LogViewer\\",
+    "provider": "Dev\\LogViewer\\Providers\\LogViewerServiceProvider",
+    "author": "Laravel Technologies",
+    "url": "https://cms.fsofts.com",
+    "version": "1.3.0",
+    "description": "Provides a log viewer for Laravel CMS"
+}

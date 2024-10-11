@@ -1,0 +1,23 @@
+{
+    "name": "dev/slug",
+    "description": "Slug/Permalink",
+    "type": "package",
+    "autoload": {
+        "psr-4": {
+            "Dev\\Slug\\": "src"
+        }
+    },
+    "require": {
+        "dev/dev": "*@dev"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\Slug\\Providers\\SlugServiceProvider"
+            ],
+            "aliases": {
+                "SlugHelper": "Dev\\Slug\\Facades\\SlugHelper"
+            }
+        }
+    }
+}

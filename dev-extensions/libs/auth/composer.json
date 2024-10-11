@@ -1,0 +1,44 @@
+{
+    "name": "dev-extensions/auth",
+    "description": "Authentication API package for Laravel CMS. Cloned from dev/libs/api",
+    "type": "package",
+    "license": "MIT",
+    "keywords": [
+        "Laravel Framework",
+        "Laravel CMS",
+        "Laravel CMS",
+        "platform auth"
+    ],
+    "homepage": "https://fsofts.com",
+    "authors": [
+        {
+            "name": "Laravel Technologies",
+            "email": "contact@fsofts.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dev\\Auth\\": "src"
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "knuckleswtf/scribe": "^4.22",
+        "laravel/pint": "^1.4.0",
+        "phpunit/phpunit": "^9.0|^10.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\Auth\\Providers\\AuthServiceProvider"
+            ],
+            "aliases": {
+                "AuthHelper": "Dev\\Auth\\Facades\\AuthHelper"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
+}

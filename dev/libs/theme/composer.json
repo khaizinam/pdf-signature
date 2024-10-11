@@ -1,0 +1,32 @@
+{
+    "name": "dev/theme",
+    "description": "Theme package",
+    "type": "package",
+    "autoload": {
+        "psr-4": {
+            "Dev\\Theme\\": "src"
+        }
+    },
+    "require": {
+        "dev/dev": "*@dev",
+        "dev/sitemap": "*@dev",
+        "dev/widget": "*@dev",
+        "dev/slug": "*@dev",
+        "dev/seo-helper": "*@dev"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dev\\Theme\\Providers\\ThemeServiceProvider",
+                "Dev\\Theme\\Providers\\RouteServiceProvider"
+            ],
+            "aliases": {
+                "Theme": "Dev\\Theme\\Facades\\Theme",
+                "ThemeOption": "Dev\\Theme\\Facades\\ThemeOption",
+                "ThemeManager": "Dev\\Theme\\Facades\\Manager",
+                "AdminBar": "Dev\\Theme\\Facades\\AdminBar",
+                "SiteMapManager": "Dev\\Theme\\Facades\\SiteMapManager"
+            }
+        }
+    }
+}
