@@ -110,7 +110,7 @@ class MainController extends PublicController
             ->openGraph()
             ->setTitle(Arr::get($contract,'name',''))
             ->setSiteName(Arr::get($contract,'name',''))
-            ->setUrl(route('public.product-detail', $key));
+            ->setUrl(route('public.contract-view', $key));
 
         event(new RenderingSingleEvent($slug));
 
