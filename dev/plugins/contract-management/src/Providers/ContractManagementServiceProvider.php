@@ -30,10 +30,10 @@ class ContractManagementServiceProvider extends ServiceProvider
 
             DashboardMenu::default()->beforeRetrieving(function () {
                 DashboardMenu::registerItem([
-                    'id' => 'cms-plugins-contract management',
+                    'id' => 'cms-plugins-contract-management',
                     'priority' => 5,
                     'parent_id' => null,
-                    'name' => 'plugins/contract management::contract management.name',
+                    'name' => 'Quản lí hợp đồng',
                     'icon' => 'fa fa-list',
                     'url' => route('contract-management.index'),
                     'permissions' => ['contract-management.index'],

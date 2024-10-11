@@ -16,19 +16,19 @@ class ContractManagementController extends BaseController
     {
         $this
             ->breadcrumb()
-            ->add(trans(trans('plugins/contract management::contract-management.name')), route('contract-management.index'));
+            ->add(trans(trans('plugins/contract-management::contract-management.name')), route('contract-management.index'));
     }
 
     public function index(ContractManagementTable $table)
     {
-        $this->pageTitle(trans('plugins/contract management::contract-management.name'));
+        $this->pageTitle(trans('plugins/contract-management::contract-management.name'));
 
         return $table->renderTable();
     }
 
     public function create()
     {
-        $this->pageTitle(trans('plugins/contract management::contract-management.create'));
+        $this->pageTitle(trans('plugins/contract-management::contract-management.create'));
 
         return ContractManagementForm::create()->renderForm();
     }
