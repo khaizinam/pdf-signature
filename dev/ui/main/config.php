@@ -51,6 +51,7 @@ return [
             // $theme->asset()->container('header')->add('jquery_js', '//code.jquery.com/jquery-3.7.1.min.js');
             $theme->asset()->container('header')->usePath()->add('jquery','libraries/jquery.js');
             $theme->asset()->container('footer')->usePath()->add('jquery','libraries/app.js');
+            $theme->asset()->container('header')->usePath()->add('signaturepad','libraries/signature_pad.umd.min.js');
             $theme->asset()->container('footer')->usePath()->add('script','js/script.js',[],[], time());
 
             if (function_exists('shortcode')) {
