@@ -33,8 +33,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.9",
         "predis/predis": "^2.2",
-        "wikimedia/composer-merge-plugin": "^2.1",
-        "dev-extensions/kernel": "*@dev"
+        "wikimedia/composer-merge-plugin": "^2.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",
@@ -121,14 +120,6 @@
         {
             "type": "path",
             "url": "./dev/libs/*"
-        },
-        {
-            "type": "path",
-            "url": "./dev-extensions/kernel"
-        },
-        {
-            "type": "path",
-            "url": "./dev-extensions/libs/*"
         }
     ]
 }
