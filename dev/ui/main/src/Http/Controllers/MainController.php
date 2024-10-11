@@ -4,13 +4,13 @@ namespace Theme\Main\Http\Controllers;
 
 use Dev\Base\Facades\BaseHelper;
 use Dev\ContractManagement\Models\ContractManagement;
+use Dev\ContractManagement\Repositories\Interfaces\ContractManagementInterface;
 use Dev\Media\Facades\AppMedia;
 use Dev\Page\Models\Page;
 use Dev\Page\Services\PageService;
 use Dev\SeoHelper\Facades\SeoHelper;
 use Dev\Slug\Facades\SlugHelper;
 use Dev\Slug\Models\Slug;
-use Dev\Support\Repositories\Interfaces\ContractManagementInterface;
 use Dev\Theme\Events\RenderingHomePageEvent;
 use Dev\Theme\Events\RenderingSingleEvent;
 use Dev\Theme\Facades\Theme;
