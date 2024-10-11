@@ -8,6 +8,7 @@ use Dev\Theme\Typography\TypographyItem;
 
 register_page_template([
     'default' => __('Default'),
+    'contract' => __('Hợp đồng'),
 ]);
 
 app()->booted(function () {

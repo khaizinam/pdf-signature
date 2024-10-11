@@ -21,11 +21,3 @@
     </head>
     <body {!! Theme::bodyAttributes() !!}>
         {!! apply_filters(THEME_FRONT_BODY, null) !!}
-        <header>
-            <div class="container">
-                {!! Menu::renderMenuLocation('menu-header', [
-                    'theme' => true,
-                    'view' => 'menu-header',
-                ]) !!}
-            </div>
-        </header>

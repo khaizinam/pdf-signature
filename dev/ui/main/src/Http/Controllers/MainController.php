@@ -9,6 +9,7 @@ use Dev\Page\Services\PageService;
 use Dev\SeoHelper\Facades\SeoHelper;
 use Dev\Slug\Facades\SlugHelper;
 use Dev\Theme\Events\RenderingHomePageEvent;
+use Dev\Theme\Events\RenderingSingleEvent;
 use Dev\Theme\Facades\Theme;
 use Dev\Theme\Http\Controllers\PublicController;
 use Illuminate\Support\Arr;
@@ -45,7 +46,49 @@ class MainController extends PublicController
 
     public function getView(?string $key = null, string $prefix = '')
     {
-        return parent::getView($key);
+        if (empty($key)) {
+            return $this->getIndex();
+        }
+
+        $slug = SlugHelper::getSlug($key, '');
+
+        if (!$slug) {
+            abort(404);
+        }
+
+        if (defined('PAGE_MODULE_SCREEN_NAME')) {
+            if ($slug->reference_type == Page::class && BaseHelper::isHomepage($slug->reference_id)) {
+                return redirect()->to('/');
+            }
+        }
+
+        $result = apply_filters(BASE_FILTER_PUBLIC_SINGLE_DATA, $slug);
+
+        if (isset($result['slug']) && $result['slug'] !== $key) {
+            return redirect()->route('public.single', $result['slug']);
+        }
+
+        $page = Arr::get($result, 'data.page');
+
+        SeoHelper::setTitle(Arr::get($page,'name',''))
+            ->setDescription(Arr::get($page,'description',''))
+            ->openGraph()
+            ->setTitle(Arr::get($page,'name',''))
+            ->setSiteName(Arr::get($page,'name',''))
+            ->setUrl(route('public.index',$key))
+            ->setImage(get_object_image(Arr::get($page,'image','')))
+            ->addProperty('image:width', '1200')
+            ->addProperty('image:height', '630');
+
+        event(new RenderingSingleEvent($slug));
+        Theme::layout('default');
+
+        if (!empty($result) && is_array($result)) {
+            $view = Arr::get($result, 'data.page')->template ?? Arr::get($result, 'view', '');
+            return Theme::scope($view, $result['data'], Arr::get($result, 'default_view'))->render();
+        }
+        abort(404);
+        Theme::breadcrumb()->add(__('Trang chủ'), url("public.index"));
     }
 
     public function getSiteMapIndex(string $key = null, string $extension = 'xml')
