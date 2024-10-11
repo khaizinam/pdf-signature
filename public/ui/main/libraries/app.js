@@ -199,37 +199,98 @@ openInWindowButton.addEventListener("click", () => {
   };
 })
 
-const saveToLocalStorageButton = wrapper.querySelector("[data-action=save-localstorage]");
 
-saveToLocalStorageButton.addEventListener("click", () => {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide a signature first.");
-  } else {
-    const dataURL = signaturePad.toDataURL();
-    localStorage.setItem("signatureImage", dataURL);
-    alert("Signature saved to localStorage!");
+let pdfDoc = null;
+let currentPage = 1;
+let pdfCanvas = document.getElementById('pdf-canvas');
+let pdfCtx = pdfCanvas.getContext('2d');
+
+// Load PDF
+document.getElementById('upload-pdf').addEventListener('change', function (event) {
+  const file = event.target.files[0];
+  if (file.type !== 'application/pdf') {
+    alert('Please upload a valid PDF file.');
+    return;
   }
-});
-const loadFromLocalStorageButton = wrapper.querySelector("[data-action=load-localstorage]");
 
-loadFromLocalStorageButton.addEventListener("click", () => {
+  const fileReader = new FileReader();
+  fileReader.onload = function () {
+    const pdfData = new Uint8Array(this.result);
+    pdfjsLib.getDocument(pdfData).promise.then(function (pdfDoc_) {
+      pdfDoc = pdfDoc_;
+      renderPage(currentPage);
+    });
+  };
+  fileReader.readAsArrayBuffer(file);
+});
+
+function renderPage(pageNum) {
+  pdfDoc.getPage(pageNum).then(function (page) {
+    const viewport = page.getViewport({ scale: 1.5 });
+    pdfCanvas.height = viewport.height;
+    pdfCanvas.width = viewport.width;
+
+    const renderCtx = {
+      canvasContext: pdfCtx,
+      viewport: viewport
+    };
+    page.render(renderCtx);
+  });
+}
+
+// Load signature from localStorage
+document.querySelector("[data-action=load-localstorage]").addEventListener("click", function () {
   const savedSignature = localStorage.getItem("signatureImage");
   if (savedSignature) {
-    // Tạo một hình ảnh từ URL đã lưu trong localStorage
     const img = new Image();
     img.src = savedSignature;
+    img.classList.add('draggable-signature'); // Đặt lớp để ảnh có thể kéo được
+    img.style.position = 'absolute'; // Đặt vị trí cho ảnh
 
-    // Xóa canvas hiện tại và hiển thị ảnh chữ ký
-    signaturePad.clear();
+    // Thêm sự kiện kéo và thả
+    img.draggable = true;
+    img.addEventListener('dragstart', function (e) {
+      e.dataTransfer.setData('image/png', savedSignature); // Lưu dữ liệu kéo thả
+    });
 
-    // Hiển thị hình ảnh chữ ký trong một vùng mới hoặc ngay trên trang
-    const canvasWrapper = document.getElementById("canvas-wrapper");
-    canvasWrapper.innerHTML = ''; // Xóa canvas cũ
-    canvasWrapper.appendChild(img); // Thêm ảnh vào
-
+    document.body.appendChild(img);
     alert("Signature loaded from localStorage!");
   } else {
     alert("No signature found in localStorage.");
   }
+});
+
+// Xử lý sự kiện thả ảnh chữ ký vào canvas PDF
+pdfCanvas.addEventListener('dragover', function (e) {
+  e.preventDefault(); // Cho phép thả vào canvas
+});
+
+pdfCanvas.addEventListener('drop', function (e) {
+  e.preventDefault();
+  const savedSignature = e.dataTransfer.getData('image/png');
+  if (savedSignature) {
+    const img = new Image();
+    img.src = savedSignature;
+
+    const rect = pdfCanvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Chèn ảnh vào vị trí trên canvas
+    img.onload = function () {
+      pdfCtx.drawImage(img, x, y, 100, 50); // Chèn ảnh chữ ký kích thước tùy chỉnh
+    };
+  }
+});
+
+// Lưu PDF với chữ ký
+document.getElementById('save-pdf').addEventListener('click', function () {
+  const link = document.createElement('a');
+  pdfCanvas.toBlob(function (blob) {
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.download = 'signed_pdf.pdf';
+    link.click();
+  });
 });
 
