@@ -1,7 +1,7 @@
 <?php
 
+use Dev\ContractManagement\Repositories\Interfaces\ContractManagementInterface;
 use Dev\Support\Repositories\Caches\CacheAbstractDecorator;
-use Dev\Support\Repositories\Interfaces\ContractManagementInterface;
 
 /**
  * @deprecated

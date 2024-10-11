@@ -1,9 +1,9 @@
 <?php
 
-namespace Dev\Support\Repositories\Interfaces;
+namespace Dev\ContractManagement\Repositories\Interfaces;
 
+use Dev\Support\Repositories\Interfaces\RepositoryInterface;
 
 interface ContractManagementInterface extends RepositoryInterface
 {
-
 }

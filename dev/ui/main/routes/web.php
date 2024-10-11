@@ -9,8 +9,7 @@ Route::group(['controller' => MainController::class, 'middleware' => ['web', 'co
     Route::group(apply_filters(BASE_FILTER_GROUP_PUBLIC_ROUTE, []), function () {
         Route::get("/", 'getIndex')->name("public.index");
 
-        Route::get('sitemap.xml', 'getSiteMap')
-            ->name('public.sitemap');
+        Route::get('sitemap.xml', 'getSiteMap')->name('public.sitemap');
 
         Route::get("hop-dong/{key}", 'getContractView')->name("public.contract-view");
 
