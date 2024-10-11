@@ -134,12 +134,14 @@
                 signatureX = event.clientX - rect.left; // Calculate X position
                 signatureY = event.clientY - rect.top;  // Calculate Y position
                 ctx.drawImage(signatureImage, signatureX, signatureY, 100, 50); // Adjust size as needed
+                pos.push({signatureX, signatureY});
             };
-            pos.push({signatureX, signatureY});
+
+
         }
     }
     pdfCanvas.addEventListener('dragover', allowDrop);
-    pdfCanvas.addEventListener('drop', drop);
+    // pdfCanvas.addEventListener('drop', drop);
 
     pdfCanvas.addEventListener('click', (event) => {
         if (signatureImage) {
@@ -164,6 +166,8 @@
         const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
 
         pos.forEach((el,index) => {
+            console.log("el", el);
+
             page.drawImage(embeddedSignature, {
                 x: el.signatureX,
                 y: page.getHeight() - el.signatureY - 50,
@@ -171,6 +175,8 @@
                 height: 50,
             });
         })
+
+
         const pdfBytes = await pdfDoc.save();
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
