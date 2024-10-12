@@ -48,6 +48,8 @@
                             <div class="row">
                                 <button type="button" class="button load btn btn-primary" id="load-signature">Tải chữ
                                     ký đã lưu</button>
+                                <button type="button" class="button load btn btn-primary" id="prev-page">Trang trước</button>
+                                <button type="button" class="button load btn btn-primary" id="next-page">Trang sau</button>
                             </div>
                         </div>
 
@@ -78,23 +80,38 @@
     let signatureImage = null;
     var signatureX = 0;
     var signatureY = 0;
-    var pos = [];
+    let EMB_BUFFER = {};
+    let curent_page = 1;
+    const PDF_URL = '{{ get_object_image($contract->file ?? '') }}';
     const SIZE_EMBED = 120;
     const pdfCanvas = document.getElementById('pdf-canvas');
+    const preBtn = document.getElementById('prev-page');
+    const nextBtn = document.getElementById('next-page');
     const ctx = pdfCanvas.getContext('2d');
+    let pdf;
 
-    async function loadPdfFromUrl(pdfUrl) {
-        const response = await fetch(pdfUrl);
+    async function loadPDF(){
+        const response = await fetch(PDF_URL);
         const arrayBuffer = await response.arrayBuffer();
         pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+        // pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
         const loadingTask = pdfjsLib.getDocument({
             data: arrayBuffer
         });
-        const pdf = await loadingTask.promise;
-        const page = await pdf.getPage(1);
+        pdf = await loadingTask.promise;
+        // const totalPageCount = pdf.numPages;
+        loadPdfFromUrl();
+    }
+
+    loadPDF();
+
+    async function loadPdfFromUrl() {
+        const page = await pdf.getPage(curent_page);
+
         const viewport = page.getViewport({
             scale: 1.0
         });
+
         pdfCanvas.width = viewport.width;
         pdfCanvas.height = viewport.height;
         const renderContext = {
@@ -121,6 +138,7 @@
     //         alert("Không có tệp nào được chọn!");
     //     }
     // });
+
     function drag(event) {
         event.dataTransfer.setData("text/plain", event.target.src);
     }
@@ -141,28 +159,45 @@
             // Draw the signature on the PDF canvas where the user drops it
             signatureImage.onload = () => {
                 const rect = pdfCanvas.getBoundingClientRect();
-                signatureX = event.clientX - rect.left; // Calculate X position
-                signatureY = event.clientY - rect.top; // Calculate Y position
+                signatureX = event.clientX - rect.left - (SIZE_EMBED / 2); // Calculate X position
+                signatureY = event.clientY - rect.top - (SIZE_EMBED / 2); // Calculate Y position
                 ctx.drawImage(signatureImage, signatureX, signatureY, SIZE_EMBED, SIZE_EMBED); // Adjust size as needed
-                pos.push({
-                    signatureX,
-                    signatureY
+
+                if (!EMB_BUFFER[curent_page]) {
+                    EMB_BUFFER[curent_page] = [];  // Initialize as an empty array if it doesn't exist
+                }
+
+                // Push the signature data for the current page
+                EMB_BUFFER[curent_page].push({
+                    signatureX: signatureX, // X coordinate of the signature
+                    signatureY: signatureY  // Y coordinate of the signature
                 });
             };
 
 
         }
     }
+
     pdfCanvas.addEventListener('dragover', allowDrop);
     // pdfCanvas.addEventListener('drop', drop);
+
+    nextBtn.addEventListener('click', function(){
+        curent_page += 1;
+        loadPdfFromUrl();
+    });
+
+    preBtn.addEventListener('click', function(){
+        curent_page -= 1;
+        loadPdfFromUrl();
+    });
 
     pdfCanvas.addEventListener('click', (event) => {
         if (signatureImage) {
             const rect = pdfCanvas.getBoundingClientRect();
-            signatureX = event.clientX - rect.left;
-            signatureY = event.clientY - rect.top;
+            signatureX = event.clientX - rect.left - (SIZE_EMBED / 2);
+            signatureY = event.clientY - rect.top  - (SIZE_EMBED / 2);;
             ctx.drawImage(signatureImage, signatureX, signatureY, SIZE_EMBED, SIZE_EMBED);
-
+            console.log("pdfCanvas addEventListener click");
         } else {
             alert("Vui lòng tải chữ ký trước khi ký!");
         }
@@ -182,18 +217,27 @@
         return;
     }
 
-    const page = pdfDoc.getPage(0);
     const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
     const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
 
-    pos.forEach((el) => {
-        page.drawImage(embeddedSignature, {
-            x: el.signatureX,
-            y: page.getHeight() - el.signatureY - 50,
-            width: SIZE_EMBED,
-            height: SIZE_EMBED,
-        });
-    });
+    // Iterate over EMB_BUFFER to embed the signature on each page
+    for (const [pageNumber, signatures] of Object.entries(EMB_BUFFER)) {
+        // Get the PDF page, note that PDF.js pages are 1-based, while arrays are 0-based
+        const page = await pdfDoc.getPage(parseInt(pageNumber)-1);
+
+        for (const signature of signatures) {
+            const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
+            const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
+
+            // Draw each signature on the PDF page
+            page.drawImage(embeddedSignature, {
+                x: signature.signatureX, // X position of the signature
+                y: page.getHeight() - signature.signatureY - (SIZE_EMBED / 2), // Y position, adjusted for PDF's coordinate system
+                width: SIZE_EMBED,       // Signature width
+                height: SIZE_EMBED       // Signature height
+            });
+        }
+    }
 
     const pdfBytes = await pdfDoc.save();
     const blob = new Blob([pdfBytes], {
@@ -231,7 +275,7 @@
         .catch(error => {
             console.error('Error:', error);
         });
-});
+    });
 
 
 
@@ -283,5 +327,5 @@
             });
     });
 
-    loadPdfFromUrl('{{ get_object_image($contract->file ?? '') }}');
+    // loadPdfFromUrl();
 </script>
