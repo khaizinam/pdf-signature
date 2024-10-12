@@ -3,6 +3,7 @@
 namespace Theme\Main\Http\Controllers;
 
 use Dev\Base\Facades\BaseHelper;
+use Dev\Base\Http\Responses\BaseHttpResponse;
 use Dev\ContractManagement\Models\ContractManagement;
 use Dev\ContractManagement\Models\Signature;
 use Dev\ContractManagement\Repositories\Interfaces\ContractManagementInterface;
@@ -202,21 +203,25 @@ class MainController extends PublicController
     }
 
 
-    public function saveSignatureContract(HttpRequest $request)
+    public function saveSignatureContract(HttpRequest $request, BaseHttpResponse $response)
     {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'file' => 'required|file|mimes:pdf',
+            ]);
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'file' => 'required|file|mimes:pdf',
-        ]);
+            $signature = new Signature();
+            $signature->name = $request->input('name');
+            $signature->file = $request->file('file')->store('signatures');
+            $signature->contract_id = $request->input('contract_id');
+            $signature->save();
 
-        $signature = new Signature();
-        $signature->name = $request->input('name');
-        $signature->file = $request->file('file')->store('signatures');
-        $signature->contract_id = $request->input('contract_id');
-        $signature->save();
+            return response()->json(['success' => true, 'message' => 'Chữ ký đã được lưu!']);
+        } catch (\Exception $th) {
+            return response()->json(['success' => true, 'message' =>  $th->getMessage()])->status(500);
+        }
 
-        return response()->json(['success' => true, 'message' => 'Chữ ký đã được lưu!']);
     }
 
 

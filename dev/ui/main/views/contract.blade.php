@@ -14,7 +14,7 @@
     <div class="right-content canvas-file">
         <div id="signature-pad" class="signature-pad">
             <div id="canvas-wrapper" class="signature-pad--body">
-                <canvas width="660" style="touch-action: none; user-select: none;" height="200"></canvas>
+                <canvas width="600" style="touch-action: none; user-select: none;" height="600"></canvas>
             </div>
             <div class="signature-pad--footer">
                 <div class="description">
@@ -79,6 +79,7 @@
     var signatureX = 0;
     var signatureY = 0;
     var pos = [];
+    const SIZE_EMBED = 120;
     const pdfCanvas = document.getElementById('pdf-canvas');
     const ctx = pdfCanvas.getContext('2d');
 
@@ -142,7 +143,7 @@
                 const rect = pdfCanvas.getBoundingClientRect();
                 signatureX = event.clientX - rect.left; // Calculate X position
                 signatureY = event.clientY - rect.top; // Calculate Y position
-                ctx.drawImage(signatureImage, signatureX, signatureY, 100, 50); // Adjust size as needed
+                ctx.drawImage(signatureImage, signatureX, signatureY, SIZE_EMBED, SIZE_EMBED); // Adjust size as needed
                 pos.push({
                     signatureX,
                     signatureY
@@ -160,7 +161,7 @@
             const rect = pdfCanvas.getBoundingClientRect();
             signatureX = event.clientX - rect.left;
             signatureY = event.clientY - rect.top;
-            ctx.drawImage(signatureImage, signatureX, signatureY, 100, 50);
+            ctx.drawImage(signatureImage, signatureX, signatureY, SIZE_EMBED, SIZE_EMBED);
 
         } else {
             alert("Vui lòng tải chữ ký trước khi ký!");
@@ -189,8 +190,8 @@
         page.drawImage(embeddedSignature, {
             x: el.signatureX,
             y: page.getHeight() - el.signatureY - 50,
-            width: 100,
-            height: 50,
+            width: SIZE_EMBED,
+            height: SIZE_EMBED,
         });
     });
 
