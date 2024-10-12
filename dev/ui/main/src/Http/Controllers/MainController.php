@@ -203,7 +203,7 @@ class MainController extends PublicController
     }
 
 
-    public function saveSignatureContract(HttpRequest $request, BaseHttpResponse $response)
+    public function saveSignatureContract(HttpRequest $request)
     {
         try {
             $request->validate([
