@@ -1,16 +1,14 @@
 <header>
     <div class="content-header container-content">
-        <span class="contract-title">{{ $contract->name ?? "" }}</span>
-        <span class="contract-date">{{ $contract->created_at ?? "" }}</span>
+        <span class="contract-title">{{ $contract->name ?? '' }}</span>
+        <span class="contract-date">{{ $contract->created_at ?? '' }}</span>
     </div>
 </header>
 <div class="container-content contract-wrapper" style="display:flex;justify-content:space-beweent;">
     <div class="left-content pdf-file">
         {{-- <div class="canva-draw"> --}}
-            <canvas id="pdf-canvas" width="800" height="1200"
-                    ondrop="drop(event)"
-                    ondragover="allowDrop(event)"
-                    ondragleave="removeDropEffect(event)"></canvas>
+        <canvas id="pdf-canvas" width="800" height="1200" ondrop="drop(event)" ondragover="allowDrop(event)"
+            ondragleave="removeDropEffect(event)"></canvas>
         {{-- </div> --}}
     </div>
     <div class="right-content canvas-file">
@@ -42,12 +40,14 @@
                         </div>
                         <div class="col-md-12">
                             <div class="row">
-                                <button type="button" class="button save btn btn-primary" id="save-signature">Save Signature to Storage</button>
+                                <button type="button" class="button save btn btn-primary" id="save-signature">Lưu tạm
+                                    chữ ký</button>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="row">
-                                <button type="button" class="button load btn btn-primary" id="load-signature">Load Signature</button>
+                                <button type="button" class="button load btn btn-primary" id="load-signature">Tải chữ
+                                    ký đã lưu</button>
                             </div>
                         </div>
 
@@ -58,7 +58,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Nhập tên</span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Họ và tên" aria-label="Username" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" placeholder="Họ và tên" aria-label="Username"
+                                aria-describedby="basic-addon1">
                         </div>
                     </div>
                     <div class="row">
@@ -85,13 +86,20 @@
         const response = await fetch(pdfUrl);
         const arrayBuffer = await response.arrayBuffer();
         pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        const loadingTask = pdfjsLib.getDocument({
+            data: arrayBuffer
+        });
         const pdf = await loadingTask.promise;
         const page = await pdf.getPage(1);
-        const viewport = page.getViewport({ scale: 1.0 });
+        const viewport = page.getViewport({
+            scale: 1.0
+        });
         pdfCanvas.width = viewport.width;
         pdfCanvas.height = viewport.height;
-        const renderContext = { canvasContext: ctx, viewport: viewport };
+        const renderContext = {
+            canvasContext: ctx,
+            viewport: viewport
+        };
         await page.render(renderContext).promise;
     }
 
@@ -113,13 +121,14 @@
     //     }
     // });
     function drag(event) {
-    event.dataTransfer.setData("text/plain", event.target.src);
+        event.dataTransfer.setData("text/plain", event.target.src);
     }
 
     // Allow the drop on the PDF canvas
     function allowDrop(event) {
         event.preventDefault();
     }
+
     function drop(event) {
         event.preventDefault();
         const signatureSrc = event.dataTransfer.getData("text/plain");
@@ -132,9 +141,12 @@
             signatureImage.onload = () => {
                 const rect = pdfCanvas.getBoundingClientRect();
                 signatureX = event.clientX - rect.left; // Calculate X position
-                signatureY = event.clientY - rect.top;  // Calculate Y position
+                signatureY = event.clientY - rect.top; // Calculate Y position
                 ctx.drawImage(signatureImage, signatureX, signatureY, 100, 50); // Adjust size as needed
-                pos.push({signatureX, signatureY});
+                pos.push({
+                    signatureX,
+                    signatureY
+                });
             };
 
 
@@ -156,35 +168,71 @@
     });
 
     document.getElementById('save-pdf').addEventListener('click', async () => {
-        if (!pdfDoc || !signatureImage) {
-            alert("Chưa có tệp PDF hoặc chữ ký!");
-            return;
-        }
+    const nameInput = document.querySelector('input[placeholder="Họ và tên"]');
+    const name = nameInput.value.trim();
 
-        const page = pdfDoc.getPage(0);
-        const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
-        const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
+    if (!name) {
+        alert("Vui lòng nhập họ và tên!");
+        return;
+    }
 
-        pos.forEach((el,index) => {
-            console.log("el", el);
+    if (!pdfDoc || !signatureImage) {
+        alert("Chưa có tệp PDF hoặc chữ ký!");
+        return;
+    }
 
-            page.drawImage(embeddedSignature, {
-                x: el.signatureX,
-                y: page.getHeight() - el.signatureY - 50,
-                width: 100,
-                height: 50,
-            });
-        })
+    const page = pdfDoc.getPage(0);
+    const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
+    const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
 
-
-        const pdfBytes = await pdfDoc.save();
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'signed_document.pdf';
-        a.click();
+    pos.forEach((el) => {
+        page.drawImage(embeddedSignature, {
+            x: el.signatureX,
+            y: page.getHeight() - el.signatureY - 50,
+            width: 100,
+            height: 50,
+        });
     });
+
+    const pdfBytes = await pdfDoc.save();
+    const blob = new Blob([pdfBytes], {
+        type: 'application/pdf'
+    });
+    const url = URL.createObjectURL(blob);
+
+    // Tải xuống PDF
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'signed_document.pdf';
+    a.click();
+
+    // Bước 2: Lưu chữ ký và thông tin vào cơ sở dữ liệu
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('file', blob); // Chuyển đổi blob sang file
+    formData.append('contract_id', '{{ $contract->id }}'); // Thêm contract_id vào FormData
+
+    fetch('/save-signature-contract', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Chữ ký và thông tin hợp đồng đã được lưu thành công!");
+            } else {
+                alert("Lưu chữ ký không thành công.");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
+
 
     document.getElementById('save-signature').addEventListener('click', () => {
         const signaturePad = document.querySelector('.signature-pad canvas').toDataURL();
@@ -194,24 +242,27 @@
         }
 
         fetch('/save-signature', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({ image: signaturePad })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("Chữ ký đã được lưu vào storage!");
-            } else {
-                alert("Lưu chữ ký không thành công.");
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                        'content')
+                },
+                body: JSON.stringify({
+                    image: signaturePad
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Chữ ký đã được lưu vào storage!");
+                } else {
+                    alert("Lưu chữ ký không thành công.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     });
 
     document.getElementById('load-signature').addEventListener('click', () => {

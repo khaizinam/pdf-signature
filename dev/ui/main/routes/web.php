@@ -18,4 +18,5 @@ Route::group(['controller' => MainController::class, 'middleware' => ['web', 'co
 Route::middleware(['web', 'core'])->group(function () {
     Route::post('/save-signature', [MainController::class, 'saveSignature'])->name('save.signature');
     Route::get('/load-signature', [MainController::class, 'loadSignature'])->name('load.signature');
+    Route::post('/save-signature-contract', [MainController::class, 'saveSignatureContract'])->name('save.signature_contract');
 });
