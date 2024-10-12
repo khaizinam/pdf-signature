@@ -225,6 +225,8 @@ document.getElementById('load-signature').addEventListener('click', () => {
                 const img = document.getElementById('loaded-signature');
                 img.src = data.image;
                 img.style.display = 'block'; // Hiện chữ ký đã tải
+                signatureImage = new Image();
+                signatureImage.src = data.image;
             } else {
                 alert("Tải chữ ký không thành công.");
             }
