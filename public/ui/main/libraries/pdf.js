@@ -1,33 +1,35 @@
 let pdfDoc = null;
 let signatureImage = null;
-var signatureX = 0;
-var signatureY = 0;
+let signatureX = 0;
+let signatureY = 0;
 let EMB_BUFFER = {};
 let curent_page = 1;
-const PDF_URL = document.getElementById('pdf-url').value;
+let pdf;
+
 const SIZE_EMBED = 120;
+const PDF_URL = document.getElementById('pdf-url').value;
 const pdfCanvas = document.getElementById('pdf-canvas');
 const preBtn = document.getElementById('prev-page');
 const nextBtn = document.getElementById('next-page');
 const ctx = pdfCanvas.getContext('2d');
-let pdf;
 
+// Load pdf lên màn hình khi vào trang
 async function loadPDF(){
     const response = await fetch(PDF_URL);
     const arrayBuffer = await response.arrayBuffer();
     pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-    // pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
     const loadingTask = pdfjsLib.getDocument({
         data: arrayBuffer
     });
     pdf = await loadingTask.promise;
     // const totalPageCount = pdf.numPages;
-    loadPdfFromUrl();
+    reloadPagePDF();
 }
 
 loadPDF();
 
-async function loadPdfFromUrl() {
+// render pdf lên canvas
+async function reloadPagePDF() {
     const page = await pdf.getPage(curent_page);
 
     const viewport = page.getViewport({
@@ -42,24 +44,6 @@ async function loadPdfFromUrl() {
     };
     await page.render(renderContext).promise;
 }
-
-// document.getElementById('upload-signature').addEventListener('change', (event) => {
-//     const file = event.target.files[0];
-//     if (file) {
-//         const reader = new FileReader();
-//         reader.onload = (e) => {
-//             const img = new Image();
-//             img.src = e.target.result;
-//             img.onload = () => {
-//                 signatureImage = img;
-//                 alert("Chữ ký đã sẵn sàng, nhấn vào vị trí cần ký trên PDF!");
-//             };
-//         };
-//         reader.readAsDataURL(file);
-//     } else {
-//         alert("Không có tệp nào được chọn!");
-//     }
-// });
 
 function drag(event) {
     event.dataTransfer.setData("text/plain", event.target.src);
@@ -101,18 +85,18 @@ function drop(event) {
 }
 
 pdfCanvas.addEventListener('dragover', allowDrop);
-// pdfCanvas.addEventListener('drop', drop);
 
 nextBtn.addEventListener('click', function(){
     curent_page += 1;
-    loadPdfFromUrl();
+    reloadPagePDF();
 });
 
 preBtn.addEventListener('click', function(){
     curent_page -= 1;
-    loadPdfFromUrl();
+    reloadPagePDF();
 });
 
+// Bấm vào pdf để chèn chữ ký vào vị trí đã  chọn
 pdfCanvas.addEventListener('click', (event) => {
     if (signatureImage) {
         const rect = pdfCanvas.getBoundingClientRect();
@@ -125,61 +109,62 @@ pdfCanvas.addEventListener('click', (event) => {
     }
 });
 
+// Bấm Lưu PDF
 document.getElementById('save-pdf').addEventListener('click', async () => {
-const nameInput = document.querySelector('input[placeholder="Họ và tên"]');
-const name = nameInput.value.trim();
+    const nameInput = document.querySelector('input[placeholder="Họ và tên"]');
+    const name = nameInput.value.trim();
 
-if (!name) {
-    alert("Vui lòng nhập họ và tên!");
-    return;
-}
-
-if (!pdfDoc || !signatureImage) {
-    alert("Chưa có tệp PDF hoặc chữ ký!");
-    return;
-}
-
-const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
-const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
-
-// Iterate over EMB_BUFFER to embed the signature on each page
-for (const [pageNumber, signatures] of Object.entries(EMB_BUFFER)) {
-    // Get the PDF page, note that PDF.js pages are 1-based, while arrays are 0-based
-    const page = await pdfDoc.getPage(parseInt(pageNumber)-1);
-
-    for (const signature of signatures) {
-        const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
-        const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
-
-        // Draw each signature on the PDF page
-        page.drawImage(embeddedSignature, {
-            x: signature.signatureX, // X position of the signature
-            y: page.getHeight() - signature.signatureY - (SIZE_EMBED / 2), // Y position, adjusted for PDF's coordinate system
-            width: SIZE_EMBED,       // Signature width
-            height: SIZE_EMBED       // Signature height
-        });
+    if (!name) {
+        alert("Vui lòng nhập họ và tên!");
+        return;
     }
-}
 
-const pdfBytes = await pdfDoc.save();
-const blob = new Blob([pdfBytes], {
-    type: 'application/pdf'
-});
-const url = URL.createObjectURL(blob);
+    if (!pdfDoc || !signatureImage) {
+        alert("Chưa có tệp PDF hoặc chữ ký!");
+        return;
+    }
 
-// Tải xuống PDF
-const a = document.createElement('a');
-a.href = url;
-a.download = 'signed_document.pdf';
-a.click();
+    const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
+    const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
 
-// Bước 2: Lưu chữ ký và thông tin vào cơ sở dữ liệu
-const formData = new FormData();
-formData.append('name', name);
-formData.append('file', blob); // Chuyển đổi blob sang file
-formData.append('contract_id', '{{ $contract->id }}'); // Thêm contract_id vào FormData
+    // Iterate over EMB_BUFFER to embed the signature on each page
+    for (const [pageNumber, signatures] of Object.entries(EMB_BUFFER)) {
+        // Get the PDF page, note that PDF.js pages are 1-based, while arrays are 0-based
+        const page = await pdfDoc.getPage(parseInt(pageNumber)-1);
 
-fetch('/save-signature-contract', {
+        for (const signature of signatures) {
+
+            // Draw each signature on the PDF page
+            page.drawImage(embeddedSignature, {
+                x: signature.signatureX, // X position of the signature
+                y: page.getHeight() - signature.signatureY - (SIZE_EMBED / 2), // Y position, adjusted for PDF's coordinate system
+                width: SIZE_EMBED,       // Signature width
+                height: SIZE_EMBED       // Signature height
+            });
+        }
+    }
+
+    const pdfBytes = await pdfDoc.save();
+
+    const blob = new Blob([pdfBytes], {
+        type: 'application/pdf'
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    // Tải xuống PDF
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'signed_document.pdf';
+    a.click();
+
+    // Bước 2: Lưu chữ ký và thông tin vào cơ sở dữ liệu
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('file', blob); // Chuyển đổi blob sang file
+    formData.append('contract_id', '{{ $contract->id }}'); // Thêm contract_id vào FormData
+
+    fetch('/save-signature-contract', {
         method: 'POST',
         body: formData,
         headers: {
