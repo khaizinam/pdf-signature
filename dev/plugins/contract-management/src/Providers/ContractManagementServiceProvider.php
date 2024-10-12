@@ -20,6 +20,7 @@ class ContractManagementServiceProvider extends ServiceProvider
             return new ContractManagementCacheDecorator(new ContractManagementRepository(new ContractManagement()));
         });
 
+
         $this->setNamespace('plugins/contract-management')->loadHelpers();
     }
     public function boot(): void

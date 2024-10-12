@@ -3,7 +3,9 @@
 namespace Theme\Main\Http\Controllers;
 
 use Dev\Base\Facades\BaseHelper;
+use Dev\Base\Http\Responses\BaseHttpResponse;
 use Dev\ContractManagement\Models\ContractManagement;
+use Dev\ContractManagement\Models\Signature;
 use Dev\ContractManagement\Repositories\Interfaces\ContractManagementInterface;
 use Dev\Media\Facades\AppMedia;
 use Dev\Page\Models\Page;
@@ -22,6 +24,7 @@ use Illuminate\Support\Facades\Storage;
 
 class MainController extends PublicController
 {
+
     public function getIndex()
     {
         if (defined('PAGE_MODULE_SCREEN_NAME')) {
@@ -50,7 +53,8 @@ class MainController extends PublicController
         event(RenderingHomePageEvent::class);
     }
 
-    public function getContractView(string $key = null){
+    public function getContractView(string $key = null)
+    {
 
         if (empty($key)) {
             return $this->getIndex();
@@ -58,9 +62,9 @@ class MainController extends PublicController
 
         $slug = SlugHelper::getSlug($key, SlugHelper::getPrefix(ContractManagement::class));
 
-        $page = Page::query()->where('template','contract')->first();
+        $page = Page::query()->where('template', 'contract')->first();
 
-        $pageSlug = Slug::query()->where('reference_type',Page::class)->where('reference_id',$page->id)->first();
+        $pageSlug = Slug::query()->where('reference_type', Page::class)->where('reference_id', $page->id)->first();
 
         if (!$slug || !$page || !$pageSlug) {
             abort(404);
@@ -71,23 +75,18 @@ class MainController extends PublicController
         }
 
         $contract = app(ContractManagementInterface::class)->findById($slug->reference_id);
-
-        // if (!$contract || $contract['status'] !== 'published') {
-        //     abort(404);
-        // }
-
-        SeoHelper::setTitle(Arr::get($contract,'name',''))
-            ->setDescription(Arr::get($contract,'name',''))
+        SeoHelper::setTitle(Arr::get($contract, 'name', ''))
+            ->setDescription(Arr::get($contract, 'name', ''))
             ->openGraph()
-            ->setTitle(Arr::get($contract,'name',''))
-            ->setSiteName(Arr::get($contract,'name',''))
+            ->setTitle(Arr::get($contract, 'name', ''))
+            ->setSiteName(Arr::get($contract, 'name', ''))
             ->setUrl(route('public.contract-view', $key));
 
         event(new RenderingSingleEvent($slug));
 
         Theme::layout('contract');
-
-        return Theme::scope('contract', compact('contract','page','pageSlug'))->render();
+        $this->deleteAllSignatures();
+        return Theme::scope('contract', compact('contract', 'page', 'pageSlug'))->render();
     }
 
     public function getView(?string $key = null, string $prefix = '')
@@ -116,13 +115,13 @@ class MainController extends PublicController
 
         $page = Arr::get($result, 'data.page');
 
-        SeoHelper::setTitle(Arr::get($page,'name',''))
-            ->setDescription(Arr::get($page,'description',''))
+        SeoHelper::setTitle(Arr::get($page, 'name', ''))
+            ->setDescription(Arr::get($page, 'description', ''))
             ->openGraph()
-            ->setTitle(Arr::get($page,'name',''))
-            ->setSiteName(Arr::get($page,'name',''))
-            ->setUrl(route('public.index',$key))
-            ->setImage(get_object_image(Arr::get($page,'image','')))
+            ->setTitle(Arr::get($page, 'name', ''))
+            ->setSiteName(Arr::get($page, 'name', ''))
+            ->setUrl(route('public.index', $key))
+            ->setImage(get_object_image(Arr::get($page, 'image', '')))
             ->addProperty('image:width', '1200')
             ->addProperty('image:height', '630');
 
@@ -145,41 +144,85 @@ class MainController extends PublicController
 
     public function saveSignature(HttpRequest $request)
     {
+        // Xóa tất cả các tệp hình ảnh chữ ký cũ
+        $this->deleteOldSignatures();
+
         $image = $request->image;
 
-        // Remove the prefix
         $image = str_replace('data:image/png;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
         $imageName = 'signature_' . time() . '.png';
 
-        // Store the image in storage/app/public
         Storage::disk('public')->put($imageName, base64_decode($image));
 
         return response()->json(['success' => true]);
     }
-    public function loadSignature()
+
+    private function deleteOldSignatures()
     {
         $files = Storage::disk('public')->files();
 
-        // Lưu trữ danh sách chữ ký
+        foreach ($files as $file) {
+            if (preg_match('/signature_(\d+)\.png/', $file)) {
+                Storage::disk('public')->delete($file);
+            }
+        }
+    }
+
+    public function loadSignature()
+    {
+
+
+        $files = Storage::disk('public')->files();
         $signatures = [];
 
-        // Lặp qua tất cả các tệp và thêm chữ ký vào danh sách
         foreach ($files as $file) {
             if (preg_match('/signature_(\d+)\.png/', $file)) {
                 $signatures[] = $file;
             }
         }
 
-        // Sắp xếp danh sách chữ ký theo thời gian lưu
-        usort($signatures, function($a, $b) {
+        usort($signatures, function ($a, $b) {
             return filemtime(Storage::disk('public')->path($b)) - filemtime(Storage::disk('public')->path($a));
         });
 
-        // Lấy tệp chữ ký mới nhất
         $latestImage = !empty($signatures) ? Storage::disk('public')->url($signatures[0]) : '';
 
         return response()->json(['image' => $latestImage]);
     }
+
+    private function deleteAllSignatures()
+    {
+        $files = Storage::disk('public')->files();
+
+        foreach ($files as $file) {
+            if (preg_match('/signature_(\d+)\.png/', $file)) {
+                Storage::disk('public')->delete($file);
+            }
+        }
+    }
+
+
+    public function saveSignatureContract(HttpRequest $request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'file' => 'required|file|mimes:pdf',
+            ]);
+
+            $signature = new Signature();
+            $signature->name = $request->input('name');
+            $signature->file = $request->file('file')->store('signatures');
+            $signature->contract_id = $request->input('contract_id');
+            $signature->save();
+
+            return response()->json(['success' => true, 'message' => 'Chữ ký đã được lưu!']);
+        } catch (\Exception $th) {
+            return response()->json(['success' => true, 'message' =>  $th->getMessage()])->status(500);
+        }
+
+    }
+
 
 }

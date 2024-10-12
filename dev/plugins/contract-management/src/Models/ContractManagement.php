@@ -34,6 +34,6 @@ class ContractManagement extends BaseModel
 
     public function signatures()
     {
-        return $this->hasMany(Signature::class, 'contract_id')->orderBy("created_at");
+        return $this->hasMany(Signature::class, 'contract_id')->orderBy("created_at",'desc');
     }
 }
