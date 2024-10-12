@@ -24,7 +24,7 @@ class ContractManagementForm extends FormAbstract
             ->setupModel(new ContractManagement())
             ->setValidatorClass(ContractManagementRequest::class)
             ->withCustomFields()
-            // ->addCustomField('categoryMulti', CategoryMultiField::class)
+            ->addCustomField('signatureMulti', SignatureFormField::class)
             ->add('name', 'text', [
                 'label' => trans('core/base::forms.name'),
                 'required' => true,
@@ -33,12 +33,16 @@ class ContractManagementForm extends FormAbstract
                     'data-counter' => 120,
                 ],
             ])
+            ->add('file', MediaFileField::class)
+            ->add('signature', 'signatureMulti', [
+                'label' => trans('Lịch sử đã ký'),
+                'values' => $signatureLst,
+            ])
             ->add('status', 'customSelect', [
                 'label' => trans('core/base::tables.status'),
                 'required' => true,
                 'choices' => BaseStatusEnum::labels(),
             ])
-            ->add('file', MediaFileField::class)
             ->setBreakFieldPoint('status');
     }
 }
