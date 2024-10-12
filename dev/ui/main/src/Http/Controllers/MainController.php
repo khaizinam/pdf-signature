@@ -71,6 +71,11 @@ class MainController extends PublicController
         }
 
         $contract = app(ContractManagementInterface::class)->findById($slug->reference_id);
+
+        // if (!$contract || $contract['status'] !== 'published') {
+        //     abort(404);
+        // }
+
         SeoHelper::setTitle(Arr::get($contract,'name',''))
             ->setDescription(Arr::get($contract,'name',''))
             ->openGraph()
