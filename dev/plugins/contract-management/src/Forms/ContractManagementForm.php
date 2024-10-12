@@ -13,10 +13,18 @@ class ContractManagementForm extends FormAbstract
 {
     public function setup(): void
     {
+        $signatureLst = [];
+
+        if ($this->getModel()) {
+            $signatureLst = $this->getModel()->signatures()->get();
+        }
+        // dd($signatureLst);
+
         $this
             ->setupModel(new ContractManagement())
             ->setValidatorClass(ContractManagementRequest::class)
             ->withCustomFields()
+            // ->addCustomField('categoryMulti', CategoryMultiField::class)
             ->add('name', 'text', [
                 'label' => trans('core/base::forms.name'),
                 'required' => true,

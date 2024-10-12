@@ -4,7 +4,10 @@ namespace Dev\ContractManagement\Tables;
 
 use Dev\Base\Enums\BaseStatusEnum;
 use Dev\Base\Facades\BaseHelper;
+use Dev\Base\Facades\Html;
+use Dev\ContractManagement\Models\ContractManagement;
 use Dev\ContractManagement\Repositories\Interfaces\ContractManagementInterface;
+use Dev\Slug\Models\Slug;
 use Dev\Table\Abstracts\TableAbstract;
 use Dev\Table\DataTables;
 use Illuminate\Http\JsonResponse;
@@ -37,7 +40,11 @@ class ContractManagementTable extends TableAbstract
                 return $item->status->toHtml();
             })
             ->editColumn('created_at', function ($item) {
-                return BaseHelper::formatDate(Arr::get($item,'created_at','...'),'Y-m-d');
+                return BaseHelper::formatDate(Arr::get($item,'created_at','...'),'Y-m-d h:m:s');
+            })
+            ->addColumn('slug', function ($item) {
+                $slug = Slug::where("reference_type", ContractManagement::class)->where("reference_id", $item->id)->first();
+                return Html::link(route("public.contract-view", Arr::get($slug,'key','')), Arr::get($slug,'key','')) ;
             })
             ->addColumn('operations', function ($item) {
                 return $this->getOperations('contract-management.edit', 'contract-management.destroy', $item);
@@ -52,9 +59,9 @@ class ContractManagementTable extends TableAbstract
             ->select([
                'id',
                'name',
-               'file',
+               'status',
                'created_at',
-           ]);
+           ])->with('slugable');
 
         return $this->applyScopes($query);
     }
@@ -70,8 +77,8 @@ class ContractManagementTable extends TableAbstract
                 'title' => trans('Name'),
                 'class' => 'text-center',
             ],
-            'file' => [
-                'title' => trans('Load'),
+            'slug' => [
+                'title' => trans('Trang chính'),
                 'class' => 'text-center',
             ],
             'created_at' => [

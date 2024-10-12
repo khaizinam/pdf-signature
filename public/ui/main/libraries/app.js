@@ -1,16 +1,16 @@
 const wrapper = document.getElementById("signature-pad");
 const canvasWrapper = document.getElementById("canvas-wrapper");
 const clearButton = wrapper.querySelector("[data-action=clear]");
-const changeBackgroundColorButton = wrapper.querySelector("[data-action=change-background-color]");
-const changeColorButton = wrapper.querySelector("[data-action=change-color]");
+// const changeBackgroundColorButton = wrapper.querySelector("[data-action=change-background-color]");
+// const changeColorButton = wrapper.querySelector("[data-action=change-color]");
 const changeWidthButton = wrapper.querySelector("[data-action=change-width]");
-const undoButton = wrapper.querySelector("[data-action=undo]");
-const redoButton = wrapper.querySelector("[data-action=redo]");
+// const undoButton = wrapper.querySelector("[data-action=undo]");
+// const redoButton = wrapper.querySelector("[data-action=redo]");
 const savePNGButton = wrapper.querySelector("[data-action=save-png]");
-const saveJPGButton = wrapper.querySelector("[data-action=save-jpg]");
-const saveSVGButton = wrapper.querySelector("[data-action=save-svg]");
-const saveSVGWithBackgroundButton = wrapper.querySelector("[data-action=save-svg-with-background]");
-const openInWindowButton = wrapper.querySelector("[data-action=open-in-window]");
+// const saveJPGButton = wrapper.querySelector("[data-action=save-jpg]");
+// const saveSVGButton = wrapper.querySelector("[data-action=save-svg]");
+// const saveSVGWithBackgroundButton = wrapper.querySelector("[data-action=save-svg-with-background]");
+// const openInWindowButton = wrapper.querySelector("[data-action=open-in-window]");
 let undoData = [];
 const canvas = wrapper.querySelector("canvas");
 const signaturePad = new SignaturePad(canvas, {
@@ -56,16 +56,16 @@ function resizeCanvas() {
 window.onresize = resizeCanvas;
 resizeCanvas();
 
-window.addEventListener("keydown", (event) => {
-  switch (true) {
-    case event.key === "z" && event.ctrlKey:
-      undoButton.click();
-      break;
-    case event.key === "y" && event.ctrlKey:
-      redoButton.click();
-      break;
-  }
-});
+// window.addEventListener("keydown", (event) => {
+//   switch (true) {
+//     case event.key === "z" && event.ctrlKey:
+//     //   undoButton.click();
+//       break;
+//     case event.key === "y" && event.ctrlKey:
+//       redoButton.click();
+//       break;
+//   }
+// });
 
 function download(dataURL, filename) {
   const blob = dataURLToBlob(dataURL);
@@ -108,43 +108,43 @@ clearButton.addEventListener("click", () => {
   signaturePad.clear();
 });
 
-undoButton.addEventListener("click", () => {
-  const data = signaturePad.toData();
+// undoButton.addEventListener("click", () => {
+//   const data = signaturePad.toData();
 
-  if (data && data.length > 0) {
-    // remove the last dot or line
-    const removed = data.pop();
-    undoData.push(removed);
-    signaturePad.fromData(data);
-  }
-});
+//   if (data && data.length > 0) {
+//     // remove the last dot or line
+//     const removed = data.pop();
+//     undoData.push(removed);
+//     signaturePad.fromData(data);
+//   }
+// });
 
-redoButton.addEventListener("click", () => {
-  if (undoData.length > 0) {
-    const data = signaturePad.toData();
-    data.push(undoData.pop());
-    signaturePad.fromData(data);
-  }
-});
+// redoButton.addEventListener("click", () => {
+//   if (undoData.length > 0) {
+//     const data = signaturePad.toData();
+//     data.push(undoData.pop());
+//     signaturePad.fromData(data);
+//   }
+// });
 
-changeBackgroundColorButton.addEventListener("click", () => {
-  signaturePad.backgroundColor = randomColor();
-  const data = signaturePad.toData();
-  signaturePad.clear();
-  signaturePad.fromData(data);
-});
+// changeBackgroundColorButton.addEventListener("click", () => {
+//   signaturePad.backgroundColor = randomColor();
+//   const data = signaturePad.toData();
+//   signaturePad.clear();
+//   signaturePad.fromData(data);
+// });
 
-changeColorButton.addEventListener("click", () => {
-  signaturePad.penColor = randomColor();
-});
+// changeColorButton.addEventListener("click", () => {
+//   signaturePad.penColor = randomColor();
+// });
 
-changeWidthButton.addEventListener("click", () => {
-  const min = Math.round(Math.random() * 100) / 10;
-  const max = Math.round(Math.random() * 100) / 10;
+// changeWidthButton.addEventListener("click", () => {
+//   const min = Math.round(Math.random() * 100) / 10;
+//   const max = Math.round(Math.random() * 100) / 10;
 
-  signaturePad.minWidth = Math.min(min, max);
-  signaturePad.maxWidth = Math.max(min, max);
-});
+//   signaturePad.minWidth = Math.min(min, max);
+//   signaturePad.maxWidth = Math.max(min, max);
+// });
 
 savePNGButton.addEventListener("click", () => {
   if (signaturePad.isEmpty()) {
@@ -155,142 +155,59 @@ savePNGButton.addEventListener("click", () => {
   }
 });
 
-saveJPGButton.addEventListener("click", () => {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide a signature first.");
-  } else {
-    const dataURL = signaturePad.toDataURL("image/jpeg");
-    download(dataURL, "signature.jpg");
-  }
-});
+// saveJPGButton.addEventListener("click", () => {
+//   if (signaturePad.isEmpty()) {
+//     alert("Please provide a signature first.");
+//   } else {
+//     const dataURL = signaturePad.toDataURL("image/jpeg");
+//     download(dataURL, "signature.jpg");
+//   }
+// });
 
-saveSVGButton.addEventListener("click", () => {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide a signature first.");
-  } else {
-    const dataURL = signaturePad.toDataURL('image/svg+xml');
-    download(dataURL, "signature.svg");
-  }
-});
+// saveSVGButton.addEventListener("click", () => {
+//   if (signaturePad.isEmpty()) {
+//     alert("Please provide a signature first.");
+//   } else {
+//     const dataURL = signaturePad.toDataURL('image/svg+xml');
+//     download(dataURL, "signature.svg");
+//   }
+// });
 
-saveSVGWithBackgroundButton.addEventListener("click", () => {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide a signature first.");
-  } else {
-    const dataURL = signaturePad.toDataURL('image/svg+xml', { includeBackgroundColor: true });
-    download(dataURL, "signature.svg");
-  }
-});
+// saveSVGWithBackgroundButton.addEventListener("click", () => {
+//   if (signaturePad.isEmpty()) {
+//     alert("Please provide a signature first.");
+//   } else {
+//     const dataURL = signaturePad.toDataURL('image/svg+xml', { includeBackgroundColor: true });
+//     download(dataURL, "signature.svg");
+//   }
+// });
 
-openInWindowButton.addEventListener("click", () => {
-	var externalWin = window.open('', '', `width=${canvas.width / window.devicePixelRatio},height=${canvas.height / window.devicePixelRatio}`);
-  canvas.style.width = "100%";
-  canvas.style.height = "100%";
-  externalWin.onresize = resizeCanvas;
-  externalWin.document.body.style.margin = '0';
-	externalWin.document.body.appendChild(canvas);
-  canvasWrapper.classList.add("empty");
-  externalWin.onbeforeunload = () => {
-    canvas.style.width = "";
-    canvas.style.height = "";
-    canvasWrapper.classList.remove("empty");
-    canvasWrapper.appendChild(canvas);
-    resizeCanvas();
-  };
-})
+// openInWindowButton.addEventListener("click", () => {
+// 	var externalWin = window.open('', '', `width=${canvas.width / window.devicePixelRatio},height=${canvas.height / window.devicePixelRatio}`);
+//   canvas.style.width = "100%";
+//   canvas.style.height = "100%";
+//   externalWin.onresize = resizeCanvas;
+//   externalWin.document.body.style.margin = '0';
+// 	externalWin.document.body.appendChild(canvas);
+//   canvasWrapper.classList.add("empty");
+//   externalWin.onbeforeunload = () => {
+//     canvas.style.width = "";
+//     canvas.style.height = "";
+//     canvasWrapper.classList.remove("empty");
+//     canvasWrapper.appendChild(canvas);
+//     resizeCanvas();
+//   };
+// })
 
+// const saveToLocalStorageButton = wrapper.querySelector("[data-action=save-localstorage]");
 
-let pdfDoc = null;
-let currentPage = 1;
-let pdfCanvas = document.getElementById('pdf-canvas');
-let pdfCtx = pdfCanvas.getContext('2d');
-
-// Load PDF
-document.getElementById('upload-pdf').addEventListener('change', function (event) {
-  const file = event.target.files[0];
-  if (file.type !== 'application/pdf') {
-    alert('Please upload a valid PDF file.');
-    return;
-  }
-
-  const fileReader = new FileReader();
-  fileReader.onload = function () {
-    const pdfData = new Uint8Array(this.result);
-    pdfjsLib.getDocument(pdfData).promise.then(function (pdfDoc_) {
-      pdfDoc = pdfDoc_;
-      renderPage(currentPage);
-    });
-  };
-  fileReader.readAsArrayBuffer(file);
-});
-
-function renderPage(pageNum) {
-  pdfDoc.getPage(pageNum).then(function (page) {
-    const viewport = page.getViewport({ scale: 1.5 });
-    pdfCanvas.height = viewport.height;
-    pdfCanvas.width = viewport.width;
-
-    const renderCtx = {
-      canvasContext: pdfCtx,
-      viewport: viewport
-    };
-    page.render(renderCtx);
-  });
-}
-
-// Load signature from localStorage
-document.querySelector("[data-action=load-localstorage]").addEventListener("click", function () {
-  const savedSignature = localStorage.getItem("signatureImage");
-  if (savedSignature) {
-    const img = new Image();
-    img.src = savedSignature;
-    img.classList.add('draggable-signature'); // Đặt lớp để ảnh có thể kéo được
-    img.style.position = 'absolute'; // Đặt vị trí cho ảnh
-
-    // Thêm sự kiện kéo và thả
-    img.draggable = true;
-    img.addEventListener('dragstart', function (e) {
-      e.dataTransfer.setData('image/png', savedSignature); // Lưu dữ liệu kéo thả
-    });
-
-    document.body.appendChild(img);
-    alert("Signature loaded from localStorage!");
-  } else {
-    alert("No signature found in localStorage.");
-  }
-});
-
-// Xử lý sự kiện thả ảnh chữ ký vào canvas PDF
-pdfCanvas.addEventListener('dragover', function (e) {
-  e.preventDefault(); // Cho phép thả vào canvas
-});
-
-pdfCanvas.addEventListener('drop', function (e) {
-  e.preventDefault();
-  const savedSignature = e.dataTransfer.getData('image/png');
-  if (savedSignature) {
-    const img = new Image();
-    img.src = savedSignature;
-
-    const rect = pdfCanvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    // Chèn ảnh vào vị trí trên canvas
-    img.onload = function () {
-      pdfCtx.drawImage(img, x, y, 100, 50); // Chèn ảnh chữ ký kích thước tùy chỉnh
-    };
-  }
-});
-
-// Lưu PDF với chữ ký
-document.getElementById('save-pdf').addEventListener('click', function () {
-  const link = document.createElement('a');
-  pdfCanvas.toBlob(function (blob) {
-    const url = URL.createObjectURL(blob);
-    link.href = url;
-    link.download = 'signed_pdf.pdf';
-    link.click();
-  });
-});
+// saveToLocalStorageButton.addEventListener("click", () => {
+//   if (signaturePad.isEmpty()) {
+//     alert("Please provide a signature first.");
+//   } else {
+//     const dataURL = signaturePad.toDataURL();
+//     localStorage.setItem("signatureImage", dataURL);
+//     alert("Signature saved to localStorage!");
+//   }
+// });
 
