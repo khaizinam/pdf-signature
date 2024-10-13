@@ -13,10 +13,9 @@ const savePNGButton = wrapper.querySelector("[data-action=save-png]");
 // const openInWindowButton = wrapper.querySelector("[data-action=open-in-window]");
 let undoData = [];
 const canvas = wrapper.querySelector("canvas");
+
 const signaturePad = new SignaturePad(canvas, {
-// It's Necessary to use an opaque color when saving image as JPEG;
-// this option can be omitted if only saving as PNG or SVG
-backgroundColor: 'rgb(255, 255, 255)'
+    // backgroundColor: 'rgb(255, 255, 255)'
 });
 
 function randomColor() {

@@ -4,6 +4,7 @@ let signatureX = 0;
 let signatureY = 0;
 let EMB_BUFFER = {};
 let curent_page = 1;
+let totalPageCount = 0;
 let pdf;
 
 const SIZE_EMBED = 120;
@@ -11,8 +12,10 @@ const PDF_URL = document.getElementById('pdf-url').value;
 const pdfCanvas = document.getElementById('pdf-canvas');
 const preBtn = document.getElementById('prev-page');
 const nextBtn = document.getElementById('next-page');
+const domCurrentPage = document.getElementById('current-page');
+const domTotalPage = document.getElementById('total-page');
 const ctx = pdfCanvas.getContext('2d');
-
+domCurrentPage.innerText = curent_page;
 // Load pdf lên màn hình khi vào trang
 async function loadPDF(){
     const response = await fetch(PDF_URL);
@@ -22,7 +25,8 @@ async function loadPDF(){
         data: arrayBuffer
     });
     pdf = await loadingTask.promise;
-    // const totalPageCount = pdf.numPages;
+    totalPageCount = pdf.numPages;
+    domTotalPage.innerText = totalPageCount;
     reloadPagePDF();
 }
 
@@ -42,6 +46,7 @@ async function reloadPagePDF() {
         canvasContext: ctx,
         viewport: viewport
     };
+    domCurrentPage.innerText = curent_page;
     await page.render(renderContext).promise;
 }
 
@@ -88,12 +93,19 @@ pdfCanvas.addEventListener('dragover', allowDrop);
 
 nextBtn.addEventListener('click', function(){
     curent_page += 1;
-    reloadPagePDF();
+    if(curent_page > totalPageCount)
+        curent_page = totalPageCount;
+    else
+        reloadPagePDF();
 });
 
 preBtn.addEventListener('click', function(){
     curent_page -= 1;
-    reloadPagePDF();
+    if(curent_page < 1)
+        curent_page = 1;
+    else{
+        reloadPagePDF();
+    }
 });
 
 // Bấm vào pdf để chèn chữ ký vào vị trí đã  chọn
