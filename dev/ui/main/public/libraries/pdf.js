@@ -64,8 +64,22 @@ async function reloadPagePDF() {
         canvasContext: ctx,
         viewport: newViewPort
     };
+
     domCurrentPage.innerText = curent_page;
     await page.render(renderContext).promise;
+    if(EMB_BUFFER[curent_page] && EMB_BUFFER[curent_page].length > 0){
+        console.log(EMB_BUFFER[curent_page]);
+        EMB_BUFFER[curent_page]?.forEach(signature => {
+            ctx.drawImage(
+                signatureImage,
+                signature.signatureX,
+                signature.signatureY,
+                SIZE_EMBED * ratioScale,
+                SIZE_EMBED * ratioScale
+            );
+        });
+    }
+
 }
 
 function drag(event) {
