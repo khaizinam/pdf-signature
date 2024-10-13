@@ -154,7 +154,7 @@ document.getElementById('save-pdf').addEventListener('click', async () => {
             // Draw each signature on the PDF page
             page.drawImage(embeddedSignature, {
                 x: signature.signatureX, // X position of the signature
-                y: page.getHeight() - signature.signatureY - (SIZE_EMBED / 2), // Y position, adjusted for PDF's coordinate system
+                y: page.getHeight() - signature.signatureY - (SIZE_EMBED), // Y position, adjusted for PDF's coordinate system
                 width: SIZE_EMBED,       // Signature width
                 height: SIZE_EMBED       // Signature height
             });
