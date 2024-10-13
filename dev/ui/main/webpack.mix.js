@@ -13,9 +13,10 @@ mix
     .copy(source + '/public/libraries', dist + '/libraries')
     .copy(source + '/public/images', dist + '/images')
 
-if (mix.inProduction()) {
-    mix
-        .copy(dist + '/css/style.css', source + '/public/css')
-        .copy(dist + '/js/script.js', source + '/public/js')
-        .copy(source + '/assets/fonts', dist + '/fonts')
-}
+// if (mix.inProduction()) {
+//     mix
+//         .copy(dist + '/css/style.css', source + '/public/css')
+//         .copy(dist + '/js/script.js', source + '/public/js')
+//         .copy(source + '/assets/fonts', dist + '/fonts')
+//         .copy(source + '/public/images', dist + '/images')
+// }
