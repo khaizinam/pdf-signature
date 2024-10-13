@@ -73,20 +73,23 @@ function drop(event) {
             signatureX = event.clientX - rect.left - (SIZE_EMBED / 2); // Calculate X position
             signatureY = event.clientY - rect.top - (SIZE_EMBED / 2); // Calculate Y position
             ctx.drawImage(signatureImage, signatureX, signatureY, SIZE_EMBED, SIZE_EMBED); // Adjust size as needed
-
-            if (!EMB_BUFFER[curent_page]) {
-                EMB_BUFFER[curent_page] = [];  // Initialize as an empty array if it doesn't exist
-            }
-
-            // Push the signature data for the current page
-            EMB_BUFFER[curent_page].push({
-                signatureX: signatureX, // X coordinate of the signature
-                signatureY: signatureY  // Y coordinate of the signature
-            });
+            addImage();
         };
-
-
     }
+}
+
+function addImage(){
+    if (!EMB_BUFFER[curent_page]) {
+        EMB_BUFFER[curent_page] = [];  // Initialize as an empty array if it doesn't exist
+    }
+
+    // Push the signature data for the current page
+    EMB_BUFFER[curent_page].push({
+        signatureX: signatureX, // X coordinate of the signature
+        signatureY: signatureY  // Y coordinate of the signature
+    });
+    console.log("EMB_BUFFER");
+    console.log(EMB_BUFFER);
 }
 
 pdfCanvas.addEventListener('dragover', allowDrop);
@@ -109,13 +112,15 @@ preBtn.addEventListener('click', function(){
 });
 
 // Bấm vào pdf để chèn chữ ký vào vị trí đã  chọn
-pdfCanvas.addEventListener('click', (event) => {
+pdfCanvas.addEventListener('click', async(event) => {
     if (signatureImage) {
         const rect = pdfCanvas.getBoundingClientRect();
         signatureX = event.clientX - rect.left - (SIZE_EMBED / 2);
         signatureY = event.clientY - rect.top  - (SIZE_EMBED / 2);;
         ctx.drawImage(signatureImage, signatureX, signatureY, SIZE_EMBED, SIZE_EMBED);
-        console.log("pdfCanvas addEventListener click");
+        addImage();
+        console.log("sign click on pdf");
+
     } else {
         alert("Vui lòng tải chữ ký trước khi ký!");
     }
