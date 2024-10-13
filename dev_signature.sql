@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : khaizinam-site
+ Source Server         : dev_signature_161
  Source Server Type    : MySQL
- Source Server Version : 100432
- Source Host           : 103.252.95.208:3306
- Source Schema         : khaizinam-site
+ Source Server Version : 100608
+ Source Host           : 192.168.10.161:3306
+ Source Schema         : dev_signature
 
  Target Server Type    : MySQL
- Target Server Version : 100432
+ Target Server Version : 100608
  File Encoding         : 65001
 
- Date: 07/10/2024 22:31:42
+ Date: 13/10/2024 15:35:24
 */
 
 SET NAMES utf8mb4;
@@ -31,12 +31,13 @@ CREATE TABLE `activations`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `activations_user_id_index`(`user_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of activations
 -- ----------------------------
 INSERT INTO `activations` VALUES (1, 1, 'o2KEgj2NA5FIiZVueYEBsSHxNVrBibks', 1, '2024-08-27 04:25:54', '2024-08-27 04:25:54', '2024-08-27 04:25:54');
+INSERT INTO `activations` VALUES (2, 2, '0CbveaBGpxdslJUmrV9R4fFu7eGBdDqK', 1, '2024-10-12 15:38:41', '2024-10-12 15:38:41', '2024-10-12 15:38:41');
 
 -- ----------------------------
 -- Table structure for admin_notifications
@@ -53,101 +54,10 @@ CREATE TABLE `admin_notifications`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   `permission` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of admin_notifications
--- ----------------------------
-
--- ----------------------------
--- Table structure for audit_histories
--- ----------------------------
-DROP TABLE IF EXISTS `audit_histories`;
-CREATE TABLE `audit_histories`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` bigint UNSIGNED NOT NULL,
-  `module` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `request` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-  `action` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `reference_user` bigint UNSIGNED NOT NULL,
-  `reference_id` bigint UNSIGNED NOT NULL,
-  `reference_name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `audit_histories_user_id_index`(`user_id` ASC) USING BTREE,
-  INDEX `audit_histories_module_index`(`module` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of audit_histories
--- ----------------------------
-INSERT INTO `audit_histories` VALUES (1, 1, 'to the system', NULL, 'logged in', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 0, 1, 'Marianna Conroy', 'info', '2024-10-07 13:56:17', '2024-10-07 13:56:17');
-INSERT INTO `audit_histories` VALUES (2, 1, 'menu', '{\"_method\":\"delete\"}', 'deleted', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 1, 'Main menu', 'danger', '2024-10-07 14:55:29', '2024-10-07 14:55:29');
-INSERT INTO `audit_histories` VALUES (3, 1, 'menu', '{\"_method\":\"delete\"}', 'deleted', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 2, 'Social', 'danger', '2024-10-07 14:55:32', '2024-10-07 14:55:32');
-INSERT INTO `audit_histories` VALUES (4, 1, 'menu', '{\"name\":\"Header menu\",\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'created', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 3, 'Header menu', 'info', '2024-10-07 14:55:44', '2024-10-07 14:55:44');
-INSERT INTO `audit_histories` VALUES (5, 1, 'menunode', '{\"data\":{\"menu_id\":\"3\",\"title\":\"Project\",\"url\":\"\\/\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"position\":\"2\"}}', 'created', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 10, 'Project', 'info', '2024-10-07 14:59:55', '2024-10-07 14:59:55');
-INSERT INTO `audit_histories` VALUES (6, 1, 'menunode', '{\"data\":{\"menu_id\":\"3\",\"title\":\"Documents\",\"url\":\"\\/documents\",\"icon_font\":null,\"css_class\":null,\"position\":\"3\"}}', 'created', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 11, 'Documents', 'info', '2024-10-07 15:04:21', '2024-10-07 15:04:21');
-INSERT INTO `audit_histories` VALUES (7, 1, 'menunode', '{\"data\":{\"menu_id\":\"3\",\"title\":\"Services\",\"url\":\"\\/services\",\"icon_font\":null,\"css_class\":null,\"position\":\"4\"}}', 'created', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 12, 'Services', 'info', '2024-10-07 15:04:45', '2024-10-07 15:04:45');
-INSERT INTO `audit_histories` VALUES (8, 1, 'menunode', '{\"data\":{\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"position\":\"5\"}}', 'created', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 13, 'Contact', 'info', '2024-10-07 15:04:57', '2024-10-07 15:04:57');
-INSERT INTO `audit_histories` VALUES (9, 1, 'menu_location', '{\"name\":\"Menu Header\",\"deleted_nodes\":null,\"menu_nodes\":\"[{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Project\\\",\\\"url\\\":\\\"\\/\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"position\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":10,\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Documents\\\",\\\"url\\\":\\\"\\/documents\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":1,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":11,\\\"target\\\":\\\"_self\\\",\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Services\\\",\\\"url\\\":\\\"\\/services\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":2,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":12,\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Contact\\\",\\\"url\\\":\\\"\\/contact\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":3,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":13,\\\"children\\\":[]}}]\",\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"locations\":[\"main-menu\"],\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'created', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 2, 'ID: 2', 'info', '2024-10-07 15:13:39', '2024-10-07 15:13:39');
-INSERT INTO `audit_histories` VALUES (10, 1, 'menu', '{\"name\":\"Menu Header\",\"deleted_nodes\":null,\"menu_nodes\":\"[{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Project\\\",\\\"url\\\":\\\"\\/\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"position\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":10,\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Documents\\\",\\\"url\\\":\\\"\\/documents\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":1,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":11,\\\"target\\\":\\\"_self\\\",\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Services\\\",\\\"url\\\":\\\"\\/services\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":2,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":12,\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Contact\\\",\\\"url\\\":\\\"\\/contact\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":3,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":13,\\\"children\\\":[]}}]\",\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"locations\":[\"main-menu\"],\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'updated', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 3, 'Menu Header', 'primary', '2024-10-07 15:13:39', '2024-10-07 15:13:39');
-INSERT INTO `audit_histories` VALUES (11, 1, 'menunode', '{\"name\":\"Menu Header\",\"deleted_nodes\":null,\"menu_nodes\":\"[{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Project\\\",\\\"url\\\":\\\"\\/\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"position\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":10,\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Documents\\\",\\\"url\\\":\\\"\\/documents\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":1,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":11,\\\"target\\\":\\\"_self\\\",\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Services\\\",\\\"url\\\":\\\"\\/services\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":2,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":12,\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Contact\\\",\\\"url\\\":\\\"\\/contact\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":3,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":13,\\\"children\\\":[]}}]\",\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"locations\":[\"main-menu\"],\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'updated', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 10, 'Project', 'primary', '2024-10-07 15:13:39', '2024-10-07 15:13:39');
-INSERT INTO `audit_histories` VALUES (12, 1, 'menunode', '{\"name\":\"Menu Header\",\"deleted_nodes\":null,\"menu_nodes\":\"[{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Project\\\",\\\"url\\\":\\\"\\/\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"position\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":10,\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Documents\\\",\\\"url\\\":\\\"\\/documents\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":1,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":11,\\\"target\\\":\\\"_self\\\",\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Services\\\",\\\"url\\\":\\\"\\/services\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":2,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":12,\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Contact\\\",\\\"url\\\":\\\"\\/contact\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":3,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":13,\\\"children\\\":[]}}]\",\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"locations\":[\"main-menu\"],\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'updated', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 11, 'Documents', 'primary', '2024-10-07 15:13:39', '2024-10-07 15:13:39');
-INSERT INTO `audit_histories` VALUES (13, 1, 'menunode', '{\"name\":\"Menu Header\",\"deleted_nodes\":null,\"menu_nodes\":\"[{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Project\\\",\\\"url\\\":\\\"\\/\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"position\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":10,\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Documents\\\",\\\"url\\\":\\\"\\/documents\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":1,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":11,\\\"target\\\":\\\"_self\\\",\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Services\\\",\\\"url\\\":\\\"\\/services\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":2,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":12,\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Contact\\\",\\\"url\\\":\\\"\\/contact\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":3,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":13,\\\"children\\\":[]}}]\",\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"locations\":[\"main-menu\"],\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'updated', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 12, 'Services', 'primary', '2024-10-07 15:13:39', '2024-10-07 15:13:39');
-INSERT INTO `audit_histories` VALUES (14, 1, 'menunode', '{\"name\":\"Menu Header\",\"deleted_nodes\":null,\"menu_nodes\":\"[{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Project\\\",\\\"url\\\":\\\"\\/\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"position\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":10,\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Documents\\\",\\\"url\\\":\\\"\\/documents\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":1,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":11,\\\"target\\\":\\\"_self\\\",\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Services\\\",\\\"url\\\":\\\"\\/services\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":2,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":12,\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"menu_id\\\":\\\"3\\\",\\\"title\\\":\\\"Contact\\\",\\\"url\\\":\\\"\\/contact\\\",\\\"icon_font\\\":\\\"\\\",\\\"css_class\\\":\\\"\\\",\\\"position\\\":3,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"id\\\":13,\\\"children\\\":[]}}]\",\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"locations\":[\"main-menu\"],\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'updated', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 13, 'Contact', 'primary', '2024-10-07 15:13:39', '2024-10-07 15:13:39');
-INSERT INTO `audit_histories` VALUES (15, 1, 'menu_location', '{\"name\":\"Menu Header\",\"deleted_nodes\":null,\"menu_nodes\":\"[{\\\"menuItem\\\":{\\\"id\\\":10,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":0,\\\"title\\\":\\\"Project\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":11,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/documents\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":1,\\\"title\\\":\\\"Documents\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":12,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/services\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":2,\\\"title\\\":\\\"Services\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":13,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/contact\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":3,\\\"title\\\":\\\"Contact\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}}]\",\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"locations\":[\"menu-header\"],\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'created', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 3, 'ID: 3', 'info', '2024-10-07 15:14:31', '2024-10-07 15:14:31');
-INSERT INTO `audit_histories` VALUES (16, 1, 'menu', '{\"name\":\"Menu Header\",\"deleted_nodes\":null,\"menu_nodes\":\"[{\\\"menuItem\\\":{\\\"id\\\":10,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":0,\\\"title\\\":\\\"Project\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":11,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/documents\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":1,\\\"title\\\":\\\"Documents\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":12,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/services\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":2,\\\"title\\\":\\\"Services\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":13,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/contact\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":3,\\\"title\\\":\\\"Contact\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}}]\",\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"locations\":[\"menu-header\"],\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'updated', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 3, 'Menu Header', 'primary', '2024-10-07 15:14:31', '2024-10-07 15:14:31');
-INSERT INTO `audit_histories` VALUES (17, 1, 'menunode', '{\"name\":\"Menu Header\",\"deleted_nodes\":null,\"menu_nodes\":\"[{\\\"menuItem\\\":{\\\"id\\\":10,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":0,\\\"title\\\":\\\"Project\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":11,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/documents\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":1,\\\"title\\\":\\\"Documents\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":12,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/services\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":2,\\\"title\\\":\\\"Services\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":13,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/contact\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":3,\\\"title\\\":\\\"Contact\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}}]\",\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"locations\":[\"menu-header\"],\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'updated', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 10, 'Project', 'primary', '2024-10-07 15:14:31', '2024-10-07 15:14:31');
-INSERT INTO `audit_histories` VALUES (18, 1, 'menunode', '{\"name\":\"Menu Header\",\"deleted_nodes\":null,\"menu_nodes\":\"[{\\\"menuItem\\\":{\\\"id\\\":10,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":0,\\\"title\\\":\\\"Project\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":11,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/documents\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":1,\\\"title\\\":\\\"Documents\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":12,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/services\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":2,\\\"title\\\":\\\"Services\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":13,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/contact\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":3,\\\"title\\\":\\\"Contact\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}}]\",\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"locations\":[\"menu-header\"],\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'updated', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 11, 'Documents', 'primary', '2024-10-07 15:14:31', '2024-10-07 15:14:31');
-INSERT INTO `audit_histories` VALUES (19, 1, 'menunode', '{\"name\":\"Menu Header\",\"deleted_nodes\":null,\"menu_nodes\":\"[{\\\"menuItem\\\":{\\\"id\\\":10,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":0,\\\"title\\\":\\\"Project\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":11,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/documents\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":1,\\\"title\\\":\\\"Documents\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":12,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/services\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":2,\\\"title\\\":\\\"Services\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":13,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/contact\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":3,\\\"title\\\":\\\"Contact\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}}]\",\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"locations\":[\"menu-header\"],\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'updated', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 12, 'Services', 'primary', '2024-10-07 15:14:31', '2024-10-07 15:14:31');
-INSERT INTO `audit_histories` VALUES (20, 1, 'menunode', '{\"name\":\"Menu Header\",\"deleted_nodes\":null,\"menu_nodes\":\"[{\\\"menuItem\\\":{\\\"id\\\":10,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":0,\\\"title\\\":\\\"Project\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":11,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/documents\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":1,\\\"title\\\":\\\"Documents\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":12,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/services\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":2,\\\"title\\\":\\\"Services\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}},{\\\"menuItem\\\":{\\\"id\\\":13,\\\"menu_id\\\":3,\\\"parent_id\\\":0,\\\"reference_id\\\":0,\\\"reference_type\\\":null,\\\"url\\\":\\\"\\/contact\\\",\\\"icon_font\\\":\\\"\\\",\\\"position\\\":3,\\\"title\\\":\\\"Contact\\\",\\\"css_class\\\":\\\"\\\",\\\"target\\\":\\\"_self\\\",\\\"has_child\\\":0,\\\"reference\\\":null,\\\"metadata\\\":[],\\\"children\\\":[]}}]\",\"menu_id\":\"3\",\"title\":\"Contact\",\"url\":\"\\/contact\",\"icon_font\":null,\"css_class\":null,\"target\":\"_self\",\"locations\":[\"menu-header\"],\"submitter\":\"apply\",\"language\":\"en_US\",\"status\":\"published\"}', 'updated', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '127.0.0.1', 1, 13, 'Contact', 'primary', '2024-10-07 15:14:31', '2024-10-07 15:14:31');
-
--- ----------------------------
--- Table structure for blocks
--- ----------------------------
-DROP TABLE IF EXISTS `blocks`;
-CREATE TABLE `blocks`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alias` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-  `status` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'published',
-  `user_id` bigint UNSIGNED NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `blocks_user_id_index`(`user_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of blocks
--- ----------------------------
-INSERT INTO `blocks` VALUES (1, 'Brennon Russel', 'brennon-russel', 'Error ullam eligendi quidem nisi quos.', 'Qui explicabo sint corrupti animi tenetur molestiae atque. Fugit porro mollitia ut cum incidunt dolore. Qui corporis eum dolore id quae ut natus. Sed autem qui ipsam ad alias vero ipsum. Explicabo a commodi placeat. Nihil quos distinctio reprehenderit ullam et aut. Velit cupiditate ipsum nam quas quia. Qui nostrum consequatur velit qui excepturi. Quia hic laborum ut. Dolor animi asperiores numquam amet ipsam a. Aliquam eos unde velit.', 'published', NULL, '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `blocks` VALUES (2, 'Luther Wisoky', 'luther-wisoky', 'Suscipit laboriosam et voluptates.', 'Eaque beatae quidem ut qui aliquid nam. Rerum explicabo eos consequatur nisi ut ex ullam. Saepe sapiente placeat voluptatem corporis fugiat ut sint ut. Sit dolore debitis in earum vero et. Temporibus aspernatur ducimus fugiat expedita tempora qui sapiente. Rerum perspiciatis reiciendis sed eius quo qui omnis eligendi. Ipsum mollitia sit totam dignissimos consequatur minus. Et quod dolor id deleniti blanditiis est omnis. Et fugiat voluptas excepturi minima.', 'published', NULL, '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `blocks` VALUES (3, 'Ms. Violet McClure', 'ms-violet-mcclure', 'Quibusdam officia hic a non.', 'Perferendis dolores exercitationem laudantium dignissimos blanditiis id. Magni et blanditiis placeat aut. Ratione mollitia eveniet officiis est eveniet odit quod. Rerum et quas animi quia nulla ut aut. Accusantium temporibus molestias labore magni laboriosam qui. Fugiat est voluptatem consequatur aut distinctio. Id consectetur voluptas fugit molestiae et veniam enim modi.', 'published', NULL, '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `blocks` VALUES (4, 'Dereck Bergnaum', 'dereck-bergnaum', 'Et omnis rerum nam. Quis ut est quas.', 'Est in ut iusto numquam voluptatem et. Et earum incidunt sed dolorum quos non qui similique. Harum corporis error commodi tenetur. Ad quia et temporibus eligendi cupiditate fugit iure sed. Et iure ipsum officiis dolores eum totam. Qui id exercitationem placeat inventore voluptas minus beatae. Quam porro neque voluptate est repellat qui odio. Veniam cum perferendis et voluptatibus in officiis iure.', 'published', NULL, '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `blocks` VALUES (5, 'Dr. Tre Stroman', 'dr-tre-stroman', 'Esse ut ipsam assumenda quae unde.', 'Ut dignissimos provident eius consequatur eveniet recusandae et. Provident deserunt libero odit dolorem doloribus et. Voluptatem nobis quisquam ex omnis veniam iusto. Voluptate reiciendis sapiente dignissimos omnis. Esse voluptas atque sint corrupti. Maiores velit eius id voluptatibus molestiae molestiae. Eos quae et facilis. Omnis rem quia consequatur quod facilis quia et.', 'published', NULL, '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-
--- ----------------------------
--- Table structure for blocks_translations
--- ----------------------------
-DROP TABLE IF EXISTS `blocks_translations`;
-CREATE TABLE `blocks_translations`  (
-  `lang_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `blocks_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `description` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-  PRIMARY KEY (`lang_code`, `blocks_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of blocks_translations
 -- ----------------------------
 
 -- ----------------------------
@@ -172,7 +82,7 @@ CREATE TABLE `categories`  (
   INDEX `categories_parent_id_index`(`parent_id` ASC) USING BTREE,
   INDEX `categories_status_index`(`status` ASC) USING BTREE,
   INDEX `categories_created_at_index`(`created_at` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of categories
@@ -196,133 +106,38 @@ CREATE TABLE `categories_translations`  (
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `description` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`lang_code`, `categories_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of categories_translations
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for contact_custom_field_options
+-- Table structure for contract_managements
 -- ----------------------------
-DROP TABLE IF EXISTS `contact_custom_field_options`;
-CREATE TABLE `contact_custom_field_options`  (
+DROP TABLE IF EXISTS `contract_managements`;
+CREATE TABLE `contract_managements`  (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `custom_field_id` bigint UNSIGNED NOT NULL,
-  `label` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `value` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `order` int NOT NULL DEFAULT 999,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'Link file pdf',
+  `description` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'Mô tả',
+  `user_id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'Người đăng',
+  `status` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'published',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of contact_custom_field_options
+-- Records of contract_managements
 -- ----------------------------
-
--- ----------------------------
--- Table structure for contact_custom_field_options_translations
--- ----------------------------
-DROP TABLE IF EXISTS `contact_custom_field_options_translations`;
-CREATE TABLE `contact_custom_field_options_translations`  (
-  `contact_custom_field_options_id` bigint UNSIGNED NOT NULL,
-  `lang_code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `label` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `value` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`lang_code`, `contact_custom_field_options_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of contact_custom_field_options_translations
--- ----------------------------
-
--- ----------------------------
--- Table structure for contact_custom_fields
--- ----------------------------
-DROP TABLE IF EXISTS `contact_custom_fields`;
-CREATE TABLE `contact_custom_fields`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `required` tinyint(1) NOT NULL DEFAULT 0,
-  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `placeholder` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `order` int NOT NULL DEFAULT 999,
-  `status` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'published',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of contact_custom_fields
--- ----------------------------
-
--- ----------------------------
--- Table structure for contact_custom_fields_translations
--- ----------------------------
-DROP TABLE IF EXISTS `contact_custom_fields_translations`;
-CREATE TABLE `contact_custom_fields_translations`  (
-  `contact_custom_fields_id` bigint UNSIGNED NOT NULL,
-  `lang_code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `placeholder` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`lang_code`, `contact_custom_fields_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of contact_custom_fields_translations
--- ----------------------------
-
--- ----------------------------
--- Table structure for contact_replies
--- ----------------------------
-DROP TABLE IF EXISTS `contact_replies`;
-CREATE TABLE `contact_replies`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `message` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `contact_id` bigint UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of contact_replies
--- ----------------------------
-
--- ----------------------------
--- Table structure for contacts
--- ----------------------------
-DROP TABLE IF EXISTS `contacts`;
-CREATE TABLE `contacts`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `phone` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `address` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `subject` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `custom_fields` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-  `status` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'unread',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of contacts
--- ----------------------------
-INSERT INTO `contacts` VALUES (1, 'Ewell Langworth', 'bswift@example.org', '+18187744560', '99629 Molly Islands Apt. 184\nMaximoview, NV 66419-2312', 'Dolor corrupti reprehenderit laudantium.', 'Eum nam corrupti ducimus corporis harum ipsam. Deleniti similique dicta accusantium ipsa voluptatem voluptatibus. Alias atque itaque dolorem reiciendis quam et. Repellendus adipisci accusamus mollitia omnis qui. Enim ut ratione deserunt recusandae eum inventore. Dolores quia blanditiis aliquam architecto veritatis consequatur. Harum quae aut accusamus nobis. Impedit debitis qui ut ut nemo. Maxime labore repudiandae labore eius magni.', NULL, 'unread', '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `contacts` VALUES (2, 'Prof. Amy Fisher III', 'hartmann.kenny@example.org', '470-904-2389', '4067 Wisoky Plains Suite 893\nHallieton, NH 62796-9451', 'Sunt aliquam minus sequi.', 'Aperiam velit nobis nesciunt id dolor quia. Eveniet aut esse nihil eos incidunt sapiente sunt. Dolorem error voluptatem sequi tenetur assumenda. Dolores sapiente nulla soluta dolor velit. Quis numquam occaecati rerum minima ut. Sapiente non nemo aspernatur numquam aut. Magnam atque nihil iusto incidunt. Ea velit non ipsa pariatur exercitationem. Deleniti quam sint ipsam consequatur voluptate.', NULL, 'read', '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `contacts` VALUES (3, 'Haylee Goyette', 'cummings.payton@example.org', '947.616.2226', '36766 Angel Springs\nPort Angel, FL 54664', 'Alias ipsam ea et vitae.', 'Quasi accusantium iure blanditiis vel. Laudantium totam rem qui fugiat qui alias et voluptatibus. Dignissimos ipsum aspernatur culpa numquam non nostrum et qui. Deserunt porro iure autem pariatur rerum dolorem nihil. Occaecati quisquam repellat similique perferendis possimus natus. Quae accusantium occaecati voluptatem molestiae. Et inventore qui nulla ut doloremque nostrum ut. Quidem dolorem quibusdam a.', NULL, 'unread', '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `contacts` VALUES (4, 'Dayton Franecki', 'ward.dante@example.org', '(930) 770-9399', '91672 Laurel Mountain\nFelicityview, MI 18558-1456', 'Dolor aut consectetur fugiat quibusdam et et qui.', 'Dignissimos perspiciatis vel autem earum officiis quod molestiae id. Ut dolor iste aliquam quibusdam. Voluptatem qui porro laborum quos at fuga. Odit autem alias nesciunt dicta quo. Quaerat fuga qui pariatur rem quia. Veniam aperiam sint et non voluptas fugiat id. Quis ad odio dicta et quis et. Quaerat nobis ut non harum dolores molestias beatae. Minima ratione occaecati sapiente perferendis molestias tempora.', NULL, 'unread', '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `contacts` VALUES (5, 'Miss Corine Rice', 'fay.skyla@example.com', '(573) 999-2903', '76923 Otho Loaf\nLake Avisside, NC 55443', 'Ad labore natus illo cum et illo.', 'Voluptatem saepe culpa voluptatem. Animi mollitia voluptatem omnis repellendus molestiae deleniti et rerum. Repudiandae et esse nostrum. Nemo doloribus et consequatur reprehenderit omnis voluptatibus itaque. Voluptatem expedita tempora ad eveniet cumque eum. Voluptatem ut omnis et.', NULL, 'read', '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `contacts` VALUES (6, 'Dr. Rosario Smith Sr.', 'marge87@example.org', '+1-919-370-1893', '793 Kenny Springs\nWest Shannaburgh, KY 92176-1065', 'Voluptas omnis voluptate et officiis.', 'Recusandae ut voluptates voluptate hic rem accusamus. Alias cumque harum aut velit eos nihil. Voluptatem quis voluptas quia unde quod. A omnis tenetur magni molestias odio. Vitae quia quis voluptas qui esse. Non autem et sapiente rerum deleniti consequatur dolores. Suscipit ut ipsum voluptates vel distinctio nisi. Quo ipsam earum fugiat quae et delectus. Est ut provident et.', NULL, 'unread', '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `contacts` VALUES (7, 'Marlin Lesch', 'hauck.joan@example.org', '+1-908-376-7271', '417 Ubaldo Squares Suite 357\nWest Jordanshire, WY 15262', 'Ipsam mollitia ex temporibus soluta dicta.', 'Debitis harum quas sequi expedita mollitia laboriosam. Earum commodi nobis nemo voluptatem. Aut error ut exercitationem nihil qui sequi. Omnis nam et aut doloremque rerum quos. In ut ipsam aut omnis. Ratione laborum id minus. Expedita aliquam et dolorem illum dolores commodi. Quam voluptatum rerum in nesciunt similique. Et vitae dolore eaque sed aut quis dicta. Quis quia est blanditiis error sapiente optio necessitatibus minus. Ut sint velit eos rerum dignissimos et id.', NULL, 'read', '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `contacts` VALUES (8, 'Rusty Baumbach', 'elissa39@example.org', '+1-283-222-8951', '11060 Schowalter Shoals\nTraceychester, HI 39473', 'At aut id harum et alias aut.', 'Odio minima magni dolorem beatae rerum consequatur. Delectus aut dolorum provident ex voluptatem officia. Nesciunt placeat tempore et sint. Laudantium fuga non quod. Molestiae est culpa et non quia quia. Aut rerum corporis quia veritatis dolorum quaerat error. Quia ut recusandae culpa provident fugiat. Id aperiam repudiandae non. Inventore at nemo ratione optio fugiat ipsam est. Id id corrupti voluptate qui consectetur a quis. Qui aut ullam quidem eum. Distinctio tenetur labore sunt.', NULL, 'read', '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `contacts` VALUES (9, 'Prof. Tevin Friesen', 'beahan.kristian@example.org', '(779) 728-2485', '3905 Vandervort Branch Apt. 265\nLake Cleoton, WV 63181-9312', 'Maiores eum autem pariatur occaecati sit.', 'Explicabo recusandae illo mollitia quod. Aut eius nihil repellat. Debitis dolor vel non velit totam esse. Cum incidunt voluptatem assumenda explicabo dolorum laborum. Et temporibus iure reprehenderit ut molestiae sit quos maiores. Debitis omnis sapiente officiis sunt. Voluptate omnis minima ab laboriosam voluptas et ab. Aspernatur non non aut nostrum et illum quia. Occaecati suscipit fugit facere quibusdam voluptas ab. Eum fugit quaerat qui qui ea et. Optio sint et perspiciatis illo quis.', NULL, 'unread', '2024-08-27 04:26:01', '2024-08-27 04:26:01');
-INSERT INTO `contacts` VALUES (10, 'Ms. Madie Jakubowski I', 'hettinger.lurline@example.com', '+1-321-291-2800', '1869 Donnelly Isle Apt. 336\nStefanhaven, AR 00704-3837', 'Saepe dolor ad qui architecto recusandae.', 'Non sapiente maiores tenetur sequi. Nam blanditiis praesentium quam nulla. Est consequatur ipsum ipsa facilis. Labore labore illum eveniet dolores pariatur consequatur deserunt. Enim omnis porro quam ut. Numquam consequatur tenetur sint optio tempore exercitationem nemo. Sint eveniet velit harum magni.', NULL, 'read', '2024-08-27 04:26:01', '2024-08-27 04:26:01');
+INSERT INTO `contract_managements` VALUES (1, 'Hợp đồng tháng 10 2', 'ae21bfe63f107d5dc4e8861380409aaf-1.pdf', NULL, NULL, 'published', '2024-10-11 19:23:55', '2024-10-12 16:49:25');
+INSERT INTO `contract_managements` VALUES (2, 'Ánh sáng', 'ae21bfe63f107d5dc4e8861380409aaf-2.pdf', NULL, NULL, 'published', '2024-10-12 02:57:52', '2024-10-12 05:57:34');
+INSERT INTO `contract_managements` VALUES (3, 'Hop dong 1', 'co3335-co3345-internship-report-copy-1.pdf', NULL, NULL, 'published', '2024-10-12 06:08:28', '2024-10-13 15:10:56');
+INSERT INTO `contract_managements` VALUES (4, 'Demo', 'day-la-file-mau-pdf.pdf', NULL, NULL, 'published', '2024-10-13 14:41:47', '2024-10-13 14:41:47');
+INSERT INTO `contract_managements` VALUES (5, 'Demo2', '10-mau-hop-dong-mcac.pdf', NULL, NULL, 'published', '2024-10-13 14:54:49', '2024-10-13 14:54:49');
+INSERT INTO `contract_managements` VALUES (6, 'tádasd', '10-mau-hop-dong-mcac.pdf', NULL, NULL, 'published', '2024-10-13 15:02:35', '2024-10-13 15:02:35');
+INSERT INTO `contract_managements` VALUES (7, '10 Mẫu hợp đồng Cmac', '10-mau-hop-dong-mcac-1.pdf', NULL, NULL, 'published', '2024-10-13 15:04:22', '2024-10-13 15:04:22');
 
 -- ----------------------------
 -- Table structure for custom_fields
@@ -338,7 +153,7 @@ CREATE TABLE `custom_fields`  (
   `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `custom_fields_field_item_id_index`(`field_item_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of custom_fields
@@ -353,7 +168,7 @@ CREATE TABLE `custom_fields_translations`  (
   `custom_fields_id` bigint UNSIGNED NOT NULL,
   `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   PRIMARY KEY (`lang_code`, `custom_fields_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of custom_fields_translations
@@ -375,7 +190,7 @@ CREATE TABLE `dashboard_widget_settings`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `dashboard_widget_settings_user_id_index`(`user_id` ASC) USING BTREE,
   INDEX `dashboard_widget_settings_widget_id_index`(`widget_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of dashboard_widget_settings
@@ -391,7 +206,7 @@ CREATE TABLE `dashboard_widgets`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of dashboard_widgets
@@ -418,7 +233,7 @@ CREATE TABLE `failed_jobs`  (
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `failed_jobs_uuid_unique`(`uuid` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of failed_jobs
@@ -441,7 +256,7 @@ CREATE TABLE `field_groups`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `field_groups_created_by_index`(`created_by` ASC) USING BTREE,
   INDEX `field_groups_updated_by_index`(`updated_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of field_groups
@@ -464,7 +279,7 @@ CREATE TABLE `field_items`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `field_items_field_group_id_index`(`field_group_id` ASC) USING BTREE,
   INDEX `field_items_parent_id_index`(`parent_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of field_items
@@ -487,7 +302,7 @@ CREATE TABLE `galleries`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `galleries_user_id_index`(`user_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of galleries
@@ -518,7 +333,7 @@ CREATE TABLE `galleries_translations`  (
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   PRIMARY KEY (`lang_code`, `galleries_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of galleries_translations
@@ -537,7 +352,7 @@ CREATE TABLE `gallery_meta`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `gallery_meta_reference_id_index`(`reference_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of gallery_meta
@@ -567,7 +382,7 @@ CREATE TABLE `gallery_meta_translations`  (
   `gallery_meta_id` bigint UNSIGNED NOT NULL,
   `images` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   PRIMARY KEY (`lang_code`, `gallery_meta_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of gallery_meta_translations
@@ -587,7 +402,7 @@ CREATE TABLE `jobs`  (
   `created_at` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `jobs_queue_index`(`queue` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of jobs
@@ -608,7 +423,7 @@ CREATE TABLE `language_meta`  (
   INDEX `meta_code_index`(`lang_meta_code` ASC) USING BTREE,
   INDEX `meta_origin_index`(`lang_meta_origin` ASC) USING BTREE,
   INDEX `meta_reference_type_index`(`reference_type` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of language_meta
@@ -637,12 +452,13 @@ CREATE TABLE `languages`  (
   INDEX `lang_locale_index`(`lang_locale` ASC) USING BTREE,
   INDEX `lang_code_index`(`lang_code` ASC) USING BTREE,
   INDEX `lang_is_default_index`(`lang_is_default` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of languages
 -- ----------------------------
-INSERT INTO `languages` VALUES (1, 'English', 'en', 'en_US', 'us', 1, 0, 0);
+INSERT INTO `languages` VALUES (1, 'English', 'en', 'en_US', 'us', 0, 0, 0);
+INSERT INTO `languages` VALUES (2, 'Tiếng Việt', 'vi', 'vi', 'vn', 1, 0, 0);
 
 -- ----------------------------
 -- Table structure for media_files
@@ -665,7 +481,7 @@ CREATE TABLE `media_files`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `media_files_user_id_index`(`user_id` ASC) USING BTREE,
   INDEX `media_files_index`(`folder_id` ASC, `user_id` ASC, `created_at` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of media_files
@@ -704,6 +520,19 @@ INSERT INTO `media_files` VALUES (31, 0, '9', '9', 2, 'image/jpeg', 9803, 'membe
 INSERT INTO `media_files` VALUES (32, 0, 'favicon', 'favicon', 3, 'image/png', 1122, 'general/favicon.png', '[]', '2024-08-27 04:26:01', '2024-08-27 04:26:01', NULL, 'public');
 INSERT INTO `media_files` VALUES (33, 0, 'logo', 'logo', 3, 'image/png', 55709, 'general/logo.png', '[]', '2024-08-27 04:26:01', '2024-08-27 04:26:01', NULL, 'public');
 INSERT INTO `media_files` VALUES (34, 0, 'preloader', 'preloader', 3, 'image/gif', 189758, 'general/preloader.gif', '[]', '2024-08-27 04:26:02', '2024-08-27 04:26:02', NULL, 'public');
+INSERT INTO `media_files` VALUES (35, 1, 'Screenshot from 2024-10-11 18-00-07', 'Screenshot from 2024-10-11 18-00-07', 0, 'image/png', 46075, 'screenshot-from-2024-10-11-18-00-07.png', '[]', '2024-10-11 17:16:31', '2024-10-11 17:16:31', NULL, 'public');
+INSERT INTO `media_files` VALUES (36, 1, 'ae21bfe63f107d5dc4e8861380409aaf', 'ae21bfe63f107d5dc4e8861380409aaf', 0, 'application/pdf', 86077, 'ae21bfe63f107d5dc4e8861380409aaf.pdf', '[]', '2024-10-11 17:53:08', '2024-10-11 17:53:08', NULL, 'public');
+INSERT INTO `media_files` VALUES (37, 1, 'NGUYEN HUU KHAI CV', 'NGUYEN HUU KHAI CV', 0, 'application/pdf', 59190, 'nguyen-huu-khai-cv.pdf', '[]', '2024-10-12 05:51:41', '2024-10-12 05:51:41', NULL, 'public');
+INSERT INTO `media_files` VALUES (38, 1, 'ae21bfe63f107d5dc4e8861380409aaf-1', 'ae21bfe63f107d5dc4e8861380409aaf-1', 0, 'application/pdf', 86077, 'ae21bfe63f107d5dc4e8861380409aaf-1.pdf', '[]', '2024-10-12 05:55:09', '2024-10-12 05:55:09', NULL, 'public');
+INSERT INTO `media_files` VALUES (39, 1, 'ae21bfe63f107d5dc4e8861380409aaf-2', 'ae21bfe63f107d5dc4e8861380409aaf-2', 0, 'application/pdf', 86077, 'ae21bfe63f107d5dc4e8861380409aaf-2.pdf', '[]', '2024-10-12 05:57:28', '2024-10-12 05:57:28', NULL, 'public');
+INSERT INTO `media_files` VALUES (40, 1, 'ae21bfe63f107d5dc4e8861380409aaf-3', 'ae21bfe63f107d5dc4e8861380409aaf-3', 0, 'application/pdf', 86077, 'ae21bfe63f107d5dc4e8861380409aaf-3.pdf', '[]', '2024-10-12 06:08:19', '2024-10-12 06:08:19', NULL, 'public');
+INSERT INTO `media_files` VALUES (41, 2, 'ae21bfe63f107d5dc4e8861380409aaf-4', 'ae21bfe63f107d5dc4e8861380409aaf-4', 0, 'application/pdf', 86077, 'ae21bfe63f107d5dc4e8861380409aaf-4.pdf', '[]', '2024-10-12 15:39:59', '2024-10-12 15:39:59', NULL, 'public');
+INSERT INTO `media_files` VALUES (42, 1, '_CO3335_CO3345__INTERNSHIP_REPORT__Copy_', '_CO3335_CO3345__INTERNSHIP_REPORT__Copy_', 0, 'application/pdf', 1043785, 'co3335-co3345-internship-report-copy.pdf', '[]', '2024-10-13 00:35:11', '2024-10-13 00:35:11', NULL, 'public');
+INSERT INTO `media_files` VALUES (43, 1, '_CO3335_CO3345__INTERNSHIP_REPORT__Copy_-1', '_CO3335_CO3345__INTERNSHIP_REPORT__Copy_-1', 0, 'application/pdf', 1043785, 'co3335-co3345-internship-report-copy-1.pdf', '[]', '2024-10-13 01:33:08', '2024-10-13 01:33:08', NULL, 'public');
+INSERT INTO `media_files` VALUES (44, 2, 'DAY-LA-FILE-MAU-PDF', 'DAY-LA-FILE-MAU-PDF', 0, 'application/pdf', 24395, 'day-la-file-mau-pdf.pdf', '[]', '2024-10-13 14:41:38', '2024-10-13 14:41:38', NULL, 'public');
+INSERT INTO `media_files` VALUES (45, 2, '10 MAU HOP DONG MCAC', '10 MAU HOP DONG MCAC', 0, 'application/pdf', 1653732, '10-mau-hop-dong-mcac.pdf', '[]', '2024-10-13 14:54:37', '2024-10-13 14:54:37', NULL, 'public');
+INSERT INTO `media_files` VALUES (46, 1, '10-MAU-HOP-DONG-MCAC', '10-MAU-HOP-DONG-MCAC', 0, 'application/pdf', 1653732, '10-mau-hop-dong-mcac.pdf', '[]', '2024-10-13 15:02:31', '2024-10-13 15:02:31', NULL, 'public');
+INSERT INTO `media_files` VALUES (47, 2, '10-MAU-HOP-DONG-MCAC-1', '10-MAU-HOP-DONG-MCAC-1', 0, 'application/pdf', 1653732, '10-mau-hop-dong-mcac-1.pdf', '[]', '2024-10-13 15:03:56', '2024-10-13 15:03:56', NULL, 'public');
 
 -- ----------------------------
 -- Table structure for media_folders
@@ -722,7 +551,7 @@ CREATE TABLE `media_folders`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `media_folders_user_id_index`(`user_id` ASC) USING BTREE,
   INDEX `media_folders_index`(`parent_id` ASC, `user_id` ASC, `created_at` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of media_folders
@@ -744,7 +573,7 @@ CREATE TABLE `media_settings`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of media_settings
@@ -766,7 +595,7 @@ CREATE TABLE `member_activity_logs`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `member_activity_logs_member_id_index`(`member_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_activity_logs
@@ -782,7 +611,7 @@ CREATE TABLE `member_password_resets`  (
   `created_at` timestamp NULL DEFAULT NULL,
   INDEX `member_password_resets_email_index`(`email` ASC) USING BTREE,
   INDEX `member_password_resets_token_index`(`token` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_password_resets
@@ -811,7 +640,7 @@ CREATE TABLE `members`  (
   `status` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'published',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `members_email_unique`(`email` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of members
@@ -840,7 +669,7 @@ CREATE TABLE `menu_locations`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `menu_locations_menu_id_created_at_index`(`menu_id` ASC, `created_at` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menu_locations
@@ -871,7 +700,7 @@ CREATE TABLE `menu_nodes`  (
   INDEX `menu_nodes_parent_id_index`(`parent_id` ASC) USING BTREE,
   INDEX `reference_id`(`reference_id` ASC) USING BTREE,
   INDEX `reference_type`(`reference_type` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menu_nodes
@@ -894,7 +723,7 @@ CREATE TABLE `menus`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `menus_slug_unique`(`slug` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menus
@@ -915,11 +744,12 @@ CREATE TABLE `meta_boxes`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `meta_boxes_reference_id_index`(`reference_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of meta_boxes
 -- ----------------------------
+INSERT INTO `meta_boxes` VALUES (1, 'seo_meta', '[{\"index\":\"index\"}]', 2, 'Dev\\Page\\Models\\Page', '2024-10-11 15:42:19', '2024-10-11 15:42:19');
 
 -- ----------------------------
 -- Table structure for migrations
@@ -930,7 +760,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 70 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 79 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of migrations
@@ -970,22 +800,12 @@ INSERT INTO `migrations` VALUES (32, '2024_04_04_110758_update_value_column_in_u
 INSERT INTO `migrations` VALUES (33, '2024_05_12_091229_add_column_visibility_to_table_media_files', 1);
 INSERT INTO `migrations` VALUES (34, '2024_07_07_091316_fix_column_url_in_menu_nodes_table', 1);
 INSERT INTO `migrations` VALUES (35, '2024_07_12_100000_change_random_hash_for_media', 1);
-INSERT INTO `migrations` VALUES (36, '2024_04_27_100730_improve_analytics_setting', 2);
-INSERT INTO `migrations` VALUES (37, '2015_06_29_025744_create_audit_history', 3);
-INSERT INTO `migrations` VALUES (38, '2023_11_14_033417_change_request_column_in_table_audit_histories', 3);
-INSERT INTO `migrations` VALUES (39, '2017_02_13_034601_create_blocks_table', 4);
-INSERT INTO `migrations` VALUES (40, '2021_12_03_081327_create_blocks_translations', 4);
 INSERT INTO `migrations` VALUES (41, '2015_06_18_033822_create_blog_table', 5);
 INSERT INTO `migrations` VALUES (42, '2021_02_16_092633_remove_default_value_for_author_type', 5);
 INSERT INTO `migrations` VALUES (43, '2021_12_03_030600_create_blog_translations', 5);
 INSERT INTO `migrations` VALUES (44, '2022_04_19_113923_add_index_to_table_posts', 5);
 INSERT INTO `migrations` VALUES (45, '2023_08_29_074620_make_column_author_id_nullable', 5);
 INSERT INTO `migrations` VALUES (46, '2024_07_30_091615_fix_order_column_in_categories_table', 5);
-INSERT INTO `migrations` VALUES (47, '2016_06_17_091537_create_contacts_table', 6);
-INSERT INTO `migrations` VALUES (48, '2023_11_10_080225_migrate_contact_blacklist_email_domains_to_core', 6);
-INSERT INTO `migrations` VALUES (49, '2024_03_20_080001_migrate_change_attribute_email_to_nullable_form_contacts_table', 6);
-INSERT INTO `migrations` VALUES (50, '2024_03_25_000001_update_captcha_settings_for_contact', 6);
-INSERT INTO `migrations` VALUES (51, '2024_04_19_063914_create_custom_fields_table', 6);
 INSERT INTO `migrations` VALUES (52, '2017_03_27_150646_re_create_custom_field_tables', 7);
 INSERT INTO `migrations` VALUES (53, '2022_04_30_030807_table_custom_fields_translation_table', 7);
 INSERT INTO `migrations` VALUES (54, '2016_10_13_150201_create_galleries_table', 8);
@@ -1003,7 +823,7 @@ INSERT INTO `migrations` VALUES (65, '2024_03_25_000001_update_captcha_settings'
 INSERT INTO `migrations` VALUES (66, '2016_05_28_112028_create_system_request_logs_table', 12);
 INSERT INTO `migrations` VALUES (67, '2016_10_07_193005_create_translations_table', 13);
 INSERT INTO `migrations` VALUES (68, '2023_12_12_105220_drop_translations_table', 13);
-INSERT INTO `migrations` VALUES (69, '2024_10_07_145211_projects_create_projects_table', 14);
+INSERT INTO `migrations` VALUES (78, '2024_10_11_160046_contract_management_create_contract_management_table', 17);
 
 -- ----------------------------
 -- Table structure for pages
@@ -1022,13 +842,13 @@ CREATE TABLE `pages`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `pages_user_id_index`(`user_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pages
 -- ----------------------------
 INSERT INTO `pages` VALUES (1, 'Homepage', '<div>[featured-posts][/featured-posts]</div><div>[recent-posts title=\"What\'s new?\"][/recent-posts]</div><div>[featured-categories-posts title=\"Best for you\" category_id=\"\" enable_lazy_loading=\"yes\"][/featured-categories-posts]</div><div>[all-galleries limit=\"8\" title=\"Galleries\" enable_lazy_loading=\"yes\"][/all-galleries]</div>', 1, NULL, 'no-sidebar', NULL, 'published', '2024-08-27 04:25:54', '2024-08-27 04:25:54');
-INSERT INTO `pages` VALUES (2, 'Blog', '---', 1, NULL, NULL, NULL, 'published', '2024-08-27 04:25:54', '2024-08-27 04:25:54');
+INSERT INTO `pages` VALUES (2, 'Hợp đồng', '<p>---</p>', 1, NULL, 'contract', '', 'published', '2024-08-27 04:25:54', '2024-10-11 15:49:18');
 INSERT INTO `pages` VALUES (3, 'Contact', '<p>Address: North Link Building, 10 Admiralty Street, 757695 Singapore</p><p>Hotline: 18006268</p><p>Email: contact@cms.fsofts.com</p><p>[google-map]North Link Building, 10 Admiralty Street, 757695 Singapore[/google-map]</p><p>For the fastest reply, please use the contact form below.</p><p>[contact-form][/contact-form]</p>', 1, NULL, NULL, NULL, 'published', '2024-08-27 04:25:54', '2024-08-27 04:25:54');
 INSERT INTO `pages` VALUES (4, 'Cookie Policy', '<h3>EU Cookie Consent</h3><p>To use this website we are using Cookies and collecting some Data. To be compliant with the EU GDPR we give you to choose if you allow us to use certain Cookies and to collect some Data.</p><h4>Essential Data</h4><p>The Essential Data is needed to run the Site you are visiting technically. You can not deactivate them.</p><p>- Session Cookie: PHP uses a Cookie to identify user sessions. Without this Cookie the Website is not working.</p><p>- XSRF-Token Cookie: Laravel automatically generates a CSRF \"token\" for each active user session managed by the application. This token is used to verify that the authenticated user is the one actually making the requests to the application.</p>', 1, NULL, NULL, NULL, 'published', '2024-08-27 04:25:54', '2024-08-27 04:25:54');
 INSERT INTO `pages` VALUES (5, 'Galleries', '<div>[gallery title=\"Galleries\" enable_lazy_loading=\"yes\"][/gallery]</div>', 1, NULL, NULL, NULL, 'published', '2024-08-27 04:25:54', '2024-08-27 04:25:54');
@@ -1044,7 +864,7 @@ CREATE TABLE `pages_translations`  (
   `description` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   PRIMARY KEY (`lang_code`, `pages_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pages_translations
@@ -1059,7 +879,7 @@ CREATE TABLE `password_reset_tokens`  (
   `token` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`email`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of password_reset_tokens
@@ -1083,7 +903,7 @@ CREATE TABLE `personal_access_tokens`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `personal_access_tokens_token_unique`(`token` ASC) USING BTREE,
   INDEX `personal_access_tokens_tokenable_type_tokenable_id_index`(`tokenable_type` ASC, `tokenable_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of personal_access_tokens
@@ -1098,7 +918,7 @@ CREATE TABLE `post_categories`  (
   `post_id` bigint UNSIGNED NOT NULL,
   INDEX `post_categories_category_id_index`(`category_id` ASC) USING BTREE,
   INDEX `post_categories_post_id_index`(`post_id` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of post_categories
@@ -1153,7 +973,7 @@ CREATE TABLE `post_tags`  (
   `post_id` bigint UNSIGNED NOT NULL,
   INDEX `post_tags_tag_id_index`(`tag_id` ASC) USING BTREE,
   INDEX `post_tags_post_id_index`(`post_id` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of post_tags
@@ -1231,7 +1051,7 @@ CREATE TABLE `posts`  (
   INDEX `posts_author_id_index`(`author_id` ASC) USING BTREE,
   INDEX `posts_author_type_index`(`author_type` ASC) USING BTREE,
   INDEX `posts_created_at_index`(`created_at` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of posts
@@ -1268,7 +1088,7 @@ CREATE TABLE `posts_translations`  (
   `description` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   PRIMARY KEY (`lang_code`, `posts_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of posts_translations
@@ -1285,7 +1105,7 @@ CREATE TABLE `projects`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of projects
@@ -1300,7 +1120,7 @@ CREATE TABLE `projects_translations`  (
   `projects_id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`lang_code`, `projects_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of projects_translations
@@ -1320,7 +1140,7 @@ CREATE TABLE `request_logs`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 177 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of request_logs
@@ -1331,6 +1151,176 @@ INSERT INTO `request_logs` VALUES (3, 404, 'https://my.khaizinam.code/asset/imag
 INSERT INTO `request_logs` VALUES (4, 404, 'https://my.khaizinam.code/asset/images/projects/id-vnea.jpg', 8, NULL, NULL, '2024-10-07 13:57:01', '2024-10-07 15:28:05');
 INSERT INTO `request_logs` VALUES (5, 404, 'https://my.khaizinam.code/asset/images/projects/usedcar.jpg', 8, NULL, NULL, '2024-10-07 13:57:01', '2024-10-07 15:28:04');
 INSERT INTO `request_logs` VALUES (6, 404, 'https://my.khaizinam.code/asset/images/projects/thaco-tai.jpg', 8, NULL, NULL, '2024-10-07 13:57:01', '2024-10-07 15:28:05');
+INSERT INTO `request_logs` VALUES (7, 404, 'http://127.0.0.1:8000/asset/images/projects/new-carnival.jpg', 2, NULL, NULL, '2024-10-11 15:26:07', '2024-10-11 15:34:34');
+INSERT INTO `request_logs` VALUES (8, 404, 'http://127.0.0.1:8000/asset/images/projects/lagoona.jpg', 2, NULL, NULL, '2024-10-11 15:26:08', '2024-10-11 15:34:35');
+INSERT INTO `request_logs` VALUES (9, 404, 'http://127.0.0.1:8000/asset/images/projects/mitsuheavy.jpg', 2, NULL, NULL, '2024-10-11 15:26:08', '2024-10-11 15:34:41');
+INSERT INTO `request_logs` VALUES (10, 404, 'http://127.0.0.1:8000/asset/images/projects/usedcar.jpg', 2, NULL, NULL, '2024-10-11 15:26:09', '2024-10-11 15:34:43');
+INSERT INTO `request_logs` VALUES (11, 404, 'http://127.0.0.1:8000/asset/images/projects/id-vnea.jpg', 2, NULL, NULL, '2024-10-11 15:26:09', '2024-10-11 15:34:44');
+INSERT INTO `request_logs` VALUES (12, 404, 'http://127.0.0.1:8000/asset/images/projects/thaco-tai.jpg', 2, NULL, NULL, '2024-10-11 15:26:09', '2024-10-11 15:34:46');
+INSERT INTO `request_logs` VALUES (13, 404, 'https://signature.code/storage/news/20-150x150.jpg', 4, NULL, NULL, '2024-10-11 15:30:36', '2024-10-12 23:44:06');
+INSERT INTO `request_logs` VALUES (14, 404, 'https://signature.code/storage/news/17-150x150.jpg', 4, NULL, NULL, '2024-10-11 15:30:36', '2024-10-12 23:44:07');
+INSERT INTO `request_logs` VALUES (15, 404, 'https://signature.code/storage/news/19-150x150.jpg', 4, NULL, NULL, '2024-10-11 15:30:36', '2024-10-12 23:44:08');
+INSERT INTO `request_logs` VALUES (16, 404, 'https://signature.code/storage/news/18-150x150.jpg', 4, NULL, NULL, '2024-10-11 15:30:36', '2024-10-12 23:44:06');
+INSERT INTO `request_logs` VALUES (17, 404, 'https://signature.code/storage/news/16-150x150.jpg', 4, NULL, NULL, '2024-10-11 15:30:37', '2024-10-12 23:44:07');
+INSERT INTO `request_logs` VALUES (18, 404, 'https://signature.code/storage/news/14-150x150.jpg', 4, NULL, NULL, '2024-10-11 15:30:37', '2024-10-12 23:44:07');
+INSERT INTO `request_logs` VALUES (19, 404, 'https://signature.code/storage/news/15-150x150.jpg', 4, NULL, NULL, '2024-10-11 15:30:37', '2024-10-12 23:44:07');
+INSERT INTO `request_logs` VALUES (20, 404, 'https://signature.code/storage/news/13-150x150.jpg', 4, NULL, NULL, '2024-10-11 15:30:37', '2024-10-12 23:44:07');
+INSERT INTO `request_logs` VALUES (21, 404, 'https://signature.code/storage/news/12-150x150.jpg', 4, NULL, NULL, '2024-10-11 15:30:37', '2024-10-12 23:44:08');
+INSERT INTO `request_logs` VALUES (22, 404, 'https://signature.code/storage/news/11-150x150.jpg', 4, NULL, NULL, '2024-10-11 15:30:37', '2024-10-12 23:44:07');
+INSERT INTO `request_logs` VALUES (23, 404, 'https://signature.code/asset/images/projects/new-carnival.jpg', 1, NULL, NULL, '2024-10-11 15:31:59', '2024-10-11 15:31:59');
+INSERT INTO `request_logs` VALUES (24, 404, 'https://signature.code/asset/images/projects/lagoona.jpg', 1, NULL, NULL, '2024-10-11 15:31:59', '2024-10-11 15:31:59');
+INSERT INTO `request_logs` VALUES (25, 404, 'https://signature.code/asset/images/projects/mitsuheavy.jpg', 1, NULL, NULL, '2024-10-11 15:31:59', '2024-10-11 15:31:59');
+INSERT INTO `request_logs` VALUES (26, 404, 'https://signature.code/asset/images/projects/usedcar.jpg', 1, NULL, NULL, '2024-10-11 15:31:59', '2024-10-11 15:31:59');
+INSERT INTO `request_logs` VALUES (27, 404, 'https://signature.code/asset/images/projects/id-vnea.jpg', 1, NULL, NULL, '2024-10-11 15:32:00', '2024-10-11 15:32:00');
+INSERT INTO `request_logs` VALUES (28, 404, 'https://signature.code/asset/images/projects/thaco-tai.jpg', 1, NULL, NULL, '2024-10-11 15:32:00', '2024-10-11 15:32:00');
+INSERT INTO `request_logs` VALUES (29, 404, 'http://127.0.0.1:8000/ui/main/fonts/Platypi-Light.ttf', 6, NULL, NULL, '2024-10-11 15:34:37', '2024-10-11 16:16:44');
+INSERT INTO `request_logs` VALUES (30, 404, 'http://127.0.0.1:8000/ui/main/fonts/Platypi-Bold.ttf', 1, NULL, NULL, '2024-10-11 15:34:39', '2024-10-11 15:34:39');
+INSERT INTO `request_logs` VALUES (31, 404, 'https://signature.code/hop-dong', 6, NULL, NULL, '2024-10-11 15:43:48', '2024-10-11 15:49:48');
+INSERT INTO `request_logs` VALUES (32, 404, 'https://signature.code/hop-dong/asf', 2, '[1]', NULL, '2024-10-11 15:55:21', '2024-10-11 15:58:34');
+INSERT INTO `request_logs` VALUES (33, 404, 'http://127.0.0.1:8000/css/signature-pad.css', 6, NULL, NULL, '2024-10-11 16:16:08', '2024-10-11 16:35:31');
+INSERT INTO `request_logs` VALUES (34, 404, 'http://127.0.0.1:8000/index', 1, '[1]', NULL, '2024-10-11 16:23:02', '2024-10-11 16:23:02');
+INSERT INTO `request_logs` VALUES (35, 404, 'http://127.0.0.1:8000/js/signature_pad.umd.min.js', 12, NULL, NULL, '2024-10-11 16:30:58', '2024-10-11 16:49:59');
+INSERT INTO `request_logs` VALUES (36, 404, 'http://127.0.0.1:8000/favicon.jpg', 1, '[1]', NULL, '2024-10-11 16:35:08', '2024-10-11 16:35:08');
+INSERT INTO `request_logs` VALUES (37, 404, 'https://signature.code/admin/galleries', 1, NULL, NULL, '2024-10-11 16:59:15', '2024-10-11 16:59:15');
+INSERT INTO `request_logs` VALUES (38, 404, 'http://127.0.0.1:8000/storage/news/20-150x150.jpg', 3, NULL, NULL, '2024-10-11 17:08:10', '2024-10-13 13:21:23');
+INSERT INTO `request_logs` VALUES (39, 404, 'http://127.0.0.1:8000/storage/news/19-150x150.jpg', 3, NULL, NULL, '2024-10-11 17:08:10', '2024-10-13 13:21:23');
+INSERT INTO `request_logs` VALUES (40, 404, 'http://127.0.0.1:8000/storage/news/18-150x150.jpg', 3, NULL, NULL, '2024-10-11 17:08:10', '2024-10-13 13:21:23');
+INSERT INTO `request_logs` VALUES (41, 404, 'http://127.0.0.1:8000/storage/news/17-150x150.jpg', 3, NULL, NULL, '2024-10-11 17:08:10', '2024-10-13 13:21:24');
+INSERT INTO `request_logs` VALUES (42, 404, 'http://127.0.0.1:8000/storage/news/16-150x150.jpg', 3, NULL, NULL, '2024-10-11 17:08:10', '2024-10-13 13:21:24');
+INSERT INTO `request_logs` VALUES (43, 404, 'http://127.0.0.1:8000/storage/news/15-150x150.jpg', 3, NULL, NULL, '2024-10-11 17:08:11', '2024-10-13 13:21:24');
+INSERT INTO `request_logs` VALUES (44, 404, 'http://127.0.0.1:8000/storage/news/13-150x150.jpg', 3, NULL, NULL, '2024-10-11 17:08:11', '2024-10-13 13:21:24');
+INSERT INTO `request_logs` VALUES (45, 404, 'http://127.0.0.1:8000/storage/news/12-150x150.jpg', 3, NULL, NULL, '2024-10-11 17:08:11', '2024-10-13 13:21:24');
+INSERT INTO `request_logs` VALUES (46, 404, 'http://127.0.0.1:8000/storage/news/14-150x150.jpg', 3, NULL, NULL, '2024-10-11 17:08:11', '2024-10-13 13:21:25');
+INSERT INTO `request_logs` VALUES (47, 404, 'http://127.0.0.1:8000/storage/news/11-150x150.jpg', 3, NULL, NULL, '2024-10-11 17:08:12', '2024-10-13 13:21:25');
+INSERT INTO `request_logs` VALUES (48, 404, 'http://127.0.0.1:8000/phpmyadmin', 1, '[1]', NULL, '2024-10-11 17:32:23', '2024-10-11 17:32:23');
+INSERT INTO `request_logs` VALUES (49, 404, 'http://127.0.0.1:8000/file%201', 5, '[1]', NULL, '2024-10-11 17:40:00', '2024-10-11 17:56:29');
+INSERT INTO `request_logs` VALUES (50, 404, 'http://127.0.0.1:8000/storage/ae21bfe63f107d5dc4e8861380409aaf.pdf', 7, NULL, NULL, '2024-10-11 17:56:35', '2024-10-12 05:53:19');
+INSERT INTO `request_logs` VALUES (51, 404, 'http://127.0.0.1:8000/mockServiceWorker.js', 54, '[1]', NULL, '2024-10-11 19:40:16', '2024-10-12 15:30:56');
+INSERT INTO `request_logs` VALUES (52, 404, 'http://127.0.0.1:8000/_ignition/health-check', 1, NULL, NULL, '2024-10-12 02:57:53', '2024-10-12 02:57:53');
+INSERT INTO `request_logs` VALUES (53, 404, 'http://127.0.0.1:8000/ad', 2, '[1]', NULL, '2024-10-12 03:26:16', '2024-10-12 16:48:21');
+INSERT INTO `request_logs` VALUES (54, 404, 'http://127.0.0.1:8000/hop-dong/%7B%7B%20get_object_image($contract-%3Efile%20?%22%22%29%20%7D%7D=', 2, '[1]', NULL, '2024-10-12 04:00:56', '2024-10-12 04:01:07');
+INSERT INTO `request_logs` VALUES (55, 404, 'http://127.0.0.1:8000/hop-dong/your-pdf-url.pdf', 1, '[1]', NULL, '2024-10-12 04:33:36', '2024-10-12 04:33:36');
+INSERT INTO `request_logs` VALUES (56, 405, 'http://127.0.0.1:8000/save-signature', 1, NULL, NULL, '2024-10-12 04:33:52', '2024-10-12 04:33:52');
+INSERT INTO `request_logs` VALUES (57, 404, 'https://signature.code/load-signature', 8, '[1]', NULL, '2024-10-12 04:55:31', '2024-10-12 23:49:27');
+INSERT INTO `request_logs` VALUES (58, 405, 'https://signature.code/save-signature', 2, NULL, NULL, '2024-10-12 05:03:32', '2024-10-12 05:03:37');
+INSERT INTO `request_logs` VALUES (59, 404, 'https://signature.code/storage/ae21bfe63f107d5dc4e8861380409aaf.pdf', 1, NULL, NULL, '2024-10-12 05:53:45', '2024-10-12 05:53:45');
+INSERT INTO `request_logs` VALUES (60, 404, 'http://127.0.0.1:8000/storage/screenshot-from-2024-10-11-18-00-07-150x150.png', 7, NULL, NULL, '2024-10-12 05:54:44', '2024-10-13 13:17:18');
+INSERT INTO `request_logs` VALUES (61, 404, 'https://signature.code/storage/ae21bfe63f107d5dc4e8861380409aaf-1.pdf', 3, NULL, NULL, '2024-10-12 05:56:43', '2024-10-12 15:17:16');
+INSERT INTO `request_logs` VALUES (62, 404, 'https://signature.code/storage/screenshot-from-2024-10-11-18-00-07-150x150.png', 7, NULL, NULL, '2024-10-12 05:57:11', '2024-10-13 01:33:08');
+INSERT INTO `request_logs` VALUES (63, 404, 'http://127.0.0.1:8000/storage/ae21bfe63f107d5dc4e8861380409aaf-3.pdf', 2, NULL, NULL, '2024-10-12 14:51:29', '2024-10-12 14:59:51');
+INSERT INTO `request_logs` VALUES (64, 404, 'https://signature.dev.fsofts.com/ui/main/css/style.css?v=1728720579', 1, NULL, NULL, '2024-10-12 15:09:42', '2024-10-12 15:09:42');
+INSERT INTO `request_logs` VALUES (65, 404, 'https://signature.dev.fsofts.com/ui/main/js/script.js?v=1728720579', 1, NULL, NULL, '2024-10-12 15:09:42', '2024-10-12 15:09:42');
+INSERT INTO `request_logs` VALUES (66, 404, 'https://signature.dev.fsofts.com/vendor/core/plugins/cookie-consent/css/cookie-consent.css?v=1.0.2', 1, NULL, NULL, '2024-10-12 15:09:42', '2024-10-12 15:09:42');
+INSERT INTO `request_logs` VALUES (67, 404, 'https://signature.dev.fsofts.com/vendor/core/plugins/language/js/language-public.js?v=2.2.0', 1, NULL, NULL, '2024-10-12 15:09:42', '2024-10-12 15:09:42');
+INSERT INTO `request_logs` VALUES (68, 404, 'https://signature.dev.fsofts.com/vendor/core/plugins/cookie-consent/js/cookie-consent.js?v=1.0.2', 1, NULL, NULL, '2024-10-12 15:09:42', '2024-10-12 15:09:42');
+INSERT INTO `request_logs` VALUES (69, 404, 'https://signature.dev.fsofts.com/vendor/core/core/base/libraries/ckeditor/content-styles.css', 1, NULL, NULL, '2024-10-12 15:09:42', '2024-10-12 15:09:42');
+INSERT INTO `request_logs` VALUES (70, 404, 'https://signature.dev.fsofts.com/vendor/core/plugins/language/css/language-public.css?v=2.2.0', 1, NULL, NULL, '2024-10-12 15:09:42', '2024-10-12 15:09:42');
+INSERT INTO `request_logs` VALUES (71, 404, 'https://signature.dev.fsofts.com/vendor/core/plugins/language/css/language.css?v=7.4.1', 3, NULL, NULL, '2024-10-12 15:09:57', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (72, 404, 'https://signature.dev.fsofts.com/vendor/core/core/base/css/core.css?v=7.4.1', 3, NULL, NULL, '2024-10-12 15:09:57', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (73, 404, 'https://signature.dev.fsofts.com/vendor/core/core/base/images/logo.png', 3, NULL, NULL, '2024-10-12 15:09:57', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (74, 404, 'https://signature.dev.fsofts.com/vendor/core/core/base/js/core-ui.js?v=7.4.1', 3, NULL, NULL, '2024-10-12 15:09:57', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (75, 404, 'https://signature.dev.fsofts.com/vendor/core/core/base/libraries/jquery.min.js?v=7.4.1', 3, NULL, NULL, '2024-10-12 15:09:57', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (76, 404, 'https://signature.dev.fsofts.com/vendor/core/core/base/js/app.js?v=7.4.1', 3, NULL, NULL, '2024-10-12 15:09:57', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (77, 404, 'https://signature.dev.fsofts.com/vendor/core/core/base/libraries/flatpickr/flatpickr.min.js?v=7.4.1', 3, NULL, NULL, '2024-10-12 15:10:00', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (78, 404, 'https://signature.dev.fsofts.com/vendor/core/core/acl/images/backgrounds/7.jpg', 1, NULL, NULL, '2024-10-12 15:10:00', '2024-10-12 15:10:00');
+INSERT INTO `request_logs` VALUES (79, 404, 'https://signature.dev.fsofts.com/vendor/core/core/base/js/core.js?v=7.4.1', 3, NULL, NULL, '2024-10-12 15:10:00', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (80, 404, 'https://signature.dev.fsofts.com/vendor/core/core/js-validation/js/js-validation.js?v=7.4.1', 3, NULL, NULL, '2024-10-12 15:10:00', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (81, 404, 'https://signature.dev.fsofts.com/vendor/core/core/base/libraries/mcustom-scrollbar/jquery.mCustomScrollbar.js?v=7.4.1', 3, NULL, NULL, '2024-10-12 15:10:00', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (82, 404, 'https://signature.dev.fsofts.com/vendor/core/core/base/libraries/jquery.are-you-sure/jquery.are-you-sure.js?v=7.4.1', 3, NULL, NULL, '2024-10-12 15:10:00', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (83, 404, 'https://signature.dev.fsofts.com/vendor/core/core/base/libraries/fslightbox.js?v=7.4.1', 3, NULL, NULL, '2024-10-12 15:10:00', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (84, 404, 'https://signature.dev.fsofts.com/vendor/core/plugins/language/js/language-global.js?v=7.4.1', 3, NULL, NULL, '2024-10-12 15:10:00', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (85, 404, 'https://signature.dev.fsofts.com/vendor/core/core/base/images/favicon.png', 2, NULL, NULL, '2024-10-12 15:10:01', '2024-10-12 15:10:18');
+INSERT INTO `request_logs` VALUES (86, 404, 'https://signature.dev.fsofts.com/vendor/core/core/acl/images/backgrounds/8.jpg', 1, NULL, NULL, '2024-10-12 15:10:14', '2024-10-12 15:10:14');
+INSERT INTO `request_logs` VALUES (87, 404, 'https://signature.dev.fsofts.com/vendor/core/core/acl/images/backgrounds/3.jpg', 1, NULL, NULL, '2024-10-12 15:10:17', '2024-10-12 15:10:17');
+INSERT INTO `request_logs` VALUES (88, 404, 'https://signature.code/storage/ae21bfe63f107d5dc4e8861380409aaf-3.pdf', 1, NULL, NULL, '2024-10-12 15:17:20', '2024-10-12 15:17:20');
+INSERT INTO `request_logs` VALUES (89, 404, 'https://signature.dev.fsofts.com/storage/ae21bfe63f107d5dc4e8861380409aaf-3.pdf', 1, NULL, NULL, '2024-10-12 15:38:54', '2024-10-12 15:38:54');
+INSERT INTO `request_logs` VALUES (90, 404, 'https://signature.dev.fsofts.com/hop-dong/hop-dong-', 1, NULL, NULL, '2024-10-12 15:39:29', '2024-10-12 15:39:29');
+INSERT INTO `request_logs` VALUES (91, 404, 'https://signature.dev.fsofts.com/storage/screenshot-from-2024-10-11-18-00-07-150x150.png', 11, NULL, NULL, '2024-10-12 15:39:54', '2024-10-13 15:25:45');
+INSERT INTO `request_logs` VALUES (92, 404, 'https://signature.dev.fsofts.com/load-signature', 1, '[2]', NULL, '2024-10-12 15:40:14', '2024-10-12 15:40:14');
+INSERT INTO `request_logs` VALUES (93, 404, 'http://127.0.0.1:8000/storage/ae21bfe63f107d5dc4e8861380409aaf-4.pdf', 2, NULL, NULL, '2024-10-12 16:48:47', '2024-10-12 16:48:53');
+INSERT INTO `request_logs` VALUES (94, 404, 'https://signature.dev.fsofts.com/.env', 3, NULL, NULL, '2024-10-12 22:12:33', '2024-10-13 02:50:10');
+INSERT INTO `request_logs` VALUES (95, 404, 'https://www.signature.dev.fsofts.com/.env', 2, NULL, NULL, '2024-10-12 22:27:29', '2024-10-13 03:13:34');
+INSERT INTO `request_logs` VALUES (96, 404, 'https://pdf-sig.code/storage/ae21bfe63f107d5dc4e8861380409aaf-4.pdf', 1, NULL, NULL, '2024-10-12 22:30:17', '2024-10-12 22:30:17');
+INSERT INTO `request_logs` VALUES (97, 404, 'https://signature.dev.fsofts.com/hop-dong/hop-dong-thang-10-2/favicon.ico', 1, NULL, NULL, '2024-10-12 23:18:57', '2024-10-12 23:18:57');
+INSERT INTO `request_logs` VALUES (98, 404, 'https://pdf-sig.code/hop-dong/hop-dong-1', 2, '[1]', NULL, '2024-10-12 23:48:51', '2024-10-13 00:54:11');
+INSERT INTO `request_logs` VALUES (99, 404, 'http://127.0.0.1:8000//hop-dong/hop-dong-thang-10-2', 1, NULL, NULL, '2024-10-12 23:55:59', '2024-10-12 23:55:59');
+INSERT INTO `request_logs` VALUES (100, 404, 'https://signature.code/storage/ae21bfe63f107d5dc4e8861380409aaf-4.pdf', 1, NULL, NULL, '2024-10-13 00:34:48', '2024-10-13 00:34:48');
+INSERT INTO `request_logs` VALUES (101, 404, 'https://pdf-sig.code/storage/co3335-co3345-internship-report-copy.pdf', 18, NULL, NULL, '2024-10-13 00:54:24', '2024-10-13 01:30:07');
+INSERT INTO `request_logs` VALUES (102, 404, 'https://signature.code/storage/co3335-co3345-internship-report-copy.pdf', 3, NULL, NULL, '2024-10-13 01:32:33', '2024-10-13 01:32:58');
+INSERT INTO `request_logs` VALUES (103, 404, 'https://pdf-sig.code/storage/co3335-co3345-internship-report-copy-1.pdf', 10, NULL, NULL, '2024-10-13 01:33:17', '2024-10-13 01:45:44');
+INSERT INTO `request_logs` VALUES (104, 404, 'https://signature.dev.fsofts.com/config.php', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (105, 404, 'https://signature.dev.fsofts.com/config.xml', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (106, 404, 'https://signature.dev.fsofts.com/config.yml', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (107, 404, 'https://signature.dev.fsofts.com/cloud-config.yml', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (108, 404, 'https://signature.dev.fsofts.com/config.yaml', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (109, 404, 'https://signature.dev.fsofts.com/wp-admin/setup-config.php', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (110, 404, 'https://signature.dev.fsofts.com/.ssh/id_ecdsa', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (111, 404, 'https://signature.dev.fsofts.com/config/database.php', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (112, 404, 'https://signature.dev.fsofts.com/.svn/wc.db', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (113, 404, 'https://signature.dev.fsofts.com/etc/ssl/private/server.key', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (114, 404, 'https://signature.dev.fsofts.com/config.json', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (115, 404, 'https://signature.dev.fsofts.com/.ssh/id_ed25519', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (116, 404, 'https://signature.dev.fsofts.com/config/production.json', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (117, 404, 'https://signature.dev.fsofts.com/dump.sql', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (118, 404, 'https://signature.dev.fsofts.com/user_secrets.yml', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (119, 404, 'https://signature.dev.fsofts.com/server-status', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (120, 404, 'https://signature.dev.fsofts.com/.git/HEAD', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (121, 404, 'https://signature.dev.fsofts.com/.vscode/sftp.json', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (122, 404, 'https://signature.dev.fsofts.com/etc/shadow', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (123, 404, 'https://signature.dev.fsofts.com/wp-config.php', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (124, 404, 'https://signature.dev.fsofts.com/_vti_pvt/administrators.pwd', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (125, 404, 'https://signature.dev.fsofts.com/_vti_pvt/service.pwd', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (126, 404, 'https://signature.dev.fsofts.com/backup.zip', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (127, 404, 'https://signature.dev.fsofts.com/.aws/credentials', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (128, 404, 'https://signature.dev.fsofts.com/api/.env', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (129, 404, 'https://signature.dev.fsofts.com/server.key', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (130, 404, 'https://signature.dev.fsofts.com/feed', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (131, 404, 'https://signature.dev.fsofts.com/database.sql', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (132, 404, 'https://signature.dev.fsofts.com/phpinfo.php', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (133, 404, 'https://signature.dev.fsofts.com/_vti_pvt/authors.pwd', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (134, 404, 'https://signature.dev.fsofts.com/backup.tar.gz', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (135, 404, 'https://signature.dev.fsofts.com/.env.production', 1, NULL, NULL, '2024-10-13 01:54:05', '2024-10-13 01:54:05');
+INSERT INTO `request_logs` VALUES (136, 404, 'https://signature.dev.fsofts.com/.ssh/id_rsa', 1, NULL, NULL, '2024-10-13 01:54:06', '2024-10-13 01:54:06');
+INSERT INTO `request_logs` VALUES (137, 404, 'https://signature.dev.fsofts.com/backup.sql', 1, NULL, NULL, '2024-10-13 01:54:06', '2024-10-13 01:54:06');
+INSERT INTO `request_logs` VALUES (138, 404, 'https://signature.dev.fsofts.com/docker-compose.yml', 1, NULL, NULL, '2024-10-13 01:54:06', '2024-10-13 01:54:06');
+INSERT INTO `request_logs` VALUES (139, 404, 'https://signature.dev.fsofts.com/.kube/config', 1, NULL, NULL, '2024-10-13 01:54:06', '2024-10-13 01:54:06');
+INSERT INTO `request_logs` VALUES (140, 404, 'https://signature.dev.fsofts.com/secrets.json', 1, NULL, NULL, '2024-10-13 01:54:06', '2024-10-13 01:54:06');
+INSERT INTO `request_logs` VALUES (141, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/libraries/pdf.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (142, 404, 'https://www.signature.dev.fsofts.com//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (143, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/libraries/signature_pad.umd.min.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (144, 404, 'https://www.signature.dev.fsofts.com/dist/js/bootstrap.min.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (145, 404, 'https://www.signature.dev.fsofts.com/dist/js/bootstrap.bundle.min.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (146, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/js/script.js', 3, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:07:07');
+INSERT INTO `request_logs` VALUES (147, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/vendor/core/plugins/language/js/language-public.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (148, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/vendor/core/plugins/cookie-consent/js/cookie-consent....', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (149, 404, 'https://www.signature.dev.fsofts.com/dist/pdf-lib.min.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (150, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/libraries/app.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (151, 404, 'https://www.signature.dev.fsofts.com//cdn.js', 5, NULL, NULL, '2024-10-13 03:05:28', '2024-10-13 03:08:48');
+INSERT INTO `request_logs` VALUES (152, 404, 'https://www.signature.dev.fsofts.com//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js', 5, NULL, NULL, '2024-10-13 03:05:28', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (153, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/libraries/jquery.js', 5, NULL, NULL, '2024-10-13 03:05:30', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (154, 404, 'http://127.0.0.1:8000/ui/main/libraries/jquery.js', 4, NULL, NULL, '2024-10-13 13:21:14', '2024-10-13 13:24:34');
+INSERT INTO `request_logs` VALUES (155, 404, 'http://127.0.0.1:8000/ui/main/libraries/signature_pad.umd.min.js', 4, NULL, NULL, '2024-10-13 13:21:15', '2024-10-13 13:24:34');
+INSERT INTO `request_logs` VALUES (156, 404, 'http://127.0.0.1:8000/ui/main/libraries/app.js', 4, NULL, NULL, '2024-10-13 13:21:15', '2024-10-13 13:24:35');
+INSERT INTO `request_logs` VALUES (157, 404, 'https://signature.code/ui/main/libraries/jquery.js', 3, NULL, NULL, '2024-10-13 13:57:04', '2024-10-13 13:57:20');
+INSERT INTO `request_logs` VALUES (158, 404, 'https://signature.code/ui/main/libraries/signature_pad.umd.min.js', 3, NULL, NULL, '2024-10-13 13:57:04', '2024-10-13 13:57:20');
+INSERT INTO `request_logs` VALUES (159, 404, 'https://signature.code/ui/main/libraries/app.js', 3, NULL, NULL, '2024-10-13 13:57:04', '2024-10-13 13:57:20');
+INSERT INTO `request_logs` VALUES (160, 404, 'http://127.0.0.1:8000/hop-dong/undefined', 1, '[1]', NULL, '2024-10-13 14:26:29', '2024-10-13 14:26:29');
+INSERT INTO `request_logs` VALUES (161, 404, 'http://127.0.0.1:8000/storage/signatures/5dIKNTRce6Z6MYw5Qd8Ps4AyH3Vrg5vdx9fz6MB4.pdf', 1, NULL, NULL, '2024-10-13 14:32:06', '2024-10-13 14:32:06');
+INSERT INTO `request_logs` VALUES (162, 404, 'https://signature.dev.fsofts.com/hop-dong/demo/favicon.ico', 1, NULL, NULL, '2024-10-13 14:42:30', '2024-10-13 14:42:30');
+INSERT INTO `request_logs` VALUES (163, 404, 'https://signature.dev.fsofts.com/hop-dong/demo1', 3, NULL, NULL, '2024-10-13 15:04:19', '2024-10-13 15:04:39');
+INSERT INTO `request_logs` VALUES (164, 404, 'https://signature.dev.fsofts.com/apple-touch-icon.png', 1, NULL, NULL, '2024-10-13 15:05:38', '2024-10-13 15:05:38');
+INSERT INTO `request_logs` VALUES (165, 404, 'https://signature.dev.fsofts.com/apple-touch-icon-precomposed.png', 1, NULL, NULL, '2024-10-13 15:05:38', '2024-10-13 15:05:38');
+INSERT INTO `request_logs` VALUES (166, 404, 'https://signature.code/hop-dong/hop-dong-1', 1, '[1]', NULL, '2024-10-13 15:09:29', '2024-10-13 15:09:29');
+INSERT INTO `request_logs` VALUES (167, 404, 'https://signature.dev.fsofts.com/storage/news/20-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
+INSERT INTO `request_logs` VALUES (168, 404, 'https://signature.dev.fsofts.com/storage/news/19-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
+INSERT INTO `request_logs` VALUES (169, 404, 'https://signature.dev.fsofts.com/storage/news/17-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
+INSERT INTO `request_logs` VALUES (170, 404, 'https://signature.dev.fsofts.com/storage/news/11-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
+INSERT INTO `request_logs` VALUES (171, 404, 'https://signature.dev.fsofts.com/storage/news/14-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
+INSERT INTO `request_logs` VALUES (172, 404, 'https://signature.dev.fsofts.com/storage/news/13-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
+INSERT INTO `request_logs` VALUES (173, 404, 'https://signature.dev.fsofts.com/storage/news/15-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
+INSERT INTO `request_logs` VALUES (174, 404, 'https://signature.dev.fsofts.com/storage/news/18-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
+INSERT INTO `request_logs` VALUES (175, 404, 'https://signature.dev.fsofts.com/storage/news/12-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
+INSERT INTO `request_logs` VALUES (176, 404, 'https://signature.dev.fsofts.com/storage/news/16-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
 
 -- ----------------------------
 -- Table structure for revisions
@@ -1348,11 +1338,15 @@ CREATE TABLE `revisions`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `revisions_revisionable_id_revisionable_type_index`(`revisionable_id` ASC, `revisionable_type` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of revisions
 -- ----------------------------
+INSERT INTO `revisions` VALUES (1, 'Dev\\Page\\Models\\Page', 2, 1, 'name', 'Blog', 'Hợp đồng', '2024-10-11 15:42:19', '2024-10-11 15:42:19');
+INSERT INTO `revisions` VALUES (2, 'Dev\\Page\\Models\\Page', 2, 1, 'template', NULL, 'default', '2024-10-11 15:42:19', '2024-10-11 15:42:19');
+INSERT INTO `revisions` VALUES (3, 'Dev\\Page\\Models\\Page', 2, 1, 'description', NULL, '', '2024-10-11 15:42:19', '2024-10-11 15:42:19');
+INSERT INTO `revisions` VALUES (4, 'Dev\\Page\\Models\\Page', 2, 1, 'template', 'default', 'contract', '2024-10-11 15:49:18', '2024-10-11 15:49:18');
 
 -- ----------------------------
 -- Table structure for role_users
@@ -1366,11 +1360,12 @@ CREATE TABLE `role_users`  (
   PRIMARY KEY (`user_id`, `role_id`) USING BTREE,
   INDEX `role_users_user_id_index`(`user_id` ASC) USING BTREE,
   INDEX `role_users_role_id_index`(`role_id` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role_users
 -- ----------------------------
+INSERT INTO `role_users` VALUES (2, 1, '2024-10-12 15:38:41', '2024-10-12 15:38:41');
 
 -- ----------------------------
 -- Table structure for roles
@@ -1391,12 +1386,12 @@ CREATE TABLE `roles`  (
   UNIQUE INDEX `roles_slug_unique`(`slug` ASC) USING BTREE,
   INDEX `roles_created_by_index`(`created_by` ASC) USING BTREE,
   INDEX `roles_updated_by_index`(`updated_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of roles
 -- ----------------------------
-INSERT INTO `roles` VALUES (1, 'admin', 'Admin', '{\"users.index\":true,\"users.create\":true,\"users.edit\":true,\"users.destroy\":true,\"roles.index\":true,\"roles.create\":true,\"roles.edit\":true,\"roles.destroy\":true,\"core.system\":true,\"core.cms\":true,\"core.manage.license\":true,\"systems.cronjob\":true,\"core.tools\":true,\"tools.data-synchronize\":true,\"media.index\":true,\"files.index\":true,\"files.create\":true,\"files.edit\":true,\"files.trash\":true,\"files.destroy\":true,\"folders.index\":true,\"folders.create\":true,\"folders.edit\":true,\"folders.trash\":true,\"folders.destroy\":true,\"settings.index\":true,\"settings.common\":true,\"settings.options\":true,\"settings.email\":true,\"settings.media\":true,\"settings.admin-appearance\":true,\"settings.cache\":true,\"settings.datatables\":true,\"settings.email.rules\":true,\"settings.others\":true,\"menus.index\":true,\"menus.create\":true,\"menus.edit\":true,\"menus.destroy\":true,\"optimize.settings\":true,\"pages.index\":true,\"pages.create\":true,\"pages.edit\":true,\"pages.destroy\":true,\"plugins.index\":true,\"plugins.edit\":true,\"plugins.remove\":true,\"plugins.marketplace\":true,\"core.appearance\":true,\"theme.index\":true,\"theme.activate\":true,\"theme.remove\":true,\"theme.options\":true,\"theme.custom-css\":true,\"theme.custom-js\":true,\"theme.custom-html\":true,\"theme.robots-txt\":true,\"settings.website-tracking\":true,\"widgets.index\":true,\"analytics.general\":true,\"analytics.page\":true,\"analytics.browser\":true,\"analytics.referrer\":true,\"analytics.settings\":true,\"audit-log.index\":true,\"audit-log.destroy\":true,\"backups.index\":true,\"backups.create\":true,\"backups.restore\":true,\"backups.destroy\":true,\"block.index\":true,\"block.create\":true,\"block.edit\":true,\"block.destroy\":true,\"plugins.blog\":true,\"posts.index\":true,\"posts.create\":true,\"posts.edit\":true,\"posts.destroy\":true,\"categories.index\":true,\"categories.create\":true,\"categories.edit\":true,\"categories.destroy\":true,\"tags.index\":true,\"tags.create\":true,\"tags.edit\":true,\"tags.destroy\":true,\"blog.settings\":true,\"posts.export\":true,\"posts.import\":true,\"captcha.settings\":true,\"contacts.index\":true,\"contacts.edit\":true,\"contacts.destroy\":true,\"contact.settings\":true,\"custom-fields.index\":true,\"custom-fields.create\":true,\"custom-fields.edit\":true,\"custom-fields.destroy\":true,\"galleries.index\":true,\"galleries.create\":true,\"galleries.edit\":true,\"galleries.destroy\":true,\"languages.index\":true,\"languages.create\":true,\"languages.edit\":true,\"languages.destroy\":true,\"member.index\":true,\"member.create\":true,\"member.edit\":true,\"member.destroy\":true,\"member.settings\":true,\"request-log.index\":true,\"request-log.destroy\":true,\"social-login.settings\":true,\"plugins.translation\":true,\"translations.locales\":true,\"translations.theme-translations\":true,\"translations.index\":true,\"theme-translations.export\":true,\"other-translations.export\":true,\"theme-translations.import\":true,\"other-translations.import\":true}', 'Admin users role', 1, 1, 1, '2024-08-27 04:25:54', '2024-08-27 04:25:54');
+INSERT INTO `roles` VALUES (1, 'admin', 'Admin', '{\"core.cms\":true,\"media.index\":true,\"files.index\":true,\"files.create\":true,\"files.edit\":true,\"files.trash\":true,\"files.destroy\":true,\"folders.index\":true,\"folders.create\":true,\"folders.edit\":true,\"folders.trash\":true,\"folders.destroy\":true,\"pages.index\":true,\"pages.create\":true,\"pages.edit\":true,\"pages.destroy\":true,\"galleries.index\":true,\"galleries.create\":true,\"galleries.edit\":true,\"galleries.destroy\":true,\"contract-management.index\":true,\"contract-management.create\":true,\"contract-management.edit\":true,\"contract-management.destroy\":true,\"settings.index\":true,\"users.index\":true,\"users.create\":true,\"users.edit\":true,\"users.destroy\":true,\"roles.index\":true,\"roles.create\":true,\"roles.edit\":true,\"roles.destroy\":true}', 'Admin users role', 1, 1, 1, '2024-08-27 04:25:54', '2024-10-12 15:37:58');
 
 -- ----------------------------
 -- Table structure for settings
@@ -1410,66 +1405,129 @@ CREATE TABLE `settings`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `settings_key_unique`(`key` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of settings
 -- ----------------------------
-INSERT INTO `settings` VALUES (1, 'media_random_hash', 'e91484e527dc585e1e9be266d83c292d', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (2, 'api_enabled', '0', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (3, 'analytics_dashboard_widgets', '0', '2024-08-27 04:25:54', '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (4, 'activated_plugins', '[\"language\",\"language-advanced\",\"analytics\",\"audit-log\",\"backup\",\"block\",\"blog\",\"captcha\",\"contact\",\"cookie-consent\",\"custom-field\",\"gallery\",\"member\",\"request-log\",\"social-login\",\"translation\",\"projects\"]', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (5, 'enable_recaptcha_superadmin@fsofts.com_contact_forms_fronts_contact_form', '1', '2024-08-27 04:25:54', '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (6, 'theme', 'main', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (7, 'show_admin_bar', '0', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (8, 'language_hide_default', '1', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (9, 'language_switcher_display', 'dropdown', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (10, 'language_display', 'all', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (11, 'language_hide_languages', '[]', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (12, 'theme-master-site_title', 'Just another Laravel CMS site', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (13, 'theme-master-seo_description', 'With experience, we make sure to get every project done very fast and in time with high quality using our Laravel CMS https://cms.fsofts.com', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (14, 'theme-master-copyright', '©%Y Your Company. All rights reserved.', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (15, 'theme-master-favicon', 'general/favicon.png', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (16, 'theme-master-logo', 'general/logo.png', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (17, 'theme-master-website', 'https://cms.fsofts.com', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (18, 'theme-master-contact_email', 'contact@fsofts.com', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (19, 'theme-master-site_description', 'With experience, we make sure to get every project done very fast and in time with high quality using our Laravel CMS https://cms.fsofts.com', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (20, 'theme-master-phone', '+(123) 345-6789', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (21, 'theme-master-address', '214 West Arnold St. New York, NY 10002', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (22, 'theme-master-cookie_consent_message', 'Your experience on this site will be improved by allowing cookies ', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (23, 'theme-master-cookie_consent_learn_more_url', '/cookie-policy', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (24, 'theme-master-cookie_consent_learn_more_text', 'Cookie Policy', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (25, 'theme-master-homepage_id', '1', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (26, 'theme-master-blog_page_id', '2', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (27, 'theme-master-primary_color', '#AF0F26', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (28, 'theme-master-primary_font', 'Roboto', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (29, 'theme-master-social_links', '[[{\"key\":\"name\",\"value\":\"Facebook\"},{\"key\":\"icon\",\"value\":\"ti ti-brand-facebook\"},{\"key\":\"url\",\"value\":\"https:\\/\\/facebook.com\"}],[{\"key\":\"name\",\"value\":\"X (Twitter)\"},{\"key\":\"icon\",\"value\":\"ti ti-brand-x\"},{\"key\":\"url\",\"value\":\"https:\\/\\/x.com\"}],[{\"key\":\"name\",\"value\":\"YouTube\"},{\"key\":\"icon\",\"value\":\"ti ti-brand-youtube\"},{\"key\":\"url\",\"value\":\"https:\\/\\/youtube.com\"}]]', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (30, 'theme-master-lazy_load_images', '1', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (31, 'theme-master-lazy_load_placeholder_image', 'general/preloader.gif', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (32, 'theme-main-homepage_id', '1', NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (33, 'theme-main-galleries_page_id', NULL, NULL, '2024-10-07 15:31:10');
-INSERT INTO `settings` VALUES (34, 'admin_logo', '', NULL, NULL);
-INSERT INTO `settings` VALUES (35, 'admin_favicon', '', NULL, NULL);
-INSERT INTO `settings` VALUES (36, 'login_screen_backgrounds', '[]', NULL, NULL);
-INSERT INTO `settings` VALUES (37, 'admin_title', 'khaizinam site', NULL, NULL);
-INSERT INTO `settings` VALUES (38, 'admin_appearance_locale', 'en', NULL, NULL);
-INSERT INTO `settings` VALUES (39, 'rich_editor', 'ckeditor', NULL, NULL);
-INSERT INTO `settings` VALUES (40, 'admin_appearance_layout', 'vertical', NULL, NULL);
-INSERT INTO `settings` VALUES (41, 'admin_appearance_show_menu_item_icon', '0', NULL, NULL);
-INSERT INTO `settings` VALUES (42, 'admin_appearance_container_width', 'container-xl', NULL, NULL);
-INSERT INTO `settings` VALUES (43, 'admin_primary_font', 'Inter', NULL, NULL);
-INSERT INTO `settings` VALUES (44, 'admin_primary_color', '#206bc4', NULL, NULL);
-INSERT INTO `settings` VALUES (45, 'admin_secondary_color', '#6c7a91', NULL, NULL);
-INSERT INTO `settings` VALUES (46, 'admin_heading_color', 'inherit', NULL, NULL);
-INSERT INTO `settings` VALUES (47, 'admin_text_color', '#182433', NULL, NULL);
-INSERT INTO `settings` VALUES (48, 'admin_link_color', '#206bc4', NULL, NULL);
-INSERT INTO `settings` VALUES (49, 'admin_link_hover_color', '#1a569d', NULL, NULL);
-INSERT INTO `settings` VALUES (50, 'admin_appearance_custom_css', '', NULL, NULL);
-INSERT INTO `settings` VALUES (51, 'admin_appearance_custom_header_js', '', NULL, NULL);
-INSERT INTO `settings` VALUES (52, 'admin_appearance_custom_body_js', '', NULL, NULL);
-INSERT INTO `settings` VALUES (53, 'admin_appearance_custom_footer_js', '', NULL, NULL);
-INSERT INTO `settings` VALUES (54, 'show_theme_guideline_link', '0', NULL, NULL);
-INSERT INTO `settings` VALUES (55, 'admin_appearance_locale_direction', 'ltr', NULL, NULL);
+INSERT INTO `settings` VALUES (1, 'media_random_hash', 'e91484e527dc585e1e9be266d83c292d', NULL, '2024-10-13 00:10:32');
+INSERT INTO `settings` VALUES (2, 'api_enabled', '0', NULL, '2024-10-13 00:10:32');
+INSERT INTO `settings` VALUES (3, 'analytics_dashboard_widgets', '0', '2024-08-27 04:25:54', '2024-10-13 00:10:32');
+INSERT INTO `settings` VALUES (4, 'activated_plugins', '[\"language\",\"language-advanced\",\"cookie-consent\",\"custom-field\",\"request-log\",\"translation\",\"contract-management\",\"gallery\"]', NULL, '2024-10-13 00:10:32');
+INSERT INTO `settings` VALUES (5, 'enable_recaptcha_superadmin@fsofts.com_contact_forms_fronts_contact_form', '1', '2024-08-27 04:25:54', '2024-10-13 00:10:32');
+INSERT INTO `settings` VALUES (6, 'theme', 'main', NULL, '2024-10-13 00:10:32');
+INSERT INTO `settings` VALUES (7, 'show_admin_bar', '0', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (8, 'language_hide_default', '1', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (9, 'language_switcher_display', 'dropdown', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (10, 'language_display', 'all', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (11, 'language_hide_languages', '[]', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (12, 'theme-master-site_title', 'Just another Laravel CMS site', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (13, 'theme-master-seo_description', 'With experience, we make sure to get every project done very fast and in time with high quality using our Laravel CMS https://cms.fsofts.com', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (14, 'theme-master-copyright', '©%Y Your Company. All rights reserved.', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (15, 'theme-master-favicon', 'general/favicon.png', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (16, 'theme-master-logo', 'general/logo.png', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (17, 'theme-master-website', 'https://cms.fsofts.com', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (18, 'theme-master-contact_email', 'contact@fsofts.com', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (19, 'theme-master-site_description', 'With experience, we make sure to get every project done very fast and in time with high quality using our Laravel CMS https://cms.fsofts.com', NULL, '2024-10-13 00:10:33');
+INSERT INTO `settings` VALUES (20, 'theme-master-phone', '+(123) 345-6789', NULL, '2024-10-13 00:10:34');
+INSERT INTO `settings` VALUES (21, 'theme-master-address', '214 West Arnold St. New York, NY 10002', NULL, '2024-10-13 00:10:34');
+INSERT INTO `settings` VALUES (22, 'theme-master-cookie_consent_message', 'Your experience on this site will be improved by allowing cookies ', NULL, '2024-10-13 00:10:34');
+INSERT INTO `settings` VALUES (23, 'theme-master-cookie_consent_learn_more_url', '/cookie-policy', NULL, '2024-10-13 00:10:34');
+INSERT INTO `settings` VALUES (24, 'theme-master-cookie_consent_learn_more_text', 'Cookie Policy', NULL, '2024-10-13 00:10:34');
+INSERT INTO `settings` VALUES (25, 'theme-master-homepage_id', '1', NULL, '2024-10-13 00:10:34');
+INSERT INTO `settings` VALUES (26, 'theme-master-blog_page_id', '2', NULL, '2024-10-13 00:10:34');
+INSERT INTO `settings` VALUES (27, 'theme-master-primary_color', '#AF0F26', NULL, '2024-10-13 00:10:34');
+INSERT INTO `settings` VALUES (28, 'theme-master-primary_font', 'Roboto', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (29, 'theme-master-social_links', '[[{\"key\":\"name\",\"value\":\"Facebook\"},{\"key\":\"icon\",\"value\":\"ti ti-brand-facebook\"},{\"key\":\"url\",\"value\":\"https:\\/\\/facebook.com\"}],[{\"key\":\"name\",\"value\":\"X (Twitter)\"},{\"key\":\"icon\",\"value\":\"ti ti-brand-x\"},{\"key\":\"url\",\"value\":\"https:\\/\\/x.com\"}],[{\"key\":\"name\",\"value\":\"YouTube\"},{\"key\":\"icon\",\"value\":\"ti ti-brand-youtube\"},{\"key\":\"url\",\"value\":\"https:\\/\\/youtube.com\"}]]', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (30, 'theme-master-lazy_load_images', '1', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (31, 'theme-master-lazy_load_placeholder_image', 'general/preloader.gif', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (32, 'theme-main-homepage_id', '1', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (33, 'theme-main-galleries_page_id', NULL, NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (34, 'admin_logo', '', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (35, 'admin_favicon', '', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (36, 'login_screen_backgrounds', '[]', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (37, 'admin_title', 'khaizinam site', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (38, 'admin_appearance_locale', 'en', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (39, 'rich_editor', 'ckeditor', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (40, 'admin_appearance_layout', 'vertical', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (41, 'admin_appearance_show_menu_item_icon', '0', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (42, 'admin_appearance_container_width', 'container-xl', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (43, 'admin_primary_font', 'Inter', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (44, 'admin_primary_color', '#206bc4', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (45, 'admin_secondary_color', '#6c7a91', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (46, 'admin_heading_color', 'inherit', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (47, 'admin_text_color', '#182433', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (48, 'admin_link_color', '#206bc4', NULL, '2024-10-13 00:10:35');
+INSERT INTO `settings` VALUES (49, 'admin_link_hover_color', '#1a569d', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (50, 'admin_appearance_custom_css', '', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (51, 'admin_appearance_custom_header_js', '', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (52, 'admin_appearance_custom_body_js', '', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (53, 'admin_appearance_custom_footer_js', '', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (54, 'show_theme_guideline_link', '0', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (55, 'admin_appearance_locale_direction', 'ltr', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (57, 'theme-main-en_US-homepage_id', '1', '2024-10-11 19:50:53', '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (58, 'admin_email', '[]', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (59, 'time_zone', 'Asia/Ho_Chi_Minh', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (60, 'locale_direction', 'ltr', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (61, 'enable_send_error_reporting_via_email', '0', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (62, 'redirect_404_to_homepage', '0', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (63, 'request_log_data_retention_period', '30', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (64, 'audit_log_data_retention_period', '30', NULL, '2024-10-13 00:10:36');
+INSERT INTO `settings` VALUES (65, 'locale', 'vi', NULL, '2024-10-13 00:10:36');
+
+-- ----------------------------
+-- Table structure for signature_contract
+-- ----------------------------
+DROP TABLE IF EXISTS `signature_contract`;
+CREATE TABLE `signature_contract`  (
+  `signature_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID Chữ ký',
+  `contract_id` bigint UNSIGNED NULL DEFAULT NULL COMMENT 'ID PDF họp đồng',
+  PRIMARY KEY (`signature_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of signature_contract
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for signatures
+-- ----------------------------
+DROP TABLE IF EXISTS `signatures`;
+CREATE TABLE `signatures`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Người ký tên',
+  `file` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'Link file chữ ký',
+  `contract_id` bigint UNSIGNED NULL DEFAULT NULL COMMENT 'ID hợp đpjc mẫu',
+  `status` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'published',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of signatures
+-- ----------------------------
+INSERT INTO `signatures` VALUES (2, '12', 'signatures/epIpRkDlXzyRb9mzW5WOy3xM6DGIjuTTEtCTkEj0.pdf', 1, 'published', '2024-10-12 17:17:44', '2024-10-12 17:17:44');
+INSERT INTO `signatures` VALUES (3, '1231231', 'signatures/qNjgAUqVNTZc0FbLk0aVe9JUfXCSJf7YVkSzOvsS.pdf', 1, 'published', '2024-10-12 17:44:24', '2024-10-12 17:44:24');
+INSERT INTO `signatures` VALUES (4, '123123123', 'signatures/5V68EHz7rshruG61sAA179PD7h7FzSmeAdrAkTyV.pdf', 1, 'published', '2024-10-12 17:57:13', '2024-10-12 17:57:13');
+INSERT INTO `signatures` VALUES (5, '123', 'signatures/9P3ZYmWQxiCwUI7f5MWWkoEKBnIjSn8FbuGyjMC1.pdf', 1, 'published', '2024-10-12 23:56:44', '2024-10-12 23:56:44');
+INSERT INTO `signatures` VALUES (6, 'ád', 'signatures/A4gktD2KS28kFHWUM3erGvwDbJu65b1hIw86L6yk.pdf', 1, 'published', '2024-10-13 00:05:10', '2024-10-13 00:05:10');
+INSERT INTO `signatures` VALUES (7, 'as', 'signatures/mvhR9PuhePsCPlJtX8qftBTPIQ3qL57XNNGpX5Sk.pdf', 1, 'published', '2024-10-13 00:31:23', '2024-10-13 00:31:23');
+INSERT INTO `signatures` VALUES (8, 'aaa', 'signatures/AzYUzPvm63UaqG03frmKNiggmTzcf72ht3CTyNoA.pdf', 1, 'published', '2024-10-13 00:32:03', '2024-10-13 00:32:03');
+INSERT INTO `signatures` VALUES (9, 'asss', 'signatures/9mdw073yxDiqKkE766Vcl4vsScxHvfML7jVL9oGv.pdf', 1, 'published', '2024-10-13 00:32:46', '2024-10-13 00:32:46');
+INSERT INTO `signatures` VALUES (10, 'aaa', 'signatures/5dIKNTRce6Z6MYw5Qd8Ps4AyH3Vrg5vdx9fz6MB4.pdf', 1, 'published', '2024-10-13 00:33:22', '2024-10-13 00:33:22');
+INSERT INTO `signatures` VALUES (11, 'as', 'signatures/SxtATZoNZjwJkWcxO7O8zH3aPjS406mCwa9nNFPk.pdf', 3, 'published', '2024-10-13 00:44:29', '2024-10-13 00:44:29');
+INSERT INTO `signatures` VALUES (12, 'h', 'signatures/UrIBfJU3wwQi9agD1cDwM97Zxn4lMrtp1tkHF0lp.pdf', 3, 'published', '2024-10-13 00:46:34', '2024-10-13 00:46:34');
+INSERT INTO `signatures` VALUES (13, 'as', 'signatures/1j6qinpeGBXlVXG8GVYU177eTHIa754JRuJYpK0o.pdf', 3, 'published', '2024-10-13 00:58:41', '2024-10-13 00:58:41');
+INSERT INTO `signatures` VALUES (14, 'a', 'signatures/H4ekfGB1nNBd3mQrQHo2BjWrUQcY6I5iUENDMqzt.pdf', 3, 'published', '2024-10-13 00:59:58', '2024-10-13 00:59:58');
+INSERT INTO `signatures` VALUES (15, 'a', 'signatures/9Y4qt8NCiQF4OB5jipu7nPNX6M7m204BT02KsdgD.pdf', 3, 'published', '2024-10-13 01:03:41', '2024-10-13 01:03:41');
+INSERT INTO `signatures` VALUES (16, 'a', 'signatures/zTcPpKJbZMhgO4YrhFoeM7UrstaFxWTCDhNRNT4K.pdf', 3, 'published', '2024-10-13 01:14:25', '2024-10-13 01:14:25');
+INSERT INTO `signatures` VALUES (17, 'ghh', 'signatures/Hz3S4Rj4GSSibBl2EmtYAYSj1DYrbIpm0ycFJlDq.pdf', 3, 'published', '2024-10-13 01:16:26', '2024-10-13 01:16:26');
+INSERT INTO `signatures` VALUES (18, 'g', 'signatures/9zGDNTikLBNQbH4zGuP7lLByWQioGip7LAQMdeW0.pdf', 3, 'published', '2024-10-13 01:19:09', '2024-10-13 01:19:09');
+INSERT INTO `signatures` VALUES (19, 'AA', 'signatures/H6q2pfwqZMphpol1oxBTakvblNmd9RogdimkznPA.pdf', 3, 'published', '2024-10-13 01:20:18', '2024-10-13 01:20:18');
+INSERT INTO `signatures` VALUES (20, 'S', 'signatures/iLn8Je3qKcUU4hzUQ9l0WS1M8EWSFwHq9HFV3xum.pdf', 3, 'published', '2024-10-13 01:21:06', '2024-10-13 01:21:06');
+INSERT INTO `signatures` VALUES (21, 'D', 'signatures/J0vBonDFTyd4jmHahKAMHKxGa4TwFW2mg2mRjdie.pdf', 3, 'published', '2024-10-13 01:21:58', '2024-10-13 01:21:58');
+INSERT INTO `signatures` VALUES (22, '123123', 'signatures/SgSVknzs0IsyIyAhAppkOopLiDJrMxf5r1lKzGKW.pdf', 1, 'published', '2024-10-13 14:56:52', '2024-10-13 14:56:52');
 
 -- ----------------------------
 -- Table structure for slugs
@@ -1488,13 +1546,13 @@ CREATE TABLE `slugs`  (
   INDEX `slugs_key_index`(`key` ASC) USING BTREE,
   INDEX `slugs_prefix_index`(`prefix` ASC) USING BTREE,
   INDEX `slugs_reference_index`(`reference_id` ASC, `reference_type` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 57 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of slugs
 -- ----------------------------
 INSERT INTO `slugs` VALUES (1, 'homepage', 1, 'Dev\\Page\\Models\\Page', '', '2024-08-27 04:25:54', '2024-08-27 04:25:54');
-INSERT INTO `slugs` VALUES (2, 'blog', 2, 'Dev\\Page\\Models\\Page', '', '2024-08-27 04:25:54', '2024-08-27 04:25:54');
+INSERT INTO `slugs` VALUES (2, 'hop-dong', 2, 'Dev\\Page\\Models\\Page', '', '2024-08-27 04:25:54', '2024-10-11 15:42:20');
 INSERT INTO `slugs` VALUES (3, 'contact', 3, 'Dev\\Page\\Models\\Page', '', '2024-08-27 04:25:54', '2024-08-27 04:25:54');
 INSERT INTO `slugs` VALUES (4, 'cookie-policy', 4, 'Dev\\Page\\Models\\Page', '', '2024-08-27 04:25:54', '2024-08-27 04:25:54');
 INSERT INTO `slugs` VALUES (5, 'galleries', 5, 'Dev\\Page\\Models\\Page', '', '2024-08-27 04:25:54', '2024-08-27 04:25:54');
@@ -1549,6 +1607,13 @@ INSERT INTO `slugs` VALUES (53, 'hidden-gems', 12, 'Dev\\Gallery\\Models\\Galler
 INSERT INTO `slugs` VALUES (54, 'tranquil-waters', 13, 'Dev\\Gallery\\Models\\Gallery', 'galleries', '2024-08-27 04:25:57', '2024-08-27 04:25:57');
 INSERT INTO `slugs` VALUES (55, 'urban-escape', 14, 'Dev\\Gallery\\Models\\Gallery', 'galleries', '2024-08-27 04:25:57', '2024-08-27 04:25:57');
 INSERT INTO `slugs` VALUES (56, 'twilight-zone', 15, 'Dev\\Gallery\\Models\\Gallery', 'galleries', '2024-08-27 04:25:57', '2024-08-27 04:25:57');
+INSERT INTO `slugs` VALUES (57, 'hop-dong-thang-10-2', 1, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-11 19:25:09', '2024-10-11 19:25:09');
+INSERT INTO `slugs` VALUES (58, 'anh-sang', 2, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-12 02:57:52', '2024-10-12 02:57:52');
+INSERT INTO `slugs` VALUES (59, 'hop-dong-1', 3, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-12 06:08:29', '2024-10-12 06:08:29');
+INSERT INTO `slugs` VALUES (60, 'demo', 4, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-13 14:41:47', '2024-10-13 14:41:47');
+INSERT INTO `slugs` VALUES (61, 'demo2', 5, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-13 14:54:49', '2024-10-13 14:54:49');
+INSERT INTO `slugs` VALUES (62, 'tadasd', 6, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-13 15:02:35', '2024-10-13 15:02:35');
+INSERT INTO `slugs` VALUES (63, '10-mau-hop-dong-cmac', 7, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-13 15:04:22', '2024-10-13 15:04:22');
 
 -- ----------------------------
 -- Table structure for slugs_translations
@@ -1560,7 +1625,7 @@ CREATE TABLE `slugs_translations`  (
   `key` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `prefix` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '',
   PRIMARY KEY (`lang_code`, `slugs_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of slugs_translations
@@ -1580,7 +1645,7 @@ CREATE TABLE `tags`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tags
@@ -1604,7 +1669,7 @@ CREATE TABLE `tags_translations`  (
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `description` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`lang_code`, `tags_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tags_translations
@@ -1623,7 +1688,7 @@ CREATE TABLE `user_meta`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_meta_user_id_index`(`user_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_meta
@@ -1652,12 +1717,13 @@ CREATE TABLE `users`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `users_email_unique`(`email` ASC) USING BTREE,
   UNIQUE INDEX `users_username_unique`(`username` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'superadmin@fsofts.com', NULL, '$2y$10$l30SUWOoAkHPXak.RVFMJ.LUttF1IVnYaHdRhUPLqm2gWXFdccAza', 'vgQwApnV0ZtM1bD52muyncepbmhJPjksrnUKpqkaL2jGIOtVSo9DZ2neX5GK', '2024-08-27 04:25:54', '2024-08-27 04:25:54', 'Marianna', 'Conroy', 'admin', NULL, 1, 1, NULL, NULL);
+INSERT INTO `users` VALUES (1, 'superadmin@fsofts.com', NULL, '$2y$10$l30SUWOoAkHPXak.RVFMJ.LUttF1IVnYaHdRhUPLqm2gWXFdccAza', 'bVH2ndyaHGyNpy2c1Jms31Sl9wV3JAQVsO4PJRzrqM3nc6lNCdZiBbMdOPfc', '2024-08-27 04:25:54', '2024-08-27 04:25:54', 'Marianna', 'Conroy', 'admin', NULL, 1, 1, NULL, NULL);
+INSERT INTO `users` VALUES (2, 'signature@admin.com', NULL, '$2y$12$FGrnNmAxga7CwcmQk0oqbODRM5NXccag1XJClnnHP.jzRGFNoQifS', 'r6who4KYr9rhk3wBEpTbcf526GBxCL2BoYViBNM7EcZZz2IKhOC0q4FsVqBp', '2024-10-12 15:38:41', '2024-10-12 15:38:41', 'Admin', 'Signature', 'signatureadmin', NULL, 0, 0, '{\"core.cms\":true,\"media.index\":true,\"files.index\":true,\"files.create\":true,\"files.edit\":true,\"files.trash\":true,\"files.destroy\":true,\"folders.index\":true,\"folders.create\":true,\"folders.edit\":true,\"folders.trash\":true,\"folders.destroy\":true,\"pages.index\":true,\"pages.create\":true,\"pages.edit\":true,\"pages.destroy\":true,\"galleries.index\":true,\"galleries.create\":true,\"galleries.edit\":true,\"galleries.destroy\":true,\"contract-management.index\":true,\"contract-management.create\":true,\"contract-management.edit\":true,\"contract-management.destroy\":true,\"settings.index\":true,\"users.index\":true,\"users.create\":true,\"users.edit\":true,\"users.destroy\":true,\"roles.index\":true,\"roles.create\":true,\"roles.edit\":true,\"roles.destroy\":true,\"superuser\":null,\"manage_supers\":null}', NULL);
 
 -- ----------------------------
 -- Table structure for widgets
@@ -1673,7 +1739,7 @@ CREATE TABLE `widgets`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of widgets
