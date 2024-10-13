@@ -213,25 +213,30 @@ header {
   overflow: hidden;
 
   .left-content {
-    width: 70%;
+    width: 95%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     overflow-y: auto;
     padding-bottom: 4rem;
-    @include maxWidth(1180){
-        width: 95%;
-    }
   }
 
   .right-content {
-    width: 30%;
-    overflow-y: auto;
     display: flex;
-    height: 100%;
     overflow-y: hidden;
     background: rgb(242, 246, 255);
+    width: 100%;
+    max-width: 400px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    transform: translate(calc(100% - 50px), 0);
+    transition: all 0.2s linear;
+    &.active{
+        transform: translate(0, 0);
+    }
     .menu-bar-side{
         width: 50px;
         height: 100%;
@@ -292,21 +297,6 @@ header {
         border-radius: 10px;
         justify-content: center;
       }
-    }
-
-    @include maxWidth(1180){
-        width: 100%;
-        max-width: 400px;
-        position: fixed;
-        top: 0;
-        right: 0;
-        height: 100%;
-        background-color: #fff;
-        transform: translate(calc(100% - 50px), 0);
-        transition: all 0.2s linear;
-        &.active{
-            transform: translate(0, 0);
-        }
     }
   }
 }

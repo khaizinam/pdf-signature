@@ -10,6 +10,7 @@ mix
     .sass(source + '/assets/sass/style.scss', dist + '/css')
     .js(source + '/assets/js/script.js', dist + '/js')
     .copy(source + '/assets/fonts', dist + '/fonts')
+    .copy(source + '/public/libraries', dist + '/libraries')
 
 if (mix.inProduction()) {
     mix

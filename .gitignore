@@ -63,4 +63,5 @@ composer.lock
 public/ui/*/js
 public/ui/*/css
 public/ui/*/fonts
+public/ui/*/libraries
 public/storage/fonts
