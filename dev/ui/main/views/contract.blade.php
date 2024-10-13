@@ -62,7 +62,7 @@
                 </button>
                 <button type="button" class="custom-button save" id="save-signature">
                     <i class="fa-solid fa-floppy-disk"></i>
-                    <span>Lưu và Ký</span>
+                    <span>Ký</span>
                 </button>
 
                 <img id="loaded-signature" style="display: none;" />
