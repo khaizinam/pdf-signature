@@ -272,21 +272,21 @@ document.getElementById('save-signature').addEventListener('click', () => {
         });
 });
 
-document.getElementById('load-signature').addEventListener('click', () => {
-    fetch('/load-signature')
-        .then(response => response.json())
-        .then(data => {
-            if (data.image) {
-                const img = document.getElementById('loaded-signature');
-                img.src = data.image;
-                img.style.display = 'block'; // Hiện chữ ký đã tải
-                signatureImage = new Image();
-                signatureImage.src = data.image;
-            } else {
-                // alert("Tải chữ ký không thành công.");
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-});
+// document.getElementById('load-signature').addEventListener('click', () => {
+//     fetch('/load-signature')
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.image) {
+//                 const img = document.getElementById('loaded-signature');
+//                 img.src = data.image;
+//                 img.style.display = 'block'; // Hiện chữ ký đã tải
+//                 signatureImage = new Image();
+//                 signatureImage.src = data.image;
+//             } else {
+//                 // alert("Tải chữ ký không thành công.");
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//         });
+// });
