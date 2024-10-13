@@ -213,7 +213,7 @@ header {
   overflow: hidden;
 
   .left-content {
-    width: 95%;
+    width: calc(100% - 50px);
     display: flex;
     justify-content: flex-start;
     align-items: center;
