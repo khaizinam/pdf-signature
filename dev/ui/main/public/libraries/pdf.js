@@ -13,6 +13,8 @@ const CONTRACT_ID = document.getElementById('contract-id').value;
 const pdfCanvas = document.getElementById('pdf-canvas');
 const preBtn = document.getElementById('prev-page');
 const nextBtn = document.getElementById('next-page');
+const startBtn = document.getElementById('start-page');
+const endBtn = document.getElementById('end-page');
 const domCurrentPage = document.getElementById('current-page');
 const domTotalPage = document.getElementById('total-page');
 const dowloadPDF =  document.getElementById('save-pdf');
@@ -139,6 +141,16 @@ preBtn.addEventListener('click', function(){
     else{
         reloadPagePDF();
     }
+});
+
+startBtn.addEventListener('click', function(){
+    curent_page = 1;
+    reloadPagePDF();
+});
+
+endBtn.addEventListener('click', function(){
+    curent_page = totalPageCount;
+    reloadPagePDF();
 });
 
 // Bấm vào pdf để chèn chữ ký vào vị trí đã  chọn

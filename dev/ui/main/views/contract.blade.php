@@ -5,7 +5,7 @@
         <span class="contract-date">{{ $contract->created_at ?? '' }}</span>
     </div>
 </header>
-<div class="container-content contract-wrapper sig-wrap" style="display:flex;justify-content:space-beweent;">
+<div class="container-content contract-wrapper sig-wrap" >
 
     <div class="left-content pdf-file" id="pdf-wrapper">
         {{-- <div class="canva-draw"> --}}
@@ -20,12 +20,20 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
             <button class="" id="prev-page">
-                <i class="fa-solid fa-backward"></i>
+                <i class="fa-solid fa-arrow-left"></i>
                 <span>Trước</span>
             </button>
             <button class="" id="next-page">
-                <i class="fa-solid fa-forward"></i>
+                <i class="fa-solid fa-arrow-right"></i>
                 <span>Sau</span>
+            </button>
+            <button class="" id="start-page">
+                <i class="fa-solid fa-backward"></i>
+                <span>Đầu</span>
+            </button>
+            <button class="" id="end-page">
+                <i class="fa-solid fa-forward"></i>
+                <span>Cuối</span>
             </button>
             <button class="">
                 <span id="current-page">0</span>
