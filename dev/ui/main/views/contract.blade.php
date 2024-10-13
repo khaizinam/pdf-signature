@@ -32,6 +32,10 @@
                 <span>/</span>
                 <span id="total-page">8</span>
             </button>
+            <button class="d-flex flex-column justify-content-center align-items-center" id="save-pdf-2">
+                <i class="fa-solid fa-file-export"></i>
+                <span>Tải</span>
+            </button>
         </div>
         <div id="signature-pad" class="signature-pad">
             <!-- Button trigger modal -->

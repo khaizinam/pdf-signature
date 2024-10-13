@@ -14,9 +14,12 @@ const preBtn = document.getElementById('prev-page');
 const nextBtn = document.getElementById('next-page');
 const domCurrentPage = document.getElementById('current-page');
 const domTotalPage = document.getElementById('total-page');
+const dowloadPDF =  document.getElementById('save-pdf');
+const dowloadPDF2 =  document.getElementById('save-pdf-2');
 const PDF_WRAPPER =  document.getElementById('pdf-wrapper');
 const PDF_SCALE_WIDTH = PDF_WRAPPER.offsetWidth - 50;
 
+let ratioScale = 1;
 const ctx = pdfCanvas.getContext('2d');
 
 domCurrentPage.innerText = curent_page;
@@ -50,7 +53,7 @@ async function reloadPagePDF() {
     pdfCanvas.width = PDF_SCALE_WIDTH;
     pdfCanvas.height =  PDF_SCALE_WIDTH / ratioRender;
 
-    const ratioScale = PDF_SCALE_WIDTH / viewportTmp.width;
+    ratioScale = PDF_SCALE_WIDTH / viewportTmp.width;
 
     const newViewPort = page.getViewport({
         scale: ratioScale
@@ -84,9 +87,9 @@ function drop(event) {
         // Draw the signature on the PDF canvas where the user drops it
         signatureImage.onload = () => {
             const rect = pdfCanvas.getBoundingClientRect();
-            signatureX = event.clientX - rect.left - (SIZE_EMBED / 2); // Calculate X position
-            signatureY = event.clientY - rect.top - (SIZE_EMBED / 2); // Calculate Y position
-            ctx.drawImage(signatureImage, signatureX, signatureY, SIZE_EMBED, SIZE_EMBED); // Adjust size as needed
+            signatureX = event.clientX - rect.left - (SIZE_EMBED * ratioScale / 2); // Calculate X position
+            signatureY = event.clientY - rect.top - (SIZE_EMBED * ratioScale / 2); // Calculate Y position
+            ctx.drawImage(signatureImage, signatureX, signatureY, SIZE_EMBED * ratioScale, SIZE_EMBED * ratioScale); // Adjust size as needed
             addImage();
         };
     }
@@ -102,8 +105,6 @@ function addImage(){
         signatureX: signatureX, // X coordinate of the signature
         signatureY: signatureY  // Y coordinate of the signature
     });
-    console.log("EMB_BUFFER");
-    console.log(EMB_BUFFER);
 }
 
 pdfCanvas.addEventListener('dragover', allowDrop);
@@ -129,19 +130,16 @@ preBtn.addEventListener('click', function(){
 pdfCanvas.addEventListener('click', async(event) => {
     if (signatureImage) {
         const rect = pdfCanvas.getBoundingClientRect();
-        signatureX = event.clientX - rect.left - (SIZE_EMBED / 2);
-        signatureY = event.clientY - rect.top  - (SIZE_EMBED / 2);;
-        ctx.drawImage(signatureImage, signatureX, signatureY, SIZE_EMBED, SIZE_EMBED);
+        signatureX = event.clientX - rect.left - (SIZE_EMBED * ratioScale / 2);
+        signatureY = event.clientY - rect.top  - (SIZE_EMBED * ratioScale / 2);;
+        ctx.drawImage(signatureImage, signatureX, signatureY, SIZE_EMBED * ratioScale, SIZE_EMBED * ratioScale);
         addImage();
-        console.log("sign click on pdf");
-
     } else {
         alert("Vui lòng tải chữ ký trước khi ký!");
     }
 });
 
-// Bấm Lưu PDF
-document.getElementById('save-pdf').addEventListener('click', async () => {
+async function pdfDownloadHandle(){
     const nameInput = document.querySelector('input[placeholder="Họ và tên"]');
     const name = nameInput.value.trim();
 
@@ -157,6 +155,9 @@ document.getElementById('save-pdf').addEventListener('click', async () => {
 
     const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
     const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
+    console.log(EMB_BUFFER);
+    console.log("scale ratio", ratioScale);
+
 
     // Iterate over EMB_BUFFER to embed the signature on each page
     for (const [pageNumber, signatures] of Object.entries(EMB_BUFFER)) {
@@ -167,10 +168,10 @@ document.getElementById('save-pdf').addEventListener('click', async () => {
 
             // Draw each signature on the PDF page
             page.drawImage(embeddedSignature, {
-                x: signature.signatureX, // X position of the signature
-                y: page.getHeight() - signature.signatureY - (SIZE_EMBED), // Y position, adjusted for PDF's coordinate system
-                width: SIZE_EMBED,       // Signature width
-                height: SIZE_EMBED       // Signature height
+                x: (signature.signatureX / ratioScale),
+                y: page.getHeight() - (signature.signatureY / ratioScale) - (SIZE_EMBED),
+                width: SIZE_EMBED,
+                height: SIZE_EMBED
             });
         }
     }
@@ -213,9 +214,12 @@ document.getElementById('save-pdf').addEventListener('click', async () => {
     .catch(error => {
         console.error('Error:', error);
     });
-});
+}
 
+// Bấm Lưu PDF
+dowloadPDF.addEventListener('click', pdfDownloadHandle);
 
+dowloadPDF2.addEventListener('click', pdfDownloadHandle);
 
 document.getElementById('save-signature').addEventListener('click', () => {
     const signaturePad = document.querySelector('.signature-pad canvas').toDataURL();
