@@ -2,6 +2,7 @@
 
 namespace Dev\ContractManagement\Http\Controllers;
 
+use Dev\Base\Events\DeletedContentEvent;
 use Dev\Base\Http\Actions\DeleteResourceAction;
 use Dev\ContractManagement\Http\Requests\ContractManagementRequest;
 use Dev\ContractManagement\Models\ContractManagement;

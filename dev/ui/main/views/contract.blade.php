@@ -69,28 +69,6 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <svg width="30" height="30" viewBox="0 0 39 39" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0.5" y="0.5" width="38" height="38" rx="19"
-                                        fill="white"></rect>
-                                    <rect x="0.5" y="0.5" width="38" height="38" rx="19"
-                                        stroke="#FFB700"></rect>
-                                    <path
-                                        d="M24.96 15.1398L23.8602 14.04L19.5 18.4002L15.1398 14.04L14.04 15.1398L18.4002 19.5L14.04 23.8602L15.1398 24.96L19.5 20.5998L23.8602 24.96L24.96 23.8602L20.5998 19.5L24.96 15.1398Z"
-                                        fill="#FFB700"></path>
-                                </svg>
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
             <div class="signature-pad--actions container">
                 <div class="row mb-3">
                     <div class="input-group mb-3 col-md-12">

@@ -11,6 +11,7 @@ mix
     .js(source + '/assets/js/script.js', dist + '/js')
     .copy(source + '/assets/fonts', dist + '/fonts')
     .copy(source + '/public/libraries', dist + '/libraries')
+    .copy(source + '/public/images', dist + '/images')
 
 if (mix.inProduction()) {
     mix
