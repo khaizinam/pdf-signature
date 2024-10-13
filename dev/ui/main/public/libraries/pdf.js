@@ -150,7 +150,7 @@ pdfCanvas.addEventListener('click', async(event) => {
         ctx.drawImage(signatureImage, signatureX, signatureY, SIZE_EMBED * ratioScale, SIZE_EMBED * ratioScale);
         addImage();
     } else {
-        alert("Vui lòng tải chữ ký trước khi ký!");
+        // alert("Vui lòng tải chữ ký trước khi ký!");
     }
 });
 
@@ -159,12 +159,12 @@ async function pdfDownloadHandle(){
     const name = nameInput.value.trim();
 
     if (!name) {
-        alert("Vui lòng nhập họ và tên!");
+        // alert("Vui lòng nhập họ và tên!");
         return;
     }
 
     if (!pdfDoc || !signatureImage) {
-        alert("Chưa có tệp PDF hoặc chữ ký!");
+        // alert("Chưa có tệp PDF hoặc chữ ký!");
         return;
     }
 
@@ -221,9 +221,9 @@ async function pdfDownloadHandle(){
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert("Chữ ký và thông tin hợp đồng đã được lưu thành công!");
+            // alert("Chữ ký và thông tin hợp đồng đã được lưu thành công!");
         } else {
-            alert("Lưu chữ ký không thành công.");
+            // alert("Lưu chữ ký không thành công.");
         }
     })
     .catch(error => {
@@ -239,7 +239,7 @@ dowloadPDF2.addEventListener('click', pdfDownloadHandle);
 document.getElementById('save-signature').addEventListener('click', () => {
     const signaturePad = document.querySelector('.signature-pad canvas').toDataURL();
     if (!signaturePad) {
-        alert("Vui lòng cung cấp chữ ký trước.");
+        // alert("Vui lòng cung cấp chữ ký trước.");
         return;
     }
 
@@ -262,9 +262,9 @@ document.getElementById('save-signature').addEventListener('click', () => {
                 img.style.display = 'block'; // Hiển thị chữ ký đã tải
                 signatureImage = new Image();
                 signatureImage.src = data.image;
-                alert("Chữ ký đã được lưu và hiển thị!");
+                // alert("Chữ ký đã được lưu và hiển thị!");
             } else {
-                alert("Lưu chữ ký không thành công.");
+                // alert("Lưu chữ ký không thành công.");
             }
         })
         .catch(error => {
@@ -283,7 +283,7 @@ document.getElementById('load-signature').addEventListener('click', () => {
                 signatureImage = new Image();
                 signatureImage.src = data.image;
             } else {
-                alert("Tải chữ ký không thành công.");
+                // alert("Tải chữ ký không thành công.");
             }
         })
         .catch(error => {
