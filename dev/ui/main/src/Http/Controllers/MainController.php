@@ -2,6 +2,7 @@
 
 namespace Theme\Main\Http\Controllers;
 
+use Dev\Base\Enums\BaseStatusEnum;
 use Dev\Base\Facades\BaseHelper;
 use Dev\Base\Http\Responses\BaseHttpResponse;
 use Dev\ContractManagement\Models\ContractManagement;
@@ -17,6 +18,7 @@ use Dev\Theme\Events\RenderingHomePageEvent;
 use Dev\Theme\Events\RenderingSingleEvent;
 use Dev\Theme\Facades\Theme;
 use Dev\Theme\Http\Controllers\PublicController;
+use Exception;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
@@ -75,6 +77,11 @@ class MainController extends PublicController
         }
 
         $contract = app(ContractManagementInterface::class)->findById($slug->reference_id);
+
+        if($contract->status != BaseStatusEnum::PUBLISHED){
+            abort(404);
+        }
+
         SeoHelper::setTitle(Arr::get($contract, 'name', ''))
             ->setDescription(Arr::get($contract, 'name', ''))
             ->openGraph()
@@ -226,5 +233,37 @@ class MainController extends PublicController
 
     }
 
-
+    private function updLoadIMG(array $main_arr, $file_images, $is_array = true)
+    {
+        try {
+            $images = [];
+            if ($is_array) {
+                if ($file_images == null) return $main_arr;
+                foreach ($file_images as $image) {
+                    $result = AppMedia::handleUpload($image, 0, "app-user");
+                    if (!$result['error']) {
+                        $images[] = $result['data']->url;
+                    } else {
+                        throw new Exception($result['message']);
+                    }
+                }
+                foreach ($images as $item) {
+                    $main_arr[] = $item;
+                }
+                return $main_arr;
+            } else {
+                if ($file_images == null) return "";
+                $url = "";
+                $result = AppMedia::handleUpload($file_images, 0, "app-user");
+                if (!$result['error']) {
+                    $url = $result['data']->url;
+                } else {
+                    throw new Exception($result['message']);
+                }
+                return $url;
+            }
+        } catch (Exception $th) {
+            throw new Exception($th->getMessage());
+        }
+    }
 }
