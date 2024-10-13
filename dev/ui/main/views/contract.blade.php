@@ -7,7 +7,7 @@
 </header>
 <div class="container-content contract-wrapper sig-wrap" style="display:flex;justify-content:space-beweent;">
 
-    <div class="left-content pdf-file">
+    <div class="left-content pdf-file" id="pdf-wrapper">
         {{-- <div class="canva-draw"> --}}
         <canvas id="pdf-canvas" width="800" height="1200" ondrop="drop(event)" ondragover="allowDrop(event)"
             ondragleave="removeDropEffect(event)"></canvas>

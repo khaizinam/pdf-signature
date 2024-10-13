@@ -14,7 +14,11 @@ const preBtn = document.getElementById('prev-page');
 const nextBtn = document.getElementById('next-page');
 const domCurrentPage = document.getElementById('current-page');
 const domTotalPage = document.getElementById('total-page');
+const PDF_WRAPPER =  document.getElementById('pdf-wrapper');
+const PDF_SCALE_WIDTH = PDF_WRAPPER.offsetWidth - 50;
+
 const ctx = pdfCanvas.getContext('2d');
+
 domCurrentPage.innerText = curent_page;
 // Load pdf lên màn hình khi vào trang
 async function loadPDF(){
@@ -36,15 +40,25 @@ loadPDF();
 async function reloadPagePDF() {
     const page = await pdf.getPage(curent_page);
 
-    const viewport = page.getViewport({
+    const viewportTmp = page.getViewport({
         scale: 1.0
     });
 
-    pdfCanvas.width = viewport.width;
-    pdfCanvas.height = viewport.height;
+    const ratioRender = viewportTmp.width / viewportTmp.height;
+
+    //render pdf canvas on screen
+    pdfCanvas.width = PDF_SCALE_WIDTH;
+    pdfCanvas.height =  PDF_SCALE_WIDTH / ratioRender;
+
+    const ratioScale = PDF_SCALE_WIDTH / viewportTmp.width;
+
+    const newViewPort = page.getViewport({
+        scale: ratioScale
+    });
+
     const renderContext = {
         canvasContext: ctx,
-        viewport: viewport
+        viewport: newViewPort
     };
     domCurrentPage.innerText = curent_page;
     await page.render(renderContext).promise;
