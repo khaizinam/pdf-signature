@@ -62,12 +62,10 @@
                 </button>
                 <button type="button" class="custom-button save" id="save-signature">
                     <i class="fa-solid fa-floppy-disk"></i>
-                    <span>Lưu</span>
+                    <span>Lưu và Ký</span>
                 </button>
-                <button type="button" class="custom-button load" id="load-signature">
-                    <i class="fa-solid fa-upload"></i>
-                    <span>Ký</span>
-                </button>
+
+                <img id="loaded-signature" style="display: none;" />
             </div>
 
             <!-- Modal -->
@@ -116,4 +114,5 @@
 
 </div>
 <input type="hidden" name="url-pdf" id="pdf-url" value="{{ get_object_image(Arr::get($contract, 'file', '')) }}">
+<input type="hidden" name="contract-id" id="contract-id" value="{{ Arr::get($contract, 'id', '')}}">
 

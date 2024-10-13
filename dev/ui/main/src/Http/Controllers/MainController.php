@@ -144,19 +144,22 @@ class MainController extends PublicController
 
     public function saveSignature(HttpRequest $request)
     {
-        // Xóa tất cả các tệp hình ảnh chữ ký cũ
+        // Xóa tất cả các tệp hình ảnh chữ ký cũ (nếu cần)
         $this->deleteOldSignatures();
 
         $image = $request->image;
-
         $image = str_replace('data:image/png;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
         $imageName = 'signature_' . time() . '.png';
 
         Storage::disk('public')->put($imageName, base64_decode($image));
 
-        return response()->json(['success' => true]);
+        // Trả về đường dẫn của chữ ký vừa được lưu
+        $imageUrl = Storage::disk('public')->url($imageName);
+
+        return response()->json(['success' => true, 'image' => $imageUrl]);
     }
+
 
     private function deleteOldSignatures()
     {
@@ -210,7 +213,6 @@ class MainController extends PublicController
                 'name' => 'required|string|max:255',
                 'file' => 'required|file|mimes:pdf',
             ]);
-
             $signature = new Signature();
             $signature->name = $request->input('name');
             $signature->file = $request->file('file')->store('signatures');

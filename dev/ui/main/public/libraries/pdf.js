@@ -9,6 +9,7 @@ let pdf;
 
 const SIZE_EMBED = 120;
 const PDF_URL = document.getElementById('pdf-url').value;
+const CONTRACT_ID = document.getElementById('contract-id').value;
 const pdfCanvas = document.getElementById('pdf-canvas');
 const preBtn = document.getElementById('prev-page');
 const nextBtn = document.getElementById('next-page');
@@ -194,7 +195,7 @@ async function pdfDownloadHandle(){
     const formData = new FormData();
     formData.append('name', name);
     formData.append('file', blob); // Chuyển đổi blob sang file
-    formData.append('contract_id', '{{ $contract->id }}'); // Thêm contract_id vào FormData
+    formData.append('contract_id', CONTRACT_ID);
 
     fetch('/save-signature-contract', {
         method: 'POST',
@@ -232,8 +233,7 @@ document.getElementById('save-signature').addEventListener('click', () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                    'content')
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
                 image: signaturePad
@@ -242,7 +242,13 @@ document.getElementById('save-signature').addEventListener('click', () => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert("Chữ ký đã được lưu vào storage!");
+                // Sau khi lưu thành công, tự động tải và hiển thị chữ ký
+                const img = document.getElementById('loaded-signature');
+                img.src = data.image; // Tải chữ ký ngay từ response
+                img.style.display = 'block'; // Hiển thị chữ ký đã tải
+                signatureImage = new Image();
+                signatureImage.src = data.image;
+                alert("Chữ ký đã được lưu và hiển thị!");
             } else {
                 alert("Lưu chữ ký không thành công.");
             }
