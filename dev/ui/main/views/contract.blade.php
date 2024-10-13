@@ -48,7 +48,7 @@
                     <div class="description">
                         Ký ở trên
                     </div>
-                    <img id="loaded-signature" src="" alt="Loaded Signature" style="display:none;max-width:100px;" />
+                    <img id="loaded-signature" src="" alt="Loaded Signature" style="display:none;width:120px;height:120px;" />
                 </div>
             </div>
             <div class="button-mode-group">
