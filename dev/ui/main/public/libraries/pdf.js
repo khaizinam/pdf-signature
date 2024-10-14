@@ -212,10 +212,7 @@ async function pdfDownloadHandle(){
     const url = URL.createObjectURL(blob);
 
     // Tải xuống PDF
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'signed_document.pdf';
-    a.click();
+
 
     // Bước 2: Lưu chữ ký và thông tin vào cơ sở dữ liệu
     const formData = new FormData();
@@ -233,7 +230,10 @@ async function pdfDownloadHandle(){
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // alert("Chữ ký và thông tin hợp đồng đã được lưu thành công!");
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'signed_document.pdf';
+            a.click();
         } else {
             // alert("Lưu chữ ký không thành công.");
         }
