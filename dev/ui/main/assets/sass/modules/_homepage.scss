@@ -426,3 +426,43 @@ header {
 
 
 
+/* HTML: <div class="loader"></div> */
+#save-pdf{
+    .loader-file {
+        display: none;
+        width: 40px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 8px solid;
+        border-color: #000 #0000;
+        animation: l1 1s infinite;
+    }
+    &.active{
+        .loader-file {
+            display: block;
+        }
+    }
+    @keyframes l1 {to{transform: rotate(.5turn)}}
+}
+
+#save-pdf-2{
+    .loader-file {
+        display: none;
+        width: 40px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 8px solid;
+        border-color: #000 #0000;
+        animation: l1 1s infinite;
+    }
+    &.active{
+        .loader-file {
+            display: block;
+        }
+        i , span {
+            display: none;
+        }
+    }
+    @keyframes l1 {to{transform: rotate(.5turn)}}
+}
+

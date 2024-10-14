@@ -19,6 +19,7 @@ const domCurrentPage = document.getElementById('current-page');
 const domTotalPage = document.getElementById('total-page');
 const dowloadPDF =  document.getElementById('save-pdf');
 const dowloadPDF2 =  document.getElementById('save-pdf-2');
+let isLoadingPDF = false;
 const PDF_WRAPPER =  document.getElementById('pdf-wrapper');
 const PDF_SCALE_WIDTH = PDF_WRAPPER.offsetWidth - 50;
 
@@ -182,9 +183,6 @@ async function pdfDownloadHandle(){
 
     const signatureImageBytes = await fetch(signatureImage.src).then(res => res.arrayBuffer());
     const embeddedSignature = await pdfDoc.embedPng(signatureImageBytes);
-    console.log(EMB_BUFFER);
-    console.log("scale ratio", ratioScale);
-
 
     // Iterate over EMB_BUFFER to embed the signature on each page
     for (const [pageNumber, signatures] of Object.entries(EMB_BUFFER)) {
@@ -212,7 +210,13 @@ async function pdfDownloadHandle(){
     const url = URL.createObjectURL(blob);
 
     // Tải xuống PDF
+    if(isLoadingPDF) {
+        return;
+    }
 
+    isLoadingPDF = true;
+    dowloadPDF.classList.add('active');
+    dowloadPDF2.classList.add('active');
 
     // Bước 2: Lưu chữ ký và thông tin vào cơ sở dữ liệu
     const formData = new FormData();
@@ -230,6 +234,10 @@ async function pdfDownloadHandle(){
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            isLoadingPDF = false;
+            dowloadPDF.classList.remove('active');
+            dowloadPDF2.classList.remove('active');
+
             const a = document.createElement('a');
             a.href = url;
             a.download = 'signed_document.pdf';

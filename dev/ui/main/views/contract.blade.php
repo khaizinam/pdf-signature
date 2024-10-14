@@ -43,6 +43,9 @@
             <button class="d-flex flex-column justify-content-center align-items-center" id="save-pdf-2">
                 <i class="fa-solid fa-file-export"></i>
                 <span>Tải</span>
+                <div class="layer-loading">
+                    <div class="loader-file"></div>
+                </div>
             </button>
         </div>
         <div id="signature-pad" class="signature-pad">
@@ -90,6 +93,9 @@
                             PDF
                         </div>
                         Lưu PDF với chữ ký
+                        <div class="layer-loading">
+                            <div class="loader-file"></div>
+                        </div>
                     </button>
                 </div>
             </div>
