@@ -11,7 +11,7 @@
  Target Server Version : 100608
  File Encoding         : 65001
 
- Date: 13/10/2024 15:35:24
+ Date: 14/10/2024 14:12:44
 */
 
 SET NAMES utf8mb4;
@@ -126,18 +126,13 @@ CREATE TABLE `contract_managements`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of contract_managements
 -- ----------------------------
-INSERT INTO `contract_managements` VALUES (1, 'Hợp đồng tháng 10 2', 'ae21bfe63f107d5dc4e8861380409aaf-1.pdf', NULL, NULL, 'published', '2024-10-11 19:23:55', '2024-10-12 16:49:25');
-INSERT INTO `contract_managements` VALUES (2, 'Ánh sáng', 'ae21bfe63f107d5dc4e8861380409aaf-2.pdf', NULL, NULL, 'published', '2024-10-12 02:57:52', '2024-10-12 05:57:34');
-INSERT INTO `contract_managements` VALUES (3, 'Hop dong 1', 'co3335-co3345-internship-report-copy-1.pdf', NULL, NULL, 'published', '2024-10-12 06:08:28', '2024-10-13 15:10:56');
-INSERT INTO `contract_managements` VALUES (4, 'Demo', 'day-la-file-mau-pdf.pdf', NULL, NULL, 'published', '2024-10-13 14:41:47', '2024-10-13 14:41:47');
-INSERT INTO `contract_managements` VALUES (5, 'Demo2', '10-mau-hop-dong-mcac.pdf', NULL, NULL, 'published', '2024-10-13 14:54:49', '2024-10-13 14:54:49');
-INSERT INTO `contract_managements` VALUES (6, 'tádasd', '10-mau-hop-dong-mcac.pdf', NULL, NULL, 'published', '2024-10-13 15:02:35', '2024-10-13 15:02:35');
-INSERT INTO `contract_managements` VALUES (7, '10 Mẫu hợp đồng Cmac', '10-mau-hop-dong-mcac-1.pdf', NULL, NULL, 'published', '2024-10-13 15:04:22', '2024-10-13 15:04:22');
+INSERT INTO `contract_managements` VALUES (1, 'Hợp đồng tháng 10 2', 'dacn-231-gd-2-report.pdf', NULL, NULL, 'published', '2024-10-11 19:23:55', '2024-10-14 11:08:39');
+INSERT INTO `contract_managements` VALUES (9, 'Test trên local', 'ae21bfe63f107d5dc4e8861380409aaf-6.pdf', NULL, NULL, 'published', '2024-10-13 20:20:32', '2024-10-14 11:41:37');
 
 -- ----------------------------
 -- Table structure for custom_fields
@@ -481,7 +476,7 @@ CREATE TABLE `media_files`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `media_files_user_id_index`(`user_id` ASC) USING BTREE,
   INDEX `media_files_index`(`folder_id` ASC, `user_id` ASC, `created_at` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of media_files
@@ -533,6 +528,13 @@ INSERT INTO `media_files` VALUES (44, 2, 'DAY-LA-FILE-MAU-PDF', 'DAY-LA-FILE-MAU
 INSERT INTO `media_files` VALUES (45, 2, '10 MAU HOP DONG MCAC', '10 MAU HOP DONG MCAC', 0, 'application/pdf', 1653732, '10-mau-hop-dong-mcac.pdf', '[]', '2024-10-13 14:54:37', '2024-10-13 14:54:37', NULL, 'public');
 INSERT INTO `media_files` VALUES (46, 1, '10-MAU-HOP-DONG-MCAC', '10-MAU-HOP-DONG-MCAC', 0, 'application/pdf', 1653732, '10-mau-hop-dong-mcac.pdf', '[]', '2024-10-13 15:02:31', '2024-10-13 15:02:31', NULL, 'public');
 INSERT INTO `media_files` VALUES (47, 2, '10-MAU-HOP-DONG-MCAC-1', '10-MAU-HOP-DONG-MCAC-1', 0, 'application/pdf', 1653732, '10-mau-hop-dong-mcac-1.pdf', '[]', '2024-10-13 15:03:56', '2024-10-13 15:03:56', NULL, 'public');
+INSERT INTO `media_files` VALUES (48, 1, 'ae21bfe63f107d5dc4e8861380409aaf-5', 'ae21bfe63f107d5dc4e8861380409aaf-5', 0, 'application/pdf', 86077, 'ae21bfe63f107d5dc4e8861380409aaf-5.pdf', '[]', '2024-10-13 19:38:15', '2024-10-13 19:38:15', NULL, 'public');
+INSERT INTO `media_files` VALUES (49, 2, 'CNPM', 'CNPM', 0, 'application/pdf', 4342116, 'cnpm.pdf', '[]', '2024-10-14 10:21:20', '2024-10-14 10:21:20', NULL, 'public');
+INSERT INTO `media_files` VALUES (50, 2, '1', '1', 0, 'image/png', 208806, '1.png', '[]', '2024-10-14 10:23:23', '2024-10-14 10:23:23', NULL, 'public');
+INSERT INTO `media_files` VALUES (51, 2, 'DACN_231_GD_2_report', 'DACN_231_GD_2_report', 0, 'application/pdf', 16055358, 'dacn-231-gd-2-report.pdf', '[]', '2024-10-14 10:24:27', '2024-10-14 10:24:27', NULL, 'public');
+INSERT INTO `media_files` VALUES (52, 2, 'testpdf', 'testpdf', 0, 'application/pdf', 9022, 'testpdf.pdf', '[]', '2024-10-14 10:34:15', '2024-10-14 10:34:15', NULL, 'public');
+INSERT INTO `media_files` VALUES (53, 1, '_CO3335_CO3345__INTERNSHIP_REPORT__Copy_-2', '_CO3335_CO3345__INTERNSHIP_REPORT__Copy_-2', 0, 'application/pdf', 1043785, 'co3335-co3345-internship-report-copy-2.pdf', '[]', '2024-10-14 10:40:36', '2024-10-14 10:40:36', NULL, 'public');
+INSERT INTO `media_files` VALUES (54, 1, 'ae21bfe63f107d5dc4e8861380409aaf-6', 'ae21bfe63f107d5dc4e8861380409aaf-6', 0, 'application/pdf', 86077, 'ae21bfe63f107d5dc4e8861380409aaf-6.pdf', '[]', '2024-10-14 11:41:19', '2024-10-14 11:41:19', NULL, 'public');
 
 -- ----------------------------
 -- Table structure for media_folders
@@ -1140,7 +1142,7 @@ CREATE TABLE `request_logs`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 177 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 199 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of request_logs
@@ -1205,8 +1207,8 @@ INSERT INTO `request_logs` VALUES (57, 404, 'https://signature.code/load-signatu
 INSERT INTO `request_logs` VALUES (58, 405, 'https://signature.code/save-signature', 2, NULL, NULL, '2024-10-12 05:03:32', '2024-10-12 05:03:37');
 INSERT INTO `request_logs` VALUES (59, 404, 'https://signature.code/storage/ae21bfe63f107d5dc4e8861380409aaf.pdf', 1, NULL, NULL, '2024-10-12 05:53:45', '2024-10-12 05:53:45');
 INSERT INTO `request_logs` VALUES (60, 404, 'http://127.0.0.1:8000/storage/screenshot-from-2024-10-11-18-00-07-150x150.png', 7, NULL, NULL, '2024-10-12 05:54:44', '2024-10-13 13:17:18');
-INSERT INTO `request_logs` VALUES (61, 404, 'https://signature.code/storage/ae21bfe63f107d5dc4e8861380409aaf-1.pdf', 3, NULL, NULL, '2024-10-12 05:56:43', '2024-10-12 15:17:16');
-INSERT INTO `request_logs` VALUES (62, 404, 'https://signature.code/storage/screenshot-from-2024-10-11-18-00-07-150x150.png', 7, NULL, NULL, '2024-10-12 05:57:11', '2024-10-13 01:33:08');
+INSERT INTO `request_logs` VALUES (61, 404, 'https://signature.code/storage/ae21bfe63f107d5dc4e8861380409aaf-1.pdf', 4, NULL, NULL, '2024-10-12 05:56:43', '2024-10-13 19:37:30');
+INSERT INTO `request_logs` VALUES (62, 404, 'https://signature.code/storage/screenshot-from-2024-10-11-18-00-07-150x150.png', 16, NULL, NULL, '2024-10-12 05:57:11', '2024-10-14 11:41:19');
 INSERT INTO `request_logs` VALUES (63, 404, 'http://127.0.0.1:8000/storage/ae21bfe63f107d5dc4e8861380409aaf-3.pdf', 2, NULL, NULL, '2024-10-12 14:51:29', '2024-10-12 14:59:51');
 INSERT INTO `request_logs` VALUES (64, 404, 'https://signature.dev.fsofts.com/ui/main/css/style.css?v=1728720579', 1, NULL, NULL, '2024-10-12 15:09:42', '2024-10-12 15:09:42');
 INSERT INTO `request_logs` VALUES (65, 404, 'https://signature.dev.fsofts.com/ui/main/js/script.js?v=1728720579', 1, NULL, NULL, '2024-10-12 15:09:42', '2024-10-12 15:09:42');
@@ -1235,11 +1237,11 @@ INSERT INTO `request_logs` VALUES (87, 404, 'https://signature.dev.fsofts.com/ve
 INSERT INTO `request_logs` VALUES (88, 404, 'https://signature.code/storage/ae21bfe63f107d5dc4e8861380409aaf-3.pdf', 1, NULL, NULL, '2024-10-12 15:17:20', '2024-10-12 15:17:20');
 INSERT INTO `request_logs` VALUES (89, 404, 'https://signature.dev.fsofts.com/storage/ae21bfe63f107d5dc4e8861380409aaf-3.pdf', 1, NULL, NULL, '2024-10-12 15:38:54', '2024-10-12 15:38:54');
 INSERT INTO `request_logs` VALUES (90, 404, 'https://signature.dev.fsofts.com/hop-dong/hop-dong-', 1, NULL, NULL, '2024-10-12 15:39:29', '2024-10-12 15:39:29');
-INSERT INTO `request_logs` VALUES (91, 404, 'https://signature.dev.fsofts.com/storage/screenshot-from-2024-10-11-18-00-07-150x150.png', 11, NULL, NULL, '2024-10-12 15:39:54', '2024-10-13 15:25:45');
+INSERT INTO `request_logs` VALUES (91, 404, 'https://signature.dev.fsofts.com/storage/screenshot-from-2024-10-11-18-00-07-150x150.png', 24, NULL, NULL, '2024-10-12 15:39:54', '2024-10-14 11:08:32');
 INSERT INTO `request_logs` VALUES (92, 404, 'https://signature.dev.fsofts.com/load-signature', 1, '[2]', NULL, '2024-10-12 15:40:14', '2024-10-12 15:40:14');
 INSERT INTO `request_logs` VALUES (93, 404, 'http://127.0.0.1:8000/storage/ae21bfe63f107d5dc4e8861380409aaf-4.pdf', 2, NULL, NULL, '2024-10-12 16:48:47', '2024-10-12 16:48:53');
-INSERT INTO `request_logs` VALUES (94, 404, 'https://signature.dev.fsofts.com/.env', 3, NULL, NULL, '2024-10-12 22:12:33', '2024-10-13 02:50:10');
-INSERT INTO `request_logs` VALUES (95, 404, 'https://www.signature.dev.fsofts.com/.env', 2, NULL, NULL, '2024-10-12 22:27:29', '2024-10-13 03:13:34');
+INSERT INTO `request_logs` VALUES (94, 404, 'https://signature.dev.fsofts.com/.env', 5, NULL, NULL, '2024-10-12 22:12:33', '2024-10-14 08:04:38');
+INSERT INTO `request_logs` VALUES (95, 404, 'https://www.signature.dev.fsofts.com/.env', 4, NULL, NULL, '2024-10-12 22:27:29', '2024-10-14 07:11:26');
 INSERT INTO `request_logs` VALUES (96, 404, 'https://pdf-sig.code/storage/ae21bfe63f107d5dc4e8861380409aaf-4.pdf', 1, NULL, NULL, '2024-10-12 22:30:17', '2024-10-12 22:30:17');
 INSERT INTO `request_logs` VALUES (97, 404, 'https://signature.dev.fsofts.com/hop-dong/hop-dong-thang-10-2/favicon.ico', 1, NULL, NULL, '2024-10-12 23:18:57', '2024-10-12 23:18:57');
 INSERT INTO `request_logs` VALUES (98, 404, 'https://pdf-sig.code/hop-dong/hop-dong-1', 2, '[1]', NULL, '2024-10-12 23:48:51', '2024-10-13 00:54:11');
@@ -1285,19 +1287,19 @@ INSERT INTO `request_logs` VALUES (137, 404, 'https://signature.dev.fsofts.com/b
 INSERT INTO `request_logs` VALUES (138, 404, 'https://signature.dev.fsofts.com/docker-compose.yml', 1, NULL, NULL, '2024-10-13 01:54:06', '2024-10-13 01:54:06');
 INSERT INTO `request_logs` VALUES (139, 404, 'https://signature.dev.fsofts.com/.kube/config', 1, NULL, NULL, '2024-10-13 01:54:06', '2024-10-13 01:54:06');
 INSERT INTO `request_logs` VALUES (140, 404, 'https://signature.dev.fsofts.com/secrets.json', 1, NULL, NULL, '2024-10-13 01:54:06', '2024-10-13 01:54:06');
-INSERT INTO `request_logs` VALUES (141, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/libraries/pdf.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
-INSERT INTO `request_logs` VALUES (142, 404, 'https://www.signature.dev.fsofts.com//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
-INSERT INTO `request_logs` VALUES (143, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/libraries/signature_pad.umd.min.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (141, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/libraries/pdf.js', 10, NULL, NULL, '2024-10-13 03:05:26', '2024-10-14 11:17:12');
+INSERT INTO `request_logs` VALUES (142, 404, 'https://www.signature.dev.fsofts.com//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js', 10, NULL, NULL, '2024-10-13 03:05:26', '2024-10-14 11:17:12');
+INSERT INTO `request_logs` VALUES (143, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/libraries/signature_pad.umd.min.js', 10, NULL, NULL, '2024-10-13 03:05:26', '2024-10-14 11:17:12');
 INSERT INTO `request_logs` VALUES (144, 404, 'https://www.signature.dev.fsofts.com/dist/js/bootstrap.min.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
 INSERT INTO `request_logs` VALUES (145, 404, 'https://www.signature.dev.fsofts.com/dist/js/bootstrap.bundle.min.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
-INSERT INTO `request_logs` VALUES (146, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/js/script.js', 3, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:07:07');
-INSERT INTO `request_logs` VALUES (147, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/vendor/core/plugins/language/js/language-public.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
-INSERT INTO `request_logs` VALUES (148, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/vendor/core/plugins/cookie-consent/js/cookie-consent....', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
-INSERT INTO `request_logs` VALUES (149, 404, 'https://www.signature.dev.fsofts.com/dist/pdf-lib.min.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
-INSERT INTO `request_logs` VALUES (150, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/libraries/app.js', 5, NULL, NULL, '2024-10-13 03:05:26', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (146, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/js/script.js', 8, NULL, NULL, '2024-10-13 03:05:26', '2024-10-14 11:17:12');
+INSERT INTO `request_logs` VALUES (147, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/vendor/core/plugins/language/js/language-public.js', 10, NULL, NULL, '2024-10-13 03:05:26', '2024-10-14 11:17:12');
+INSERT INTO `request_logs` VALUES (148, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/vendor/core/plugins/cookie-consent/js/cookie-consent....', 10, NULL, NULL, '2024-10-13 03:05:26', '2024-10-14 11:17:12');
+INSERT INTO `request_logs` VALUES (149, 404, 'https://www.signature.dev.fsofts.com/dist/pdf-lib.min.js', 10, NULL, NULL, '2024-10-13 03:05:26', '2024-10-14 11:17:12');
+INSERT INTO `request_logs` VALUES (150, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/libraries/app.js', 10, NULL, NULL, '2024-10-13 03:05:26', '2024-10-14 11:17:12');
 INSERT INTO `request_logs` VALUES (151, 404, 'https://www.signature.dev.fsofts.com//cdn.js', 5, NULL, NULL, '2024-10-13 03:05:28', '2024-10-13 03:08:48');
-INSERT INTO `request_logs` VALUES (152, 404, 'https://www.signature.dev.fsofts.com//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js', 5, NULL, NULL, '2024-10-13 03:05:28', '2024-10-13 03:08:46');
-INSERT INTO `request_logs` VALUES (153, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/libraries/jquery.js', 5, NULL, NULL, '2024-10-13 03:05:30', '2024-10-13 03:08:46');
+INSERT INTO `request_logs` VALUES (152, 404, 'https://www.signature.dev.fsofts.com//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js', 10, NULL, NULL, '2024-10-13 03:05:28', '2024-10-14 11:17:16');
+INSERT INTO `request_logs` VALUES (153, 404, 'https://www.signature.dev.fsofts.com//www.signature.dev.fsofts.com/ui/main/libraries/jquery.js', 10, NULL, NULL, '2024-10-13 03:05:30', '2024-10-14 11:17:12');
 INSERT INTO `request_logs` VALUES (154, 404, 'http://127.0.0.1:8000/ui/main/libraries/jquery.js', 4, NULL, NULL, '2024-10-13 13:21:14', '2024-10-13 13:24:34');
 INSERT INTO `request_logs` VALUES (155, 404, 'http://127.0.0.1:8000/ui/main/libraries/signature_pad.umd.min.js', 4, NULL, NULL, '2024-10-13 13:21:15', '2024-10-13 13:24:34');
 INSERT INTO `request_logs` VALUES (156, 404, 'http://127.0.0.1:8000/ui/main/libraries/app.js', 4, NULL, NULL, '2024-10-13 13:21:15', '2024-10-13 13:24:35');
@@ -1321,6 +1323,28 @@ INSERT INTO `request_logs` VALUES (173, 404, 'https://signature.dev.fsofts.com/s
 INSERT INTO `request_logs` VALUES (174, 404, 'https://signature.dev.fsofts.com/storage/news/18-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
 INSERT INTO `request_logs` VALUES (175, 404, 'https://signature.dev.fsofts.com/storage/news/12-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
 INSERT INTO `request_logs` VALUES (176, 404, 'https://signature.dev.fsofts.com/storage/news/16-150x150.jpg', 1, NULL, NULL, '2024-10-13 15:25:52', '2024-10-13 15:25:52');
+INSERT INTO `request_logs` VALUES (177, 404, 'https://signature.dev.fsofts.com//code.jquery.com/jquery-3.6.0.min.js', 10, NULL, NULL, '2024-10-13 16:40:24', '2024-10-14 13:32:54');
+INSERT INTO `request_logs` VALUES (178, 404, 'https://signature.dev.fsofts.com//signature.dev.fsofts.com/ui/main/libraries/pdf.js', 10, NULL, NULL, '2024-10-13 16:40:24', '2024-10-14 13:32:54');
+INSERT INTO `request_logs` VALUES (179, 404, 'https://signature.dev.fsofts.com//signature.dev.fsofts.com/ui/main/js/script.js', 10, NULL, NULL, '2024-10-13 16:40:24', '2024-10-14 13:32:54');
+INSERT INTO `request_logs` VALUES (180, 404, 'https://signature.dev.fsofts.com//signature.dev.fsofts.com/ui/main/libraries/app.js', 10, NULL, NULL, '2024-10-13 16:40:24', '2024-10-14 13:32:54');
+INSERT INTO `request_logs` VALUES (181, 404, 'https://signature.dev.fsofts.com//signature.dev.fsofts.com/ui/main/libraries/jquery.js', 10, NULL, NULL, '2024-10-13 16:40:24', '2024-10-14 13:32:54');
+INSERT INTO `request_logs` VALUES (182, 404, 'https://signature.dev.fsofts.com//signature.dev.fsofts.com/ui/main/libraries/signature_pad.umd.min.js', 10, NULL, NULL, '2024-10-13 16:40:24', '2024-10-14 13:32:54');
+INSERT INTO `request_logs` VALUES (183, 404, 'https://signature.dev.fsofts.com//signature.dev.fsofts.com/vendor/core/plugins/cookie-consent/js/cookie-consent.js', 10, NULL, NULL, '2024-10-13 16:40:24', '2024-10-14 13:32:54');
+INSERT INTO `request_logs` VALUES (184, 404, 'https://signature.dev.fsofts.com//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js', 10, NULL, NULL, '2024-10-13 16:40:24', '2024-10-14 13:32:54');
+INSERT INTO `request_logs` VALUES (185, 404, 'https://signature.dev.fsofts.com//signature.dev.fsofts.com/vendor/core/plugins/language/js/language-public.js', 10, NULL, NULL, '2024-10-13 16:40:24', '2024-10-14 13:32:54');
+INSERT INTO `request_logs` VALUES (186, 404, 'https://signature.dev.fsofts.com/dist/pdf-lib.min.js', 10, NULL, NULL, '2024-10-13 16:40:24', '2024-10-14 13:32:54');
+INSERT INTO `request_logs` VALUES (187, 404, 'https://signature.dev.fsofts.com//stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', 10, NULL, NULL, '2024-10-13 16:40:24', '2024-10-14 13:32:54');
+INSERT INTO `request_logs` VALUES (188, 404, 'https://signature.dev.fsofts.com//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js', 9, NULL, NULL, '2024-10-13 16:41:17', '2024-10-14 13:32:54');
+INSERT INTO `request_logs` VALUES (189, 404, 'https://signature.dev.fsofts.com/hop-dong/demo', 2, NULL, NULL, '2024-10-13 20:19:07', '2024-10-13 20:19:10');
+INSERT INTO `request_logs` VALUES (190, 404, 'https://signature.dev.fsofts.com/storage/ae21bfe63f107d5dc4e8861380409aaf-5.pdf', 4, NULL, NULL, '2024-10-14 00:46:45', '2024-10-14 10:21:05');
+INSERT INTO `request_logs` VALUES (191, 404, 'https://signature.dev.fsofts.com/wp-admin/setup-config.php?step=1', 1, NULL, NULL, '2024-10-14 03:29:59', '2024-10-14 03:29:59');
+INSERT INTO `request_logs` VALUES (192, 404, 'https://signature.dev.fsofts.com/.git/config', 1, NULL, NULL, '2024-10-14 07:48:14', '2024-10-14 07:48:14');
+INSERT INTO `request_logs` VALUES (193, 404, 'https://signature.code/storage/testpdf.pdf', 1, NULL, NULL, '2024-10-14 10:40:24', '2024-10-14 10:40:24');
+INSERT INTO `request_logs` VALUES (194, 404, 'https://signature.code/storage/1-150x150.png', 5, NULL, NULL, '2024-10-14 10:40:30', '2024-10-14 11:41:19');
+INSERT INTO `request_logs` VALUES (195, 404, 'http://127.0.0.1:8000/storage/co3335-co3345-internship-report-copy-2.pdf', 10, NULL, NULL, '2024-10-14 10:54:08', '2024-10-14 11:01:42');
+INSERT INTO `request_logs` VALUES (196, 404, 'https://signature.dev.fsofts.com/storage/co3335-co3345-internship-report-copy-2.pdf', 1, NULL, NULL, '2024-10-14 11:08:23', '2024-10-14 11:08:23');
+INSERT INTO `request_logs` VALUES (197, 404, 'https://www.signature.dev.fsofts.com//code.jquery.com/jquery-3.6.0.min.js', 5, NULL, NULL, '2024-10-14 11:13:51', '2024-10-14 11:17:14');
+INSERT INTO `request_logs` VALUES (198, 404, 'https://www.signature.dev.fsofts.com//stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', 5, NULL, NULL, '2024-10-14 11:13:51', '2024-10-14 11:17:12');
 
 -- ----------------------------
 -- Table structure for revisions
@@ -1502,7 +1526,7 @@ CREATE TABLE `signatures`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of signatures
@@ -1528,6 +1552,32 @@ INSERT INTO `signatures` VALUES (19, 'AA', 'signatures/H6q2pfwqZMphpol1oxBTakvbl
 INSERT INTO `signatures` VALUES (20, 'S', 'signatures/iLn8Je3qKcUU4hzUQ9l0WS1M8EWSFwHq9HFV3xum.pdf', 3, 'published', '2024-10-13 01:21:06', '2024-10-13 01:21:06');
 INSERT INTO `signatures` VALUES (21, 'D', 'signatures/J0vBonDFTyd4jmHahKAMHKxGa4TwFW2mg2mRjdie.pdf', 3, 'published', '2024-10-13 01:21:58', '2024-10-13 01:21:58');
 INSERT INTO `signatures` VALUES (22, '123123', 'signatures/SgSVknzs0IsyIyAhAppkOopLiDJrMxf5r1lKzGKW.pdf', 1, 'published', '2024-10-13 14:56:52', '2024-10-13 14:56:52');
+INSERT INTO `signatures` VALUES (23, 'huu khai', 'signatures/nNYQJCteug2kPrus9NzYls7DDc98jMNERzyPYsTs.pdf', 1, 'published', '2024-10-13 20:00:01', '2024-10-13 20:00:01');
+INSERT INTO `signatures` VALUES (24, 'a', 'signatures/7Rzf3w339Zw2B6JP9mZYluZlydFfrgJMp6dYdcy9.pdf', 1, 'published', '2024-10-14 11:15:48', '2024-10-14 11:15:48');
+INSERT INTO `signatures` VALUES (25, 'Khai', 'signatures/7dwJIiJEiSRFecNkSBjjrvfT1OXvnx6tZQiJYit7.pdf', 1, 'published', '2024-10-14 11:17:21', '2024-10-14 11:17:21');
+INSERT INTO `signatures` VALUES (26, 'Kha', 'signatures/XWVNmKPEX1h0qyh45nEdf1mXBWeoRHo5A7OYRnlg.pdf', 1, 'published', '2024-10-14 11:31:18', '2024-10-14 11:31:18');
+INSERT INTO `signatures` VALUES (27, 'Kha', 'signatures/RAlnD8PL0iOjEDeBCiGatFvvVQVZxCTjq85mdfig.pdf', 1, 'published', '2024-10-14 11:31:19', '2024-10-14 11:31:19');
+INSERT INTO `signatures` VALUES (28, 'Kha', 'signatures/DbKmPjGUyk5UltVKcjpFlXI8HxnVFsT7EIar3jdm.pdf', 1, 'published', '2024-10-14 11:31:28', '2024-10-14 11:31:28');
+INSERT INTO `signatures` VALUES (29, 'Kha', 'signatures/DwR6hntxsZyUDvHK4GiYEXxa5qvPwO5YSBugxSz1.pdf', 1, 'published', '2024-10-14 11:31:33', '2024-10-14 11:31:33');
+INSERT INTO `signatures` VALUES (30, 'Kha', 'signatures/P9srRcdykFKxIsMLfN3MxUJo6darX4obb1QoWxqN.pdf', 1, 'published', '2024-10-14 11:31:34', '2024-10-14 11:31:34');
+INSERT INTO `signatures` VALUES (31, 'Khanh', 'signatures/EVvy5eEKKmjTLmky9pWKQQ7AhCukd6963LwAxtDw.pdf', 1, 'published', '2024-10-14 11:31:47', '2024-10-14 11:31:47');
+INSERT INTO `signatures` VALUES (32, 'Khanh', 'signatures/k2ii6b3ziRXPfdPrtMboXIM07B8eOt3xvwySeT6V.pdf', 1, 'published', '2024-10-14 11:31:48', '2024-10-14 11:31:48');
+INSERT INTO `signatures` VALUES (33, '123123', 'signatures/kfGgnbxYxKr7rWB7k3kGDyqjY3rYdT1nvPDbIzO1.pdf', 1, 'published', '2024-10-14 11:32:12', '2024-10-14 11:32:12');
+INSERT INTO `signatures` VALUES (34, '123213', 'signatures/f215NQysd5AEgifQDuujqpryIgThGtJOsRHqipxh.pdf', 1, 'published', '2024-10-14 11:32:51', '2024-10-14 11:32:51');
+INSERT INTO `signatures` VALUES (35, 'Lin', 'signatures/2GW2VDhxHx09SVQcaOiDhs0YUTl0Ry5b3PhmxwBK.pdf', 1, 'published', '2024-10-14 11:33:12', '2024-10-14 11:33:12');
+INSERT INTO `signatures` VALUES (36, 'as', 'signatures/sfPfA3MERwXOp88bobsNIV1ffaTzFh1w8KeHvKIK.pdf', 1, 'published', '2024-10-14 11:37:04', '2024-10-14 11:37:04');
+INSERT INTO `signatures` VALUES (37, 'Nglin', 'signatures/orVGf2BA7kdTfoOv0Uj2fUYC4q7IOFuIRDiFITUc.pdf', 1, 'published', '2024-10-14 11:37:06', '2024-10-14 11:37:06');
+INSERT INTO `signatures` VALUES (38, 'Test', 'signatures/ZwzjJM0ec9vgf6bSQfSIl5EMOtmQcOXNm5mnmQkf.pdf', 1, 'published', '2024-10-14 11:37:48', '2024-10-14 11:37:48');
+INSERT INTO `signatures` VALUES (39, 'https://signature.dev.fsofts.com/hop-dong/hop-dong-thang-10-2', 'signatures/4luqMQjmxHY4LKXgt4SqGxh7GKZtRfGKf1OV1xrB.pdf', 1, 'published', '2024-10-14 11:38:22', '2024-10-14 11:38:22');
+INSERT INTO `signatures` VALUES (40, 'asas', 'signatures/62YyKwwYEEnRo8niPsvscFGFTDyboUNerz6DnX0A.pdf', 9, 'published', '2024-10-14 11:48:45', '2024-10-14 11:48:45');
+INSERT INTO `signatures` VALUES (41, 'asas', 'signatures/0FYzeFiV4GFaVEyHZSDmiRRYMKp7RlaaQpTl5T1i.pdf', 9, 'published', '2024-10-14 11:48:48', '2024-10-14 11:48:48');
+INSERT INTO `signatures` VALUES (42, 'asss', 'signatures/XCQUKJd2szNt3g4h17LVf1IQoPiqvcRqdLiTugv8.pdf', 9, 'published', '2024-10-14 11:52:08', '2024-10-14 11:52:08');
+INSERT INTO `signatures` VALUES (43, 'ass', 'signatures/d1BGrqkl5wWIW8jCGSF0WEmIYz8QiwmcHcBdENgN.pdf', 9, 'published', '2024-10-14 11:54:17', '2024-10-14 11:54:17');
+INSERT INTO `signatures` VALUES (44, 'ass', 'signatures/I2wHtn3nPbH62QIFGEXEnPmlw8eDLHH5rn1ZO5nN.pdf', 9, 'published', '2024-10-14 11:54:57', '2024-10-14 11:54:57');
+INSERT INTO `signatures` VALUES (45, 'as', 'signatures/p66OnDW9wA5BGvnfd21VzCK52ooh53uGBPMLuBYz.pdf', 9, 'published', '2024-10-14 11:55:23', '2024-10-14 11:55:23');
+INSERT INTO `signatures` VALUES (46, 'Khai', 'signatures/M9ksSQ9Xwe57xCBdhxMXzgmXDOPYot8gBPkVoDlc.pdf', 1, 'published', '2024-10-14 11:56:53', '2024-10-14 11:56:53');
+INSERT INTO `signatures` VALUES (47, 'Kinh', 'signatures/90m0hE0MD0oIE3uBbEhqFdVsazOifmAlXGeiSauS.pdf', 1, 'published', '2024-10-14 11:57:42', '2024-10-14 11:57:42');
+INSERT INTO `signatures` VALUES (48, 'Khai', 'signatures/ZfpIc7BHG5q64bprVXSs2dJRg5GC1LqHJOjc9Dwn.pdf', 1, 'published', '2024-10-14 12:00:24', '2024-10-14 12:00:24');
 
 -- ----------------------------
 -- Table structure for slugs
@@ -1546,7 +1596,7 @@ CREATE TABLE `slugs`  (
   INDEX `slugs_key_index`(`key` ASC) USING BTREE,
   INDEX `slugs_prefix_index`(`prefix` ASC) USING BTREE,
   INDEX `slugs_reference_index`(`reference_id` ASC, `reference_type` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of slugs
@@ -1608,12 +1658,7 @@ INSERT INTO `slugs` VALUES (54, 'tranquil-waters', 13, 'Dev\\Gallery\\Models\\Ga
 INSERT INTO `slugs` VALUES (55, 'urban-escape', 14, 'Dev\\Gallery\\Models\\Gallery', 'galleries', '2024-08-27 04:25:57', '2024-08-27 04:25:57');
 INSERT INTO `slugs` VALUES (56, 'twilight-zone', 15, 'Dev\\Gallery\\Models\\Gallery', 'galleries', '2024-08-27 04:25:57', '2024-08-27 04:25:57');
 INSERT INTO `slugs` VALUES (57, 'hop-dong-thang-10-2', 1, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-11 19:25:09', '2024-10-11 19:25:09');
-INSERT INTO `slugs` VALUES (58, 'anh-sang', 2, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-12 02:57:52', '2024-10-12 02:57:52');
-INSERT INTO `slugs` VALUES (59, 'hop-dong-1', 3, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-12 06:08:29', '2024-10-12 06:08:29');
-INSERT INTO `slugs` VALUES (60, 'demo', 4, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-13 14:41:47', '2024-10-13 14:41:47');
-INSERT INTO `slugs` VALUES (61, 'demo2', 5, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-13 14:54:49', '2024-10-13 14:54:49');
-INSERT INTO `slugs` VALUES (62, 'tadasd', 6, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-13 15:02:35', '2024-10-13 15:02:35');
-INSERT INTO `slugs` VALUES (63, '10-mau-hop-dong-cmac', 7, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-13 15:04:22', '2024-10-13 15:04:22');
+INSERT INTO `slugs` VALUES (65, 'test-tren-local', 9, 'Dev\\ContractManagement\\Models\\ContractManagement', 'hop-dong', '2024-10-13 20:20:32', '2024-10-14 11:41:37');
 
 -- ----------------------------
 -- Table structure for slugs_translations
