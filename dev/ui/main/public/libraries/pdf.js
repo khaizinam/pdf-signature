@@ -230,10 +230,19 @@ async function pdfDownloadHandle(){
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            // const a = document.createElement('a');
+            // a.href = url;
+            // a.download = 'signed_document.pdf';
+            // a.click();
+
             const a = document.createElement('a');
+            // const objectUrl = window.URL.createObjectURL(blob);
             a.href = url;
             a.download = 'signed_document.pdf';
+            document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(objectUrl);  // Clean up
         } else {
             // alert("Lưu chữ ký không thành công.");
         }
