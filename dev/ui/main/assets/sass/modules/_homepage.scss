@@ -211,7 +211,7 @@ header {
 }
 .contract-wrapper {
   margin-top: 18px;
-  height: calc(100vh - 85px);
+  height: calc(100vh - 60px);
   overflow: hidden;
 
   .left-content {
@@ -222,6 +222,7 @@ header {
     flex-direction: column;
     overflow-y: auto;
     padding-bottom: 4rem;
+    height: 100%;
   }
 
   .right-content {
