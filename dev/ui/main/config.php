@@ -52,7 +52,7 @@ return [
             $theme->asset()->container('header')->usePath()->add('jquery','libraries/jquery.js');
             $theme->asset()->container('footer')->usePath()->add('signaturepad','libraries/signature_pad.umd.min.js');
             $theme->asset()->container('footer')->usePath()->add('jquery','libraries/app.js');
-            $theme->asset()->container('footer')->usePath()->add('pdf','libraries/pdf.js');
+            $theme->asset()->container('footer')->usePath()->add('pdf','libraries/pdf.js',[],[], time());
             $theme->asset()->container('footer')->usePath()->add('script','js/script.js',[],[], time());
 
             if (function_exists('shortcode')) {
